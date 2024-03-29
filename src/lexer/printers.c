@@ -1,14 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helpers.c                                          :+:      :+:    :+:   */
+/*   printers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/17 14:14:34 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/03/23 15:50:13 by klakbuic         ###   ########.fr       */
+/*   Created: 2024/03/29 01:46:16 by klakbuic          #+#    #+#             */
+/*   Updated: 2024/03/29 13:36:56 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../inc/lexer.h"
 
@@ -72,14 +73,11 @@ void print_type(int type) {
     }
 }
 
-void	print_token(void *data)
+void	print_token(t_token *token)
 {
-	t_token		*token;
 	const char	*lexem;
-
-	lexem = "token lexem: ";
     
-	token = (t_token *)data;
+    lexem = "lexem: ";
 	print_type(token->type);
 	write(STDOUT_FILENO, lexem, ft_strlen(lexem));
 	write(STDOUT_FILENO, token->location.start, token->location.len);

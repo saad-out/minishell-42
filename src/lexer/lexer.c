@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 00:12:48 by soutchak          #+#    #+#             */
-/*   Updated: 2024/03/29 01:16:43 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/03/29 15:59:57 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 bool	is_special(char c)
 {
-	if (PIPE(c) || REDIR_IN(c) || REDIR_OUT(c) || ENV(c) || LPAR(c) || RPAR(c)
-		|| WILDCARD(c) || AND(c))
+	if (c == '|' || c == '<' || c == '>' || c == '$' || c == '(' || c == ')'
+		|| c == '*' || c == '&')
 		return (true);
 	return (false);
 }
@@ -36,15 +36,28 @@ void	lexer(t_token **head, const char *line)
 	itr = (t_charitr)line;
 	while (itr_has_next(itr))
 	{
+		// printf("peek:---------------|%c|\n", itr_peek(itr));
 		// TODO: making all of this fucntions returning void and managmen failure !!!
 		if (is_whitespace(itr_peek(itr)))
+		{
+			// puts("White");
 			whitespace_token(head, &itr);
+		}
 		else if (is_special(itr_peek(itr)))
+		{
+			// puts("Special");
 			special_tokens(head, &itr);
-		else if (DOUBLE_Q(itr_peek(itr)) || SINGLE_Q(itr_peek(itr)))
+		}
+		else if (itr_peek(itr) == '\"' || itr_peek(itr) == '\'')
+		{
+			// puts("Literal");
 			literal_token(head, &itr);
+		}
 		else
+		{
+			// puts("Word");
 			word_token(head, &itr);
+		}
 	}
 	// printf("token :%p\n", token);
 }

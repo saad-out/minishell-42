@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 14:56:39 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/03/29 01:05:29 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/03/29 15:51:26 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,16 @@ void	word_token(t_token **head, t_charitr *itr)
 {
 	t_token *token;
 
-	token = (t_token *)malloc(sizeof(t_token));
-	token->type = WORD;
-	token->location.start = *itr;
-	token->location.len = 0;
+	token = new_token(WORD, *itr, 0);
+	if (!token)
+	{
+		// TODO:
+	}
 	while (is_word(itr_peek(*itr)) && itr_has_next(*itr))
 	{
 		token->location.len++;
 		itr_next(itr);
 	}
 	add_token(head, token);
+	print_token(token);
 }

@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 14:00:31 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/03/29 01:19:43 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/03/29 16:53:31 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@ static void	single_quote(t_token **head, t_charitr *itr)
 {
 	t_token	*token;
 
-	token = (t_token *)malloc(sizeof(t_token));
-	token->location.start = *itr;
-	token->location.len = 1;
-	token->type = SINGLE_Q;
+	token = new_token(SINGLE_Q, *itr, 1);
+	if (!token)
+	{
+		// TODO:
+	}
 	if (itr_has_next(*itr))
 		itr_next(itr);
+	print_token(token);
 	add_token(head, token);
 }
 
@@ -29,19 +31,21 @@ static void	single_quote_literal(t_token **head, t_charitr *itr)
 {
 	t_token	*token;
 
-	if (SINGLE_Q(itr_peek(*itr)))
+	if (itr_peek(*itr) == '\'')
 		return ;
-	token = (t_token *)malloc(sizeof(t_token));
-	token->location.start = *itr;
-	token->type = LITERAL;
-	token->location.len = 0;
-	while (itr_has_next(*itr) && !SINGLE_Q(itr_peek(*itr)))
+	token = new_token(LITERAL, *itr, 0);
+	if (!token)
+	{
+		// TODO:
+	}
+	while (itr_has_next(*itr) && (itr_peek(*itr) != '\''))
 	{
 		itr_next(itr);
 		token->location.len++;
 	}
+	print_token(token);
 	add_token(head, token);
-	if (SINGLE_Q(itr_peek(*itr)))
+	if (itr_peek(*itr) == '\'')
 		single_quote(head, itr);
 }
 
@@ -49,12 +53,14 @@ static void	double_quote(t_token **head, t_charitr *itr)
 {
 	t_token	*token;
 
-	token = (t_token *)malloc(sizeof(t_token));
-	token->location.start = *itr;
-	token->location.len = 1;
-	token->type = DOUBLE_Q;
+	token = new_token(DOUBLE_Q, *itr, 1);
+	if (!token)
+	{
+		// TODO:
+	}
 	if (itr_has_next(*itr))
 		itr_next(itr);
+	print_token(token);
 	add_token(head, token);
 }
 
@@ -62,25 +68,27 @@ static void	double_quote_literal(t_token **head, t_charitr *itr)
 {
 	t_token	*token;
 
-	if (DOUBLE_Q(itr_peek(*itr)))
+	if (itr_peek(*itr) == '\"')
 		return ;
-	token = (t_token *)malloc(sizeof(t_token));
-	token->location.start = *itr;
-	token->type = LITERAL;
-	token->location.len = 0;
-	while (itr_has_next(*itr) && !DOUBLE_Q(itr_peek(*itr)))
+	token = new_token(LITERAL, *itr, 0);
+	if (!token)
+	{
+		// TODO:
+	}
+	while (itr_has_next(*itr) && (itr_peek(*itr) != '\"'))
 	{
 		itr_next(itr);
 		token->location.len++;
 	}
+	print_token(token);
 	add_token(head, token);
-	if (DOUBLE_Q(itr_peek(*itr)))
+	if (itr_peek(*itr) == '\"')
 		double_quote(head, itr);
 }
 
 void	literal_token(t_token **head, t_charitr *itr)
 {
-	if (DOUBLE_Q(itr_peek(*itr)))
+	if (itr_peek(*itr) == '\"')
 	{
 		double_quote(head, itr);
 		double_quote_literal(head, itr);

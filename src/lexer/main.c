@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 00:58:25 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/03/29 01:20:49 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/03/29 15:51:32 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,7 @@ int	main(int ac, char **av, char **env)
 		lexer(&tokens, line);
 		// for (t_token *tmp = tokens; tmp; tmp = tmp->next)
 		// {
-		// 	printf("==> type: %s, str: (", token_type_to_str(tmp->type));
-		// 	for (size_t i = 0; i < tmp->len; i++)
-		// 		printf("%c", tmp->str[i]);
-		// 	printf(")\n");
+		// 	print_token(tokens);
 		// }
 		// parse token into AST
 		// parser(&tree, tokens);
@@ -64,5 +61,6 @@ int	main(int ac, char **av, char **env)
 		// // free_tree(tree);
 		// // next iter
 		line = readline(PROMPT);
+		tokens = NULL;
 	}
 }

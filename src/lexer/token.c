@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:09:05 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/03/29 01:10:06 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/03/29 15:48:16 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,15 @@ void	add_token(t_token **head, t_token *token)
 	if (!head)
 		return ;
 	tmp = *head;
+	if (!tmp)
+	{
+		*head = token;
+		return ;
+	}
 	while (tmp && tmp->next)
 		tmp = tmp->next;
-	if (!tmp)
-		*head = token;
-	else
-	{
-		tmp->next = token;
-		token->prev = tmp;
-	}
+	tmp->next = token;
+	token->prev = tmp;
 }
 
 t_token	*append_new_token(t_token **head, t_etype type, char *s, size_t len)

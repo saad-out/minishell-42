@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 15:35:33 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/03/29 01:05:29 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/03/29 15:58:19 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@ static t_token	*greater_append(t_charitr *itr)
 {
 	t_token	*token;
 
-	token = (t_token *)malloc(sizeof(t_token));
-	token->location.start = *itr;
+	token = new_token(UNKNOWN, *itr, 0);
+	if (!token)
+	{
+		// TODO:
+	}
 	itr_next(itr);
 	if (itr_peek(*itr) == '>')
 	{
@@ -37,8 +40,11 @@ static t_token	*less_heredoc(t_charitr *itr)
 {
 	t_token	*token;
 
-	token = (t_token *)malloc(sizeof(t_token));
-	token->location.start = *itr;
+	token = new_token(UNKNOWN, *itr, 0);
+	if (!token)
+	{
+		// TODO:
+	}
 	itr_next(itr);
 	if (itr_peek(*itr) == '<')
 	{
@@ -58,8 +64,11 @@ static t_token	*pipe_or(t_charitr *itr)
 {
 	t_token	*token;
 
-	token = (t_token *)malloc(sizeof(t_token));
-	token->location.start = *itr;
+	token = new_token(UNKNOWN, *itr, 0);
+	if (!token)
+	{
+		// TODO:
+	}
 	itr_next(itr);
 	if (itr_peek(*itr) == '|')
 	{
@@ -79,10 +88,11 @@ static t_token	*logical_and(t_charitr *itr)
 {
 	t_token	*token;
 
-	token = (t_token *)malloc(sizeof(t_token));
-	token->type = WORD;
-	token->location.start = *itr;
-	token->location.len = 1;
+	token = new_token(WORD, *itr, 1);
+	if (!token)
+	{
+		// TODO:
+	}
 	if (itr_has_next(*itr))
 		itr_next(itr);
 	if (AND(itr_peek(*itr)))
@@ -99,12 +109,12 @@ static t_token	*simple_special_tokens(t_charitr *itr)
 {
 	t_token	*token;
 
-	token = (t_token *)malloc(sizeof(t_token));
-	if (token == NULL)
-	
-	token->location.start = *itr;
-	token->location.len = 1;
-	if (LPAR(itr_peek(*itr)))
+	token = new_token(UNKNOWN, *itr, 1);
+	if (!token)
+	{
+		// TODO:
+	}
+	if (itr_peek(*itr) == '(')
 		token->type = LPAR;
 	else if (RPAR(itr_peek(*itr)))
 		token->type = RPAR;
@@ -130,5 +140,6 @@ void	special_tokens(t_token **head, t_charitr *itr)
 		token = logical_and(itr);
 	else
 		token = simple_special_tokens(itr);
+	print_token(token);
 	add_token(head, token);
 }
