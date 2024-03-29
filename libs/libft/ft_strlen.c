@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 17:34:18 by soutchak          #+#    #+#             */
-/*   Updated: 2024/03/28 17:47:14 by klakbuic         ###   ########.fr       */
+/*   Created: 2023/10/31 11:51:38 by klakbuic          #+#    #+#             */
+/*   Updated: 2023/11/07 16:15:34 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "libft.h"
 
-int	main(int ac, char **av, char **env)
+size_t	ft_strlen(const char *str)
 {
-	minishell();
-	return (0);
+	const char	*p;
+
+	p = str;
+	while (*str != '\0')
+		str++;
+	return ((str - p));
 }

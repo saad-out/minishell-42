@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   common.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/03/28 17:32:29 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/03/29 01:15:30 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef COMMON_H
+# define COMMON_H
 
 /* MACROS */
 # ifndef PROMPT
@@ -20,7 +20,6 @@
 /* ---- */
 
 /* INCLUDES */
-// # include "../libs/ft_containers/ft_data_structres.h"
 # include "../libs/libft/libft.h"
 # include <stdbool.h>
 # include <stdio.h>
@@ -30,7 +29,6 @@
 /* ------ */
 
 /* TYPEDEFS */
-
 typedef void t_tree; // TODO: remove (only for debugging)
 /* -------- */
 

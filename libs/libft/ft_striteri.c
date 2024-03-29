@@ -1,19 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 17:34:18 by soutchak          #+#    #+#             */
-/*   Updated: 2024/03/28 17:47:14 by klakbuic         ###   ########.fr       */
+/*   Created: 2023/11/02 14:58:38 by klakbuic          #+#    #+#             */
+/*   Updated: 2023/11/07 16:14:45 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "libft.h"
 
-int	main(int ac, char **av, char **env)
+void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
-	minishell();
-	return (0);
+	size_t	i;
+
+	if (!s || !f)
+		return ;
+	i = -1;
+	while (s[++i])
+		f(i, &s[i]);
 }

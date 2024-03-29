@@ -1,19 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   string_iterator.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 17:34:18 by soutchak          #+#    #+#             */
-/*   Updated: 2024/03/28 17:47:14 by klakbuic         ###   ########.fr       */
+/*   Created: 2024/03/14 11:18:49 by klakbuic          #+#    #+#             */
+/*   Updated: 2024/03/23 14:44:13 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../../inc/lexer.h"
 
-int	main(int ac, char **av, char **env)
+bool	itr_has_next(const t_charitr itr)
 {
-	minishell();
-	return (0);
+	return (*itr != '\0');
+}
+
+char	itr_peek(const t_charitr itr)
+{
+	return (*itr);
+}
+
+char	itr_next(t_charitr *itr)
+{
+	char	next;
+
+	next = **itr;
+	(*itr)++;
+	return (next);
 }

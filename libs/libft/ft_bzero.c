@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 17:34:18 by soutchak          #+#    #+#             */
-/*   Updated: 2024/03/28 17:47:14 by klakbuic         ###   ########.fr       */
+/*   Created: 2023/11/01 11:19:01 by klakbuic          #+#    #+#             */
+/*   Updated: 2023/11/05 22:21:50 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "libft.h"
 
-int	main(int ac, char **av, char **env)
+void	ft_bzero(void *s, size_t n)
 {
-	minishell();
-	return (0);
+	ft_memset(s, 0, n);
 }

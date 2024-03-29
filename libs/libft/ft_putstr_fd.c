@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 17:34:18 by soutchak          #+#    #+#             */
-/*   Updated: 2024/03/28 17:47:14 by klakbuic         ###   ########.fr       */
+/*   Created: 2023/11/02 15:08:30 by klakbuic          #+#    #+#             */
+/*   Updated: 2023/11/05 21:52:14 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "libft.h"
 
-int	main(int ac, char **av, char **env)
+void	ft_putstr_fd(char *s, int fd)
 {
-	minishell();
-	return (0);
+	size_t	i;
+
+	i = 0;
+	if (s)
+		while (s[i])
+			ft_putchar_fd(s[i++], fd);
 }

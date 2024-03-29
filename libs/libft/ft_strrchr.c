@@ -1,19 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 17:34:18 by soutchak          #+#    #+#             */
-/*   Updated: 2024/03/28 17:47:14 by klakbuic         ###   ########.fr       */
+/*   Created: 2023/10/31 18:06:18 by klakbuic          #+#    #+#             */
+/*   Updated: 2023/11/06 14:17:58 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "libft.h"
 
-int	main(int ac, char **av, char **env)
+char	*ft_strrchr(const char *str, int c)
 {
-	minishell();
-	return (0);
+	char	*s;
+
+	s = NULL;
+	while (*str)
+	{
+		if (*str == (unsigned char)c)
+			s = (char *)str;
+		str++;
+	}
+	if (*str == (unsigned char)c)
+		return ((char *)str);
+	return (s);
 }

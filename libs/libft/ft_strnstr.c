@@ -1,19 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 17:34:18 by soutchak          #+#    #+#             */
-/*   Updated: 2024/03/28 17:47:14 by klakbuic         ###   ########.fr       */
+/*   Created: 2023/11/01 09:16:28 by klakbuic          #+#    #+#             */
+/*   Updated: 2023/11/07 16:15:53 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "libft.h"
 
-int	main(int ac, char **av, char **env)
+char	*ft_strnstr(const char *big, const char *little, size_t n)
 {
-	minishell();
-	return (0);
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	if (little[i] == '\0')
+		return ((char *)big);
+	while (i < n && big[i])
+	{
+		if (big[i] == little[0])
+		{
+			j = 0;
+			while ((i < n) && big[i++] == little[j++])
+			{
+				if (little[j] == '\0')
+					return ((char *)&big[i - j]);
+			}
+			i -= j;
+		}
+		i++;
+	}
+	return (NULL);
 }

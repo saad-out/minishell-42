@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:01:14 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/03/28 17:33:32 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/03/29 01:16:24 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ enum						e_token_type
 	CTRL = AND | OR,
 	STRING = WORD | ENV | WILDCARD | LITERAL,
 };
-char	*token_type_to_str(t_etype type); // TODO: remove (only for debugging)
 /* ------ */
 
 /* STRUCTS */
@@ -72,10 +71,12 @@ struct						s_slice
 	size_t					len;
 };
 
-struct s_token
+struct						s_token
 {
 	t_etype					type;
 	t_slice					location;
+	t_token					*prev;
+	t_token					*next;
 };
 /* ------ */
 
@@ -85,16 +86,19 @@ bool						itr_has_next(const t_charitr itr);
 char						itr_peek(const t_charitr itr);
 char						itr_next(t_charitr *itr);
 
-void						lexer(t_list **lst, const char *line);
+void						lexer(t_token **tokens, const char *line);
 void						print_token(void *data);
 /* Helper functions */
 bool						is_whitespace(char c);
 bool						is_special(char c);
 void						skip_whitespace(t_charitr *itr);
-t_token						*whitespace_token(t_charitr *itr);
-t_token						*special_tokens(t_charitr *itr);
-void						literal_token(t_list **lst, t_charitr *itr);
-t_token						*word_token(t_charitr *itr);
+void						whitespace_token(t_token **head, t_charitr *itr);
+void						special_tokens(t_token **head, t_charitr *itr);
+void						literal_token(t_token **head, t_charitr *itr);
+void						word_token(t_token **head, t_charitr *itr);
+t_token						*append_new_token(t_token **head, t_etype type,
+								char *s, size_t len);
+void						add_token(t_token **head, t_token *token);
 /* ------ */
 
 #endif
