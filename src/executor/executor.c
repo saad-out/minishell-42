@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/03/30 06:22:41 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/03/30 06:28:25 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	executor(t_tree *tree)
 		}
 		wait(NULL);
 		// printf("==>executed succesfully\n");
-		return ;
 		// exit(0); //TODO: check if this is the right exit status & free memory
 	}
 	else if (tree->type == PIPE)
@@ -67,7 +66,6 @@ void	executor(t_tree *tree)
 		executor(redir->child);
 		close(fd);
 		dup2(copy_fd, redir->fd);
-		return ;
 	}
 	else if (tree->type & CTRL)
 	{
@@ -78,6 +76,11 @@ void	executor(t_tree *tree)
 	else if (tree->type == BLOCK)
 	{
 		t_block *block = (t_block *)tree;
-		executor(block->child);
+		if (fork() == 0) // TODO: handle fork failure
+		{
+			executor(block->child);
+			exit(0); //TODO: check if this is the right exit status & free memory
+		}
+		wait(NULL);
 	}
 }
