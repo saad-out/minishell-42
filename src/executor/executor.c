@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/03/30 03:18:30 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/03/30 03:24:26 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	executor(t_tree *tree)
 			t_exec *exec = (t_exec *)tree;
 			execve(exec->argv[0], exec->argv, NULL);
 			printf("minishell: %s: %s\n", exec->argv[0], strerror(errno));
+			exit(1); //TODO: check if this is the right exit status & free memory
 		}
 		wait(NULL);
 	}
