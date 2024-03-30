@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   word_token.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 14:56:39 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/03/29 15:51:26 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/03/30 01:15:55 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,5 @@ void	word_token(t_token **head, t_charitr *itr)
 		itr_next(itr);
 	}
 	add_token(head, token);
-	print_token(token);
+	// print_token(token);
 }

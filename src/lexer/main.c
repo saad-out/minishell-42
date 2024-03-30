@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 00:58:25 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/03/29 15:51:32 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/03/30 01:34:08 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int	main(int ac, char **av, char **env)
 		printf("(%s)\n", line);
 		// break line into tokens
 		lexer(&tokens, line);
+		post_lexer(&tokens);
+		print_all_tokens(&tokens);
 		// for (t_token *tmp = tokens; tmp; tmp = tmp->next)
 		// {
 		// 	print_token(tokens);

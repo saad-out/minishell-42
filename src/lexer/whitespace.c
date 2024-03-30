@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   whitespace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 14:45:34 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/03/29 15:50:51 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/03/30 01:15:52 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ void	whitespace_token(t_token **head, t_charitr *itr)
 		itr_next(itr);
 		token->location.len++;
 	}
-	print_token(token);
+	//print_token(token);
 	add_token(head, token);
 }

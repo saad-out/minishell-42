@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   literals.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 14:00:31 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/03/29 16:53:31 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/03/30 01:15:45 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	single_quote(t_token **head, t_charitr *itr)
 	}
 	if (itr_has_next(*itr))
 		itr_next(itr);
-	print_token(token);
+	//print_token(token);
 	add_token(head, token);
 }
 
@@ -43,7 +43,7 @@ static void	single_quote_literal(t_token **head, t_charitr *itr)
 		itr_next(itr);
 		token->location.len++;
 	}
-	print_token(token);
+	//print_token(token);
 	add_token(head, token);
 	if (itr_peek(*itr) == '\'')
 		single_quote(head, itr);
@@ -60,7 +60,7 @@ static void	double_quote(t_token **head, t_charitr *itr)
 	}
 	if (itr_has_next(*itr))
 		itr_next(itr);
-	print_token(token);
+	//print_token(token);
 	add_token(head, token);
 }
 
@@ -80,7 +80,7 @@ static void	double_quote_literal(t_token **head, t_charitr *itr)
 		itr_next(itr);
 		token->location.len++;
 	}
-	print_token(token);
+	//print_token(token);
 	add_token(head, token);
 	if (itr_peek(*itr) == '\"')
 		double_quote(head, itr);

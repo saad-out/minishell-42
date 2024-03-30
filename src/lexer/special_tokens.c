@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   special_tokens.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 15:35:33 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/03/29 15:58:19 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/03/30 01:15:49 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,6 @@ void	special_tokens(t_token **head, t_charitr *itr)
 		token = logical_and(itr);
 	else
 		token = simple_special_tokens(itr);
-	print_token(token);
+	//print_token(token);
 	add_token(head, token);
 }
