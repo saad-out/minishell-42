@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/03/30 07:01:40 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/03/30 10:02:45 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,6 @@ void	free_tab(char **tab)
 	free(tab);
 }
 
-char *get_env_var(const char *var)
-{
-	for (size_t i = 0; env_[i]; i++)
-	{
-		if (ft_strncmp(env_[i], var, ft_strlen(var)) == 0)
-			return (ft_strchr(env_[i], '=') + 1);
-	}
-	return (NULL);
-}
-
 char	*get_cmd_path(char *cmd)
 {
 	char	*path_var;
@@ -36,7 +26,7 @@ char	*get_cmd_path(char *cmd)
 	char	*full_path;
 	char	*tmp;
 
-	path_var = get_env_var("PATH");
+	path_var = getenv("PATH");
 	if (!path_var)
 		return (NULL); //TODO: handle this case as error
 	// printf("PATH: %s\n", path_var);
