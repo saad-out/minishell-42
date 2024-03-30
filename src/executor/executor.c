@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/03/30 06:28:25 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/03/30 07:04:12 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,14 @@ void	executor(t_tree *tree)
 		if (fork() == 0)
 		{
 			t_exec *exec = (t_exec *)tree;
-			// exec->argv[0] = get_cmd_path(exec->argv[0]);
+			if (exec->argv[0][0] != '/' && exec->argv[0][0] != '.')
+				exec->argv[0] = get_cmd_path(exec->argv[0]);
+			// printf("==>executing %s\n", exec->argv[0]);
+			if (!exec->argv[0])
+			{
+				printf("command not found\n");
+				return ;
+			}
 			execve(exec->argv[0], exec->argv, NULL);
 			printf("minishell: %s: %s\n", exec->argv[0], strerror(errno)); // print on stderr
 			exit(1); //TODO: check if this is the right exit status & free memory
