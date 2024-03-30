@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 08:27:27 by saad              #+#    #+#             */
-/*   Updated: 2024/03/30 02:17:13 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/03/30 06:10:16 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ t_tree	*redir_node(t_etype type, t_tree *child, char *file)
 		node->flags = O_WRONLY | O_CREAT;
 		if (type == APPEND)
 			node->flags |= O_APPEND;
+		if (type == REDIR_OUT)
+			node->flags |= O_TRUNC;
 	}
 	else
 		return (NULL);

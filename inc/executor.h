@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/03/30 05:05:08 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/03/30 05:22:57 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 /* INCLUDES */
 # include "common.h"
+# include <fcntl.h>
 # include <errno.h>
 /* ------- */
 

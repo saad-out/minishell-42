@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:35:23 by soutchak          #+#    #+#             */
-/*   Updated: 2024/03/30 03:12:36 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/03/30 05:55:10 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	minishell(void)
 
 		// execute command(s)
 		executor(tree);
+		// printf("====> back in minishell\n");
 		
 		// cleanup
 		free(line);
