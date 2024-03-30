@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:35:23 by soutchak          #+#    #+#             */
-/*   Updated: 2024/03/30 05:55:10 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/03/30 10:20:48 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ void	minishell(void)
 	// init
 	tokens = NULL;
 	tree = NULL;
-	line = readline(PROMPT);
+	if (isatty(STDIN_FILENO))
+		line = readline(PROMPT);
+	else
+		line = readline(NULL);
 
 	// For every prompt line
 	while (line)
@@ -78,6 +81,9 @@ void	minishell(void)
 		tree = NULL;
 
 		// next iter
-		line = readline(PROMPT);
+		if (isatty(STDIN_FILENO))
+			line = readline(PROMPT);
+		else
+			line = readline(NULL);
 	}
 }
