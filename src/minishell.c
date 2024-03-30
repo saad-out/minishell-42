@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:35:23 by soutchak          #+#    #+#             */
-/*   Updated: 2024/03/30 02:38:11 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/03/30 03:12:36 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,16 @@ void	minishell(void)
 		printf("\n====================\n\n");
 		visit_tree(tree, 0);
 
-		// // execute command(s)
-		// executor(tree);
+		// execute command(s)
+		executor(tree);
 		
 		// cleanup
 		free(line);
 		free_tokens(&tokens);
 		free_tree(tree);
 
+		// reset
+		line = NULL;
 		tokens = NULL;
 		tree = NULL;
 

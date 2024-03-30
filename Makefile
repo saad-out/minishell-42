@@ -1,6 +1,6 @@
 all:
 	make -C libs/libft
-	cc libs/libft/libft.a src/*.c src/lexer/*.c src/parser/*.c -o minishell -lreadline
+	cc libs/libft/libft.a src/*.c src/lexer/*.c src/parser/*.c src/executor/*.c -o minishell -lreadline
 
 clean:
 	make -C libs/libft clean

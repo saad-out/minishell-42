@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/03/30 02:33:18 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/03/30 03:08:16 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ typedef struct s_slice		t_slice;
 typedef enum e_token_type	t_etype;
 typedef struct s_token		t_token;
 typedef struct s_tree		t_tree;
+typedef struct s_and_or		t_and_or;
+typedef struct s_block		t_block;
+typedef struct s_pipe		t_pipe;
+typedef struct s_exec		t_exec;
+typedef struct s_redir		t_redir;
 /* -------- */
 
 /* ENUMS */
@@ -78,6 +83,45 @@ struct						s_token
 struct						s_tree
 {
 	t_etype					type;
+};
+
+struct s_and_or
+{
+	t_etype	type;
+	t_tree	*left;
+	t_tree	*right;
+};
+
+struct s_block
+{
+	t_etype	type;
+	t_tree	*child;
+};
+
+struct s_pipe
+{
+	t_etype			type;
+	size_t			nb_pipes;
+	t_tree			*nodes[10];
+	// t_tree			**nodes;
+};
+
+struct s_redir
+{
+	t_etype			type;
+	int				fd;
+	char			*file;
+	int				flags;	// O_RDONLY, O_WRONLY, O_CREAT, O_APPEND
+	mode_t			mode;	// S_IRUSR, S_IWUSR, S_IRGRP, S_IROTH ==> leave to default
+	t_tree			*child;
+};
+
+struct s_exec
+{
+	t_etype			type;
+	char			**argv;
+	int				argc;
+	char			**env;
 };
 /* ------ */
 
