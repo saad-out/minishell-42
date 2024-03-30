@@ -6,13 +6,12 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:35:23 by soutchak          #+#    #+#             */
-/*   Updated: 2024/03/28 17:36:32 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/03/30 02:38:11 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "lexer.h"
-#include "parser.h"
+#include "../inc/common.h"
+#include "../inc/minishell.h"
 
 void	minishell(void)
 {
@@ -47,29 +46,33 @@ void	minishell(void)
 		
 		// break line into tokens
 		lexer(&tokens, line);
+		post_lexer(&tokens);
 
 		for (t_token *tmp = tokens; tmp; tmp = tmp->next)
 		{
 			printf("==> type: %s, str: (", token_type_to_str(tmp->type));
-			for (size_t i = 0; i < tmp->len; i++)
-				printf("%c", tmp->str[i]);
+			for (size_t i = 0; i < tmp->location.len; i++)
+				printf("%c", tmp->location.start[i]);
 			printf(")\n");
 		}
 	
 		// parse token into AST
 		parser(&tree, tokens);
-		// printf("we are here\n\n");
+		// // printf("we are here\n\n");
 		// print_tree(tree);
 		printf("\n====================\n\n");
 		visit_tree(tree, 0);
 
-		// execute command(s)
-		executor(tree);
+		// // execute command(s)
+		// executor(tree);
 		
 		// cleanup
 		free(line);
 		free_tokens(&tokens);
-		// free_tree(tree);
+		free_tree(tree);
+
+		tokens = NULL;
+		tree = NULL;
 
 		// next iter
 		line = readline(PROMPT);

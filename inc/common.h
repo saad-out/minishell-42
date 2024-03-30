@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   common.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/03/29 01:15:30 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/03/30 02:33:18 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 # define COMMON_H
 
 /* MACROS */
-# ifndef PROMPT
-#  define PROMPT "Minishell$> "
-# endif /* PROMPT */
 /* ---- */
 
 /* INCLUDES */
@@ -29,24 +26,65 @@
 /* ------ */
 
 /* TYPEDEFS */
-typedef void t_tree; // TODO: remove (only for debugging)
+typedef struct s_slice		t_slice;
+typedef enum e_token_type	t_etype;
+typedef struct s_token		t_token;
+typedef struct s_tree		t_tree;
 /* -------- */
 
 /* ENUMS */
+enum						e_token_type
+{
+	WORD = 1 << 0,
+	PIPE = 1 << 1,
+	REDIR_IN = 1 << 2,
+	REDIR_OUT = 1 << 3,
+	APPEND = 1 << 4,
+	HEREDOC = 1 << 5,
+	WHITESPACE = 1 << 6,
+	ENV = 1 << 7,
+	AND = 1 << 8,
+	OR = 1 << 9,
+	LPAR = 1 << 10,
+	RPAR = 1 << 11,
+	SINGLE_Q = 1 << 12,
+	DOUBLE_Q = 1 << 13,
+	WILDCARD = 1 << 14,
+	LITERAL = 1 << 15,
+	BLOCK = 1 << 16,
+    EXEC = 1 << 17,
+	UNKNOWN = 1 << 18,
+	REDIR = REDIR_IN | REDIR_OUT | APPEND | HEREDOC,
+	CTRL = AND | OR,
+	STRING = WORD | ENV | WILDCARD | LITERAL,
+};
+/* ------ */
 
-/* ---- */
+/* STRUCTS */
+struct						s_slice
+{
+	char					*start;
+	size_t					len;
+};
+
+struct						s_token
+{
+	t_etype					type;
+	t_slice					location;
+	t_token					*prev;
+	t_token					*next;
+};
+
+struct						s_tree
+{
+	t_etype					type;
+};
+/* ------ */
 
 /* PROTOTYPES */
-void	*getmem(size_t size);
-// void						minishell(void);
-// void						lexer(t_list **lst, char *line);
-// void						executor(t_tree *tree);
-// void						parser(t_tree **tree, t_token *tokens);
-// t_token						*new_token(t_etype type, char *s);
-// void						add_token(t_token **head, t_token *token);
-// t_token						*append_new_token(t_token **head, t_etype type,
-// 								char *s);
-// void						free_tokens(t_token **token_list);
+void	minishell(void);
+void	free_tokens(t_token **token_list);
+void    free_tree(t_tree *tree);
 /* --------- */
 
 #endif /* HEADER_H */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:09:05 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/03/29 15:48:16 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/03/30 02:38:08 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,50 +72,54 @@ void	free_tokens(t_token **token_list)
 	*token_list = NULL;
 }
 
-// char	*token_type_to_str(t_etype type)
-// {
-// 	switch (type)
-// 	{
-// 	case WORD:
-// 		return ("WORD");
-// 	case PIPE:
-// 		return ("PIPE");
-// 	case INPUT:
-// 		return ("INPUT");
-// 	case OUTPUT:
-// 		return ("OUTPUT");
-// 	case APPEND:
-// 		return ("APPEND");
-// 	case HEREDOC:
-// 		return ("HEREDOC");
-// 	case ENV:
-// 		return ("ENV");
-// 	case AND:
-// 		return ("AND");
-// 	case OR:
-// 		return ("OR");
-// 	case LPAR:
-// 		return ("LPAR");
-// 	case RPAR:
-// 		return ("RPAR");
-// 	case UNKNOWN:
-// 		return ("UNKNOWN");
-// 	case DQUOTE:
-// 		return ("DQUOTE");
-// 	case SQUOTE:
-// 		return ("SQUOTE");
-// 	case WILD:
-// 		return ("WILD");
-// 	case BLOCK:
-// 		return ("BLOCK");
-// 	case END:
-// 		return ("END");
-// 	case REDIR:
-// 		return ("REDIR");
-// 	case CTRL:
-// 		return ("CTRL");
-// 	case STRING:
-// 		return ("STRING");
-// 	}
-// 	return ("UNKNOWN");
-// }
+char	*token_type_to_str(t_etype type)
+{
+	switch (type)
+	{
+		case WORD:
+			return ("WORD");
+		case PIPE:
+			return ("PIPE");
+		case APPEND:
+			return ("APPEND");
+		case HEREDOC:
+			return ("HEREDOC");
+		case ENV:
+			return ("ENV");
+		case AND:
+			return ("AND");
+		case OR:
+			return ("OR");
+		case LPAR:
+			return ("LPAR");
+		case RPAR:
+			return ("RPAR");
+		case UNKNOWN:
+			return ("UNKNOWN");
+		case REDIR:
+			return ("REDIR");
+		case CTRL:
+			return ("CTRL");
+		case STRING:
+			return ("STRING");
+		case REDIR_IN:
+			return ("REDIR_IN");
+		case REDIR_OUT:
+			return ("REDIR_OUT");
+		case WHITESPACE:
+			return ("WHITESPACE");
+		case SINGLE_Q:
+			return ("SINGLE_Q");
+		case DOUBLE_Q:
+			return ("DOUBLE_Q");
+		case WILDCARD:
+			return ("WILDCARD");
+		case LITERAL:
+			return ("LITERAL");
+		case BLOCK:
+			return ("BLOCK");
+		case EXEC:
+			return ("EXEC");
+	}
+	return ("UNKNOWN");
+}

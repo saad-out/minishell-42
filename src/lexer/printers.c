@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 01:46:16 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/03/30 00:28:01 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/03/30 01:44:56 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,6 @@ void	print_token(t_token *token)
 	print_type(token->type);
 	write(STDOUT_FILENO, lexem, strlen(lexem));
 	write(STDOUT_FILENO, token->location.start, token->location.len);
-	puts("\n-------------------------------------------------------------------------------------");
+	// puts("\n-------------------------------------------------------------------------------------");
+    puts("\n");
 }
