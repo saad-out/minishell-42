@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/03/30 03:08:16 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/03/30 05:08:41 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ struct s_exec
 void	minishell(void);
 void	free_tokens(t_token **token_list);
 void    free_tree(t_tree *tree);
+void	executor(t_tree *tree);
 /* --------- */
 
 #endif /* HEADER_H */
