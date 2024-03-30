@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:01:14 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/03/29 01:16:24 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/03/30 00:26:26 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char						itr_peek(const t_charitr itr);
 char						itr_next(t_charitr *itr);
 
 void						lexer(t_token **tokens, const char *line);
-void						print_token(void *data);
+void						print_token(t_token *token);
 /* Helper functions */
 bool						is_whitespace(char c);
 bool						is_special(char c);
@@ -99,6 +99,7 @@ void						word_token(t_token **head, t_charitr *itr);
 t_token						*append_new_token(t_token **head, t_etype type,
 								char *s, size_t len);
 void						add_token(t_token **head, t_token *token);
+t_token						*new_token(t_etype type, char *s, size_t len);
 /* ------ */
 
 #endif
