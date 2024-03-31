@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/03/30 03:08:06 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/03/31 06:16:33 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ t_tree	*parse_block(t_token **tokens);
 t_tree	*parse_pipe(t_token **tokens);
 t_tree	*parse_sequence(t_token **tokens);
 t_tree	*parse_sequence_tail(t_token **tokens, t_tree *left);
+
+t_redir	*get_last_redir(t_tree *tree);
 
 // char	*ft_strjoin(char const *s1, char const *s2);
 // char	**ft_split(char const *s, char c);
