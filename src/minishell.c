@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:35:23 by soutchak          #+#    #+#             */
-/*   Updated: 2024/03/30 10:20:48 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/03/31 00:51:53 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,9 @@ void	minishell(void)
 		
 		// break line into tokens
 		lexer(&tokens, line);
+		syntax_checker(&tokens);
 		post_lexer(&tokens);
-
+		
 		for (t_token *tmp = tokens; tmp; tmp = tmp->next)
 		{
 			printf("==> type: %s, str: (", token_type_to_str(tmp->type));

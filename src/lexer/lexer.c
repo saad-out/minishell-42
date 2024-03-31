@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 00:12:48 by soutchak          #+#    #+#             */
-/*   Updated: 2024/03/29 15:59:57 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/03/31 00:07:05 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,6 @@ bool	is_special(char c)
 	return (false);
 }
 
-// static bool	is_simple_special(char c)
-// {
-// 	if (LPAR(c) || RPAR(c) || ENV(c) || WILDCARD(c))
-// 		return (true);
-// 	return (false);
-// }
-
-/* for the functions that will be used in just one file it's a good practice to make them static ;) */
 void	lexer(t_token **head, const char *line)
 {
 	t_charitr	itr;
@@ -36,28 +28,13 @@ void	lexer(t_token **head, const char *line)
 	itr = (t_charitr)line;
 	while (itr_has_next(itr))
 	{
-		// printf("peek:---------------|%c|\n", itr_peek(itr));
-		// TODO: making all of this fucntions returning void and managmen failure !!!
 		if (is_whitespace(itr_peek(itr)))
-		{
-			// puts("White");
 			whitespace_token(head, &itr);
-		}
 		else if (is_special(itr_peek(itr)))
-		{
-			// puts("Special");
 			special_tokens(head, &itr);
-		}
 		else if (itr_peek(itr) == '\"' || itr_peek(itr) == '\'')
-		{
-			// puts("Literal");
 			literal_token(head, &itr);
-		}
 		else
-		{
-			// puts("Word");
 			word_token(head, &itr);
-		}
 	}
-	// printf("token :%p\n", token);
 }

@@ -6,20 +6,25 @@
 /*   By: klakbuic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 14:56:39 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/03/30 01:15:55 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/03/31 00:29:18 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/lexer.h"
 
-static bool	is_word(char c)
+bool	is_quotes(char c)
 {
-	return (!is_whitespace(c) && !is_special(c));
+	return (c == '\'' || c == '\"');
+}
+
+bool	is_word(char c)
+{
+	return (!is_whitespace(c) && !is_special(c) && !is_quotes(c));
 }
 
 void	word_token(t_token **head, t_charitr *itr)
 {
-	t_token *token;
+	t_token	*token;
 
 	token = new_token(WORD, *itr, 0);
 	if (!token)
@@ -32,5 +37,4 @@ void	word_token(t_token **head, t_charitr *itr)
 		itr_next(itr);
 	}
 	add_token(head, token);
-	// print_token(token);
 }

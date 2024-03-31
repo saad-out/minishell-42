@@ -6,7 +6,7 @@
 /*   By: klakbuic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 15:35:33 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/03/30 01:15:49 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/03/31 00:28:51 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ static t_token	*logical_and(t_charitr *itr)
 	}
 	if (itr_has_next(*itr))
 		itr_next(itr);
-	if (AND(itr_peek(*itr)))
+	if (itr_peek(*itr) == '&')
 	{
 		token->type = AND;
 		token->location.len++;
@@ -116,11 +116,11 @@ static t_token	*simple_special_tokens(t_charitr *itr)
 	}
 	if (itr_peek(*itr) == '(')
 		token->type = LPAR;
-	else if (RPAR(itr_peek(*itr)))
+	else if (itr_peek(*itr) == ')')
 		token->type = RPAR;
-	else if (WILDCARD(itr_peek(*itr)))
+	else if (itr_peek(*itr) == '*')
 		token->type = WILDCARD;
-	else if (ENV(itr_peek(*itr)))
+	else if (itr_peek(*itr) == '$')
 		token->type = ENV;
 	itr_next(itr);
 	return (token);
@@ -130,13 +130,13 @@ void	special_tokens(t_token **head, t_charitr *itr)
 {
 	t_token *token;
 
-	if (PIPE(itr_peek(*itr)))
+	if (itr_peek(*itr) == '|')
 		token = pipe_or(itr);
-	else if (REDIR_IN(itr_peek(*itr)))
+	else if (itr_peek(*itr) == '<')
 		token = less_heredoc(itr);
-	else if (REDIR_OUT(itr_peek(*itr)))
+	else if (itr_peek(*itr) == '>')
 		token = greater_append(itr);
-	else if (AND(itr_peek(*itr)))
+	else if (itr_peek(*itr) == '&')
 		token = logical_and(itr);
 	else
 		token = simple_special_tokens(itr);

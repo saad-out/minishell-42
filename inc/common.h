@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   common.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/03/30 05:08:41 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/03/31 00:19:13 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,9 @@ enum						e_token_type
 	WILDCARD = 1 << 14,
 	LITERAL = 1 << 15,
 	BLOCK = 1 << 16,
-    EXEC = 1 << 17,
+	EXEC = 1 << 17,
 	UNKNOWN = 1 << 18,
+	QUOTES = SINGLE_Q | DOUBLE_Q,
 	REDIR = REDIR_IN | REDIR_OUT | APPEND | HEREDOC,
 	CTRL = AND | OR,
 	STRING = WORD | ENV | WILDCARD | LITERAL,
@@ -85,51 +86,51 @@ struct						s_tree
 	t_etype					type;
 };
 
-struct s_and_or
+struct						s_and_or
 {
-	t_etype	type;
-	t_tree	*left;
-	t_tree	*right;
+	t_etype					type;
+	t_tree					*left;
+	t_tree					*right;
 };
 
-struct s_block
+struct						s_block
 {
-	t_etype	type;
-	t_tree	*child;
+	t_etype					type;
+	t_tree					*child;
 };
 
-struct s_pipe
+struct						s_pipe
 {
-	t_etype			type;
-	size_t			nb_pipes;
-	t_tree			*nodes[10];
+	t_etype					type;
+	size_t					nb_pipes;
+	t_tree					*nodes[10];
 	// t_tree			**nodes;
 };
 
-struct s_redir
+struct						s_redir
 {
-	t_etype			type;
-	int				fd;
-	char			*file;
-	int				flags;	// O_RDONLY, O_WRONLY, O_CREAT, O_APPEND
-	mode_t			mode;	// S_IRUSR, S_IWUSR, S_IRGRP, S_IROTH ==> leave to default
-	t_tree			*child;
+	t_etype					type;
+	int						fd;
+	char					*file;
+	int flags;   // O_RDONLY, O_WRONLY, O_CREAT, O_APPEND
+	mode_t mode; // S_IRUSR, S_IWUSR, S_IRGRP, S_IROTH ==> leave to default
+	t_tree					*child;
 };
 
-struct s_exec
+struct						s_exec
 {
-	t_etype			type;
-	char			**argv;
-	int				argc;
-	char			**env;
+	t_etype					type;
+	char					**argv;
+	int						argc;
+	char					**env;
 };
 /* ------ */
 
 /* PROTOTYPES */
-void	minishell(void);
-void	free_tokens(t_token **token_list);
-void    free_tree(t_tree *tree);
-void	executor(t_tree *tree);
+void						minishell(void);
+void						free_tokens(t_token **token_list);
+void						free_tree(t_tree *tree);
+void						executor(t_tree *tree);
 /* --------- */
 
 #endif /* HEADER_H */
