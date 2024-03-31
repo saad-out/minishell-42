@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:35:23 by soutchak          #+#    #+#             */
-/*   Updated: 2024/03/31 00:51:53 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/03/31 05:08:00 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/common.h"
 #include "../inc/minishell.h"
 
 void	minishell(void)
@@ -36,13 +35,26 @@ void	minishell(void)
 		else
 		{
 			free(line);
-			line = readline(PROMPT);
+			if (isatty(STDIN_FILENO))
+				line = readline(PROMPT);
+			else
+				line = readline(NULL);
 			continue ;
 		}
 
 		// exit
 		if (strcmp(line, "exit") == 0) // TODO: this is simple exit() implementation for testing only
 			return (free(line));
+		else if (strcmp(line ,"echo $?") == 0)
+		{
+			printf("status ==> %d\n", status);
+			free(line);
+			if (isatty(STDIN_FILENO))
+				line = readline(PROMPT);
+			else
+				line = readline(NULL);
+			continue ;
+		}
 		
 		// debug
 		printf("(%s)\n", line);
