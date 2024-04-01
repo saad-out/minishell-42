@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/03/31 22:15:18 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/01 03:18:58 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ int	run_redir(t_tree *tree)
 	status = status_;
 	close(fd);
 	dup2(copy_fd, redir->fd);
+	if (redir->type == HEREDOC)
+		unlink(redir->file); // TODO: handle system call failure
 	return (status_);
 }
 
