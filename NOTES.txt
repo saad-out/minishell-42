@@ -25,3 +25,27 @@ token work:
 $VAR => expands to value of VAR
 $ VAR => string "$ VAR"
 ----------------------------------------------------
+
+watch out for exit status
+```
+bash-3.2$ libs
+bash: libs: command not found
+bash-3.2$ echo $?
+127
+bash-3.2$ libs/
+bash: libs/: is a directory
+bash-3.2$ echo $?
+126
+bash-3.2$ libsa/
+bash: libsa/: No such file or directory
+bash-3.2$ echo $?
+127
+bash-3.2$
+```
+
+syntax error exit code 258
+
+
+cat <<END | => bash reports that END command not found !!
+
+watch out for open() mode last argument
