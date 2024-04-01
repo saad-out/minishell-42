@@ -1,36 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe.c                                             :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/03/31 04:49:24 by soutchak         ###   ########.fr       */
+/*   Created: 2024/04/01 02:04:55 by soutchak          #+#    #+#             */
+/*   Updated: 2024/04/01 02:05:18 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/executor.h"
-
-pid_t	spawn_process(int input, int output, t_tree *tree)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	pid_t	pid;
-
-	pid = fork();
-	if (pid == 0) // TODO: handle system call failure
+	while (*s1 && *s2 && *s1 == *s2)
 	{
-		if (input != 0)
-		{
-			dup2(input, STDIN_FILENO);
-			close(input);
-		}
-		if (output != 1)
-		{
-			dup2(output, STDOUT_FILENO);
-			close(output);
-		}
-		status = get_status(tree);
-		exit(status);
+		s1++;
+		s2++;
 	}
-	return (pid);
+	return ((unsigned char)*s1 - (unsigned char)*s2);
 }

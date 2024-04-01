@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   common.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/03/31 00:19:13 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/01 02:01:35 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+/* ------ */
+
+/* GLOBALS */
+extern char	**env_;
+extern int	status;
 /* ------ */
 
 /* TYPEDEFS */

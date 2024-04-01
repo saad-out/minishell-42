@@ -1,0 +1,7 @@
+*.txt
+*.o
+libft.a
+archives/
+tests/
+minishell
+*file*

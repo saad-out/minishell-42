@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 08:27:27 by saad              #+#    #+#             */
-/*   Updated: 2024/03/30 06:10:16 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/01 02:01:54 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_tree *block_node(t_tree *child)
 	return ((t_tree *)node);
 }
 
-t_tree	*redir_node(t_etype type, t_tree *child, char *file)
+t_tree	*redir_node(t_etype type, t_tree *child, char *s)
 {
 	t_redir	*node;
 
@@ -47,7 +47,8 @@ t_tree	*redir_node(t_etype type, t_tree *child, char *file)
 	if (!node)
 		return (NULL);
 	node->type = type;
-	node->file = file;
+	if (!set_filename(node, s, type))
+		return (NULL);
 	if (type == REDIR_IN || type == HEREDOC)
 	{
 		node->fd = 0;
