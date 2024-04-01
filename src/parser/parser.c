@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 23:35:30 by soutchak          #+#    #+#             */
-/*   Updated: 2024/03/31 06:36:06 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/01 02:00:35 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_tree	*parse_redir(t_token **tokens, t_tree *child)
 	t_tree	*redir;
 	t_redir	*last_redir;
 	t_etype	type;
-	char	*file;
+	char	*s;
 
 	// printf("parse_redir\n");
 	if (!(*tokens) || !((*tokens)->type & REDIR))
@@ -69,17 +69,17 @@ t_tree	*parse_redir(t_token **tokens, t_tree *child)
 	(*tokens) = (*tokens)->next;
 	if (!(*tokens) || !((*tokens)->type & STRING))
 		return (NULL);
-	file = strndup((*tokens)->location.start, (*tokens)->location.len); // TODO: do not use library functions
+	s = strndup((*tokens)->location.start, (*tokens)->location.len); // TODO: do not use library functions
 	(*tokens) = (*tokens)->next;
 	last_redir = get_last_redir(child);
 	if (last_redir)
 	{
-		redir = redir_node(type, last_redir->child, file);
+		redir = redir_node(type, last_redir->child, s);
 		last_redir->child = redir;
 		redir = child;
 	}
 	else
-		redir = redir_node(type, child, file);
+		redir = redir_node(type, child, s);
 	return (redir);
 }
 

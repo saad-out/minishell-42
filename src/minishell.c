@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:35:23 by soutchak          #+#    #+#             */
-/*   Updated: 2024/03/31 05:08:00 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/01 02:17:58 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ void	minishell(void)
 			return (free(line));
 		else if (strcmp(line ,"echo $?") == 0)
 		{
-			printf("status ==> %d\n", status);
+			printf("%d\n", status);
+			status = 0;
 			free(line);
 			if (isatty(STDIN_FILENO))
 				line = readline(PROMPT);
@@ -57,27 +58,27 @@ void	minishell(void)
 		}
 		
 		// debug
-		printf("(%s)\n", line);
+		// printf("(%s)\n", line);
 		
 		// break line into tokens
 		lexer(&tokens, line);
 		syntax_checker(&tokens);
 		post_lexer(&tokens);
 		
-		for (t_token *tmp = tokens; tmp; tmp = tmp->next)
-		{
-			printf("==> type: %s, str: (", token_type_to_str(tmp->type));
-			for (size_t i = 0; i < tmp->location.len; i++)
-				printf("%c", tmp->location.start[i]);
-			printf(")\n");
-		}
+		// for (t_token *tmp = tokens; tmp; tmp = tmp->next)
+		// {
+		// 	printf("==> type: %s, str: (", token_type_to_str(tmp->type));
+		// 	for (size_t i = 0; i < tmp->location.len; i++)
+		// 		printf("%c", tmp->location.start[i]);
+		// 	printf(")\n");
+		// }
 	
 		// parse token into AST
 		parser(&tree, tokens);
 		// // printf("we are here\n\n");
 		// print_tree(tree);
-		printf("\n====================\n\n");
-		visit_tree(tree, 0);
+		// printf("\n====================\n\n");
+		// visit_tree(tree, 0);
 
 		// execute command(s)
 		executor(tree);

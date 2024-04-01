@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/03/31 06:16:33 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/01 02:13:15 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,20 @@
 # define PARSER_H
 
 /* MACROS */
+# ifndef HEREDOC_FILENAME
+#  define HEREDOC_FILENAME "/tmp/.heredoc"
+# endif /* HEREDOC_FILENAME */
+
+# ifndef HEREDOC_PROMPT
+#  define HEREDOC_PROMPT "heredoc> "
+# endif /* HEREDOC_PROMPT */
 /* ---- */
 
 /* INCLUDES */
 # include "common.h"
 # include <fcntl.h>
+# include <readline/history.h>
+# include <readline/readline.h>
 /* ------ */
 
 /* TYPEDEFS */
@@ -43,6 +52,8 @@ t_tree	*parse_sequence(t_token **tokens);
 t_tree	*parse_sequence_tail(t_token **tokens, t_tree *left);
 
 t_redir	*get_last_redir(t_tree *tree);
+char	*read_heardoc(char *delimiter);
+char	*set_filename(t_redir *node, char *s, t_etype type);
 
 // char	*ft_strjoin(char const *s1, char const *s2);
 // char	**ft_split(char const *s, char c);

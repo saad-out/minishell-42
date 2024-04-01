@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/03/31 05:28:10 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/03/31 22:15:18 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int	run_cmd(t_tree *tree)
 		}
 		execve(exec->argv[0], exec->argv, NULL);
 		printf("minishell: %s: %s\n", exec->argv[0], strerror(errno)); // print on stderr
-		status = 1;
+		status = 127;
 		exit(status); //TODO: check if this is the right exit status & free memory
 	}
 	wait(&status_);
