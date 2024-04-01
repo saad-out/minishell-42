@@ -49,3 +49,5 @@ syntax error exit code 258
 cat <<END | => bash reports that END command not found !!
 
 watch out for open() mode last argument
+
+handle execve() return codes and ERROR_MACROS
