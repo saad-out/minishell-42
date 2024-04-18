@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/18 16:52:09 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/18 22:53:36 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int	run_cmd(t_tree *tree)
 			status = 127;
 			exit(status);
 		}
-		execve(exec->argv[0], exec->argv, NULL);
+		execve(exec->argv[0], exec->argv, rebuild_env(env_));
 		printf("minishell: %s: %s\n", exec->argv[0], strerror(errno)); // print on stderr
 		status = 127;
 		exit(status); //TODO: check if this is the right exit status & free memory

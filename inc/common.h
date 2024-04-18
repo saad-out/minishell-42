@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   common.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/18 19:25:45 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/18 22:08:40 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,11 @@ void						minishell(void);
 void						free_tokens(t_token **token_list);
 void						free_tree(t_tree *tree);
 void						executor(t_tree *tree);
+
 t_env						*build_env(char **env);
+char						*get_env_value(t_env *envs, const char *key);
+t_env						*get_env(t_env *envs, const char *key);
+char						**rebuild_env(t_env *envs);
 /* --------- */
 
 #endif /* HEADER_H */

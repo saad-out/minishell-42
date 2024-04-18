@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environement.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:26:08 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/18 19:29:08 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/18 22:46:45 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@ void	print_all_env(t_env *envs)
 	{
 		if (envs->masked == 0)
 		{
-			printf("key: %s\n", envs->key);
-			printf("value: %s\n", envs->value);
+			// printf("key: %s\n", envs->key);
+			// printf("value: %s\n", envs->value);
+			printf("%s=%s\n", envs->key, envs->value);
 		}
 		// printf("visibility: %d\n", envs->visibility);
 		envs = envs->next;
 	}
+	printf("===============================\n\n\n");
 }
 
 t_env	*create_env(char *env)
@@ -61,7 +63,7 @@ void	add_env(t_env **envs, t_env *new)
 	}
 }
 
-char	*get_env(t_env *envs, const char *key)
+char	*get_env_value(t_env *envs, const char *key)
 {
 	while (envs)
 	{
@@ -69,6 +71,18 @@ char	*get_env(t_env *envs, const char *key)
 			return (envs->value);
 		envs = envs->next;
 	}
+	return (NULL);
+}
+
+t_env	*get_env(t_env *envs, const char *key)
+{
+	while (envs)
+	{
+		if (ft_strcmp(envs->key, key) == 0)
+			return (envs);
+		envs = envs->next;
+	}
+	return (NULL);
 }
 
 void	remove_env(t_env **envs, t_env *env)
@@ -86,6 +100,49 @@ void	remove_env(t_env **envs, t_env *env)
 	}
 }
 
+int	env_size(t_env *envs)
+{
+	int	len;
+
+	len = 0;
+	while (envs)
+	{
+		len++;
+		envs = envs->next;
+	}
+	// printf("envs -> %d\n", len);
+	// return (envs);
+	return (len);
+}
+
+char	**rebuild_env(t_env *envs)
+{
+	char	**ret_envs;
+	int		i;
+
+	int	e_s = env_size(envs);
+	ret_envs = malloc(sizeof(char *) * (e_s + 1));
+	if (!ret_envs)
+		return (NULL); // TODO: handle malloc failure
+	i = 0;
+	while (envs)
+	{
+		size_t	key_size = ft_strlen(envs->key);
+		size_t	value_size = ft_strlen(envs->value);
+		ret_envs[i] = malloc(sizeof(char) * (key_size + value_size + 2));
+		if (!ret_envs[i])
+			return (NULL); // TODO: handle malloc failure
+		ft_memcpy(ret_envs[i], envs->key, key_size);
+		ft_memcpy(ret_envs[i] + key_size, "=", 1);
+		ft_memcpy(ret_envs[i] + key_size + 1, envs->value, value_size);
+		ret_envs[i][key_size + value_size + 1] = '\0';
+		i++;
+		envs = envs->next;
+	}
+	ret_envs[i] = NULL;
+	return (ret_envs);
+}
+
 t_env	*build_env(char **env)
 {
 	t_env *new;
@@ -101,6 +158,5 @@ t_env	*build_env(char **env)
 			return (NULL); // TODO: memory leaks
 		add_env(&envs, new);
 	}
-	print_all_env(envs);
 	return (envs);
 }
