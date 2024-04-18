@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 14:00:31 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/18 16:32:15 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/18 17:08:41 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ static void	single_quote_literal(t_token **head, t_charitr *itr)
 {
 	t_token	*token;
 
-	if (itr_peek(*itr) == '\'')
-		return ;
+	// if (itr_peek(*itr) == '\'')
+		// return ;
 	token = new_token(LITERAL, *itr, 0);
 	if (!token)
 	{
