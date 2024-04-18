@@ -3,14 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:09:05 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/03/30 02:38:08 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:49:19 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/lexer.h"
+
+void	remove_token(t_token **head, t_token *token)
+{
+	if (!token->prev)
+	{
+		*head = token->next;
+		(*head)->prev = NULL;
+	}
+	else
+	{
+		token->prev->next = token->next;
+		if (token->next)
+			token->next->prev = token->prev;
+	}
+	free(token);
+}
 
 t_token	*new_token(t_etype type, char *s, size_t len)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   common.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/01 02:01:35 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/18 16:01:47 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,37 @@
 # define COMMON_H
 
 /* MACROS */
+# ifndef RED
+#  define RED "\x1B[31m"
+# endif /* RED */
+
+# ifndef GRN
+#  define GRN "\x1B[32m"
+# endif /* GRN */
+
+# ifndef YEL
+#  define YEL "\x1B[33m"
+# endif /* YEL */
+
+# ifndef BLU
+#  define BLU "\x1B[34m"
+# endif /* BLU */
+
+# ifndef MAG
+#  define MAG "\x1B[35m"
+# endif /* MAG */
+
+# ifndef CYN
+#  define CYN "\x1B[36m"
+# endif /* CYN */
+
+# ifndef WHT
+#  define WHT "\x1B[37m"
+# endif /* WHT */
+
+# ifndef RESET
+#  define RESET "\x1B[0m"
+# endif /* RESET */
 /* ---- */
 
 /* INCLUDES */
