@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/18 16:01:47 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/18 19:25:45 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,7 @@
 # define COMMON_H
 
 /* MACROS */
-# ifndef RED
-#  define RED "\x1B[31m"
-# endif /* RED */
 
-# ifndef GRN
-#  define GRN "\x1B[32m"
-# endif /* GRN */
-
-# ifndef YEL
-#  define YEL "\x1B[33m"
-# endif /* YEL */
-
-# ifndef BLU
-#  define BLU "\x1B[34m"
-# endif /* BLU */
-
-# ifndef MAG
-#  define MAG "\x1B[35m"
-# endif /* MAG */
-
-# ifndef CYN
-#  define CYN "\x1B[36m"
-# endif /* CYN */
-
-# ifndef WHT
-#  define WHT "\x1B[37m"
-# endif /* WHT */
-
-# ifndef RESET
-#  define RESET "\x1B[0m"
-# endif /* RESET */
 /* ---- */
 
 /* INCLUDES */
@@ -56,10 +26,6 @@
 # include <unistd.h>
 /* ------ */
 
-/* GLOBALS */
-extern char	**env_;
-extern int	status;
-/* ------ */
 
 /* TYPEDEFS */
 typedef struct s_slice		t_slice;
@@ -71,7 +37,14 @@ typedef struct s_block		t_block;
 typedef struct s_pipe		t_pipe;
 typedef struct s_exec		t_exec;
 typedef struct s_redir		t_redir;
+typedef struct s_env		t_env;
+typedef enum e_visibility	t_visibility;
 /* -------- */
+
+/* GLOBALS */
+extern t_env				*env_;
+extern int					status;
+/* ------ */
 
 /* ENUMS */
 enum						e_token_type
@@ -95,10 +68,19 @@ enum						e_token_type
 	BLOCK = 1 << 16,
 	EXEC = 1 << 17,
 	UNKNOWN = 1 << 18,
+	PARAN = LPAR | RPAR,
 	QUOTES = SINGLE_Q | DOUBLE_Q,
 	REDIR = REDIR_IN | REDIR_OUT | APPEND | HEREDOC,
 	CTRL = AND | OR,
 	STRING = WORD | ENV | WILDCARD | LITERAL,
+	CONNECTORS = PIPE | AND | OR | LPAR,
+};
+
+enum						e_visibility
+{
+	ENVE,
+	EXPORT,
+	BOTH
 };
 /* ------ */
 
@@ -160,6 +142,17 @@ struct						s_exec
 	int						argc;
 	char					**env;
 };
+
+struct						s_env
+{
+	char					*key;
+	char					*value;
+	t_visibility			visibility;
+	bool					masked;
+	t_env					*prev;
+	t_env					*next;
+};
+
 /* ------ */
 
 /* PROTOTYPES */
@@ -167,6 +160,7 @@ void						minishell(void);
 void						free_tokens(t_token **token_list);
 void						free_tree(t_tree *tree);
 void						executor(t_tree *tree);
+t_env						*build_env(char **env);
 /* --------- */
 
 #endif /* HEADER_H */

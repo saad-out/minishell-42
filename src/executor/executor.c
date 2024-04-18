@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/01 03:18:58 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/18 16:52:09 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ int	run_cmd(t_tree *tree)
 			exec->argv[0] = get_cmd_path(exec->argv[0]);
 		if (!exec->argv[0])
 		{
-			printf("command not found\n");
+			//printf("outlaakSH: %s: command not found\n", exec->argv[0]);
 			status = 127;
 			exit(status);
 		}

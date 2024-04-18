@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/03/30 10:02:45 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/18 16:53:16 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,7 @@ char	*get_cmd_path(char *cmd)
 	}
 	// free(path_var);
 	free_tab(paths);
+				printf("outlaakSH: %s: command not found\n", cmd); // cmd memory leak
+
 	return (NULL);
 }
