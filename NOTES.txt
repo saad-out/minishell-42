@@ -1,6 +1,7 @@
 ls-la|grep"dr">outfile => parsing check
 touch "file""1" => touch file1
 grep"dr" => command not found grepdr
+$"ls" evaluates to ls => dollar sign followed by s/d quotes are removed
 
 only whitespaces prompt "  "
 
@@ -51,3 +52,5 @@ cat <<END | => bash reports that END command not found !!
 watch out for open() mode last argument
 
 handle execve() return codes and ERROR_MACROS
+
+permission denied & not a directory => exit with 126
