@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/19 18:52:03 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/19 19:08:36 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,11 @@
 # define COMMON_H
 
 /* MACROS */
+#define SIZE 4096
 
+# ifndef MANY_ARGS_ERROR
+#  define MANY_ARGS_ERROR "Too many argument!"
+# endif /* MANY_ARGS_ERROR */
 /* ---- */
 
 /* INCLUDES */
