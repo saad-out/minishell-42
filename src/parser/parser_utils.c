@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 06:10:57 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/01 02:36:01 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/01 16:48:26 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ char	*set_filename(t_redir *node, char *s, t_etype type)
 	if (!filename)
 		return (NULL);
 	free(s);
-	return (node->file = ft_strdup(filename), node->file);
+	return (node->file = filename, node->file);
 }
