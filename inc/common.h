@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/18 22:08:40 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/19 16:22:20 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,8 @@ struct						s_exec
 	t_etype					type;
 	char					**argv;
 	int						argc;
-	char					**env;
+	// char					**env;
+	t_env					**env;
 };
 
 struct						s_env

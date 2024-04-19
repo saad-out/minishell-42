@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 23:35:30 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/01 02:00:35 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/19 16:22:13 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_tree	*parse_exec(t_token **tokens)
 	node->type = EXEC;
 	node->argv = NULL;
 	node->argc = 0;
+	node->env = NULL;
 	tmp = *tokens;
 	exec = (t_tree *)node;
 	while (tmp)
