@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:26:08 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/19 18:31:25 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/19 18:53:40 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	print_all_env(t_env *envs)
 		// printf("visibility: %d\n", envs->visibility);
 		envs = envs->next;
 	}
+	printf("===============================\n\n\n");
 }
 
 t_env	*create_env(char *env)
@@ -65,7 +66,7 @@ void	add_env(t_env **envs, t_env *new)
 // 	free(env->value);
 // 	env->value = new_value;
 // }
-char	*get_env(t_env *envs, const char *key)
+char	*get_env_value(t_env *envs, const char *key)
 {
 	while (envs)
 	{
@@ -73,6 +74,18 @@ char	*get_env(t_env *envs, const char *key)
 			return (envs->value);
 		envs = envs->next;
 	}
+	return (NULL);
+}
+
+t_env	*get_env(t_env *envs, const char *key)
+{
+	while (envs)
+	{
+		if (ft_strcmp(envs->key, key) == 0)
+			return (envs);
+		envs = envs->next;
+	}
+	return (NULL);
 }
 
 void	remove_env(t_env **envs, t_env *env)

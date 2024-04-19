@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:35:23 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/19 18:30:52 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/19 18:52:25 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,6 @@ void	minishell(void)
 		
 		// break line into tokens
 		lexer(&tokens, line);
-		// printf("===> AFTER LEXER:\n");
-		// print_all_tokens(&tokens);
-		// printf("====================================\n");
-		//syntax_checker(&tokens);
 		post_lexer(&tokens);
 		// printf("===> AFTER POST LEXER:\n");
 		// print_all_tokens(&tokens);
@@ -81,14 +77,9 @@ void	minishell(void)
 	
 		// parse token into AST
 		parser(&tree, tokens);
-		// // printf("we are here\n\n");
-		// print_tree(tree);
-		// printf("\n====================\n\n");
-		// visit_tree(tree, 0);
 
 		// execute command(s)
 		executor(tree);
-		// printf("====> back in minishell\n");
 		
 		// cleanup
 		free(line);
