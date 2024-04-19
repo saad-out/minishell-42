@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:08:57 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/18 17:05:16 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/19 18:31:55 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ static void	remove_whitespaces(t_token **tokens)
 void	post_lexer(t_token **tokens)
 {
 	remove_quotes(tokens);
-	print_all_tokens(tokens);
+	// print_all_tokens(tokens);
 	merge_words(tokens);
 	//print_all_tokens(tokens);
 	remove_whitespaces(tokens);

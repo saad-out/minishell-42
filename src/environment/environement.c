@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:26:08 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/18 19:29:08 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/19 18:31:25 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ void	print_all_env(t_env *envs)
 	{
 		if (envs->masked == 0)
 		{
-			printf("key: %s\n", envs->key);
-			printf("value: %s\n", envs->value);
+			printf("%s=%s\n", envs->key, envs->value);
 		}
 		// printf("visibility: %d\n", envs->visibility);
 		envs = envs->next;
@@ -61,6 +60,11 @@ void	add_env(t_env **envs, t_env *new)
 	}
 }
 
+// void update_env(char *key, char *new_value)
+// {
+// 	free(env->value);
+// 	env->value = new_value;
+// }
 char	*get_env(t_env *envs, const char *key)
 {
 	while (envs)
@@ -86,6 +90,7 @@ void	remove_env(t_env **envs, t_env *env)
 	}
 }
 
+
 t_env	*build_env(char **env)
 {
 	t_env *new;
@@ -101,6 +106,6 @@ t_env	*build_env(char **env)
 			return (NULL); // TODO: memory leaks
 		add_env(&envs, new);
 	}
-	print_all_env(envs);
+	// print_all_env(envs);
 	return (envs);
 }

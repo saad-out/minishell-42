@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 23:35:30 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/01 02:00:35 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:46:50 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_tree	*parse_exec(t_token **tokens)
 	node->type = EXEC;
 	node->argv = NULL;
 	node->argc = 0;
+	node->env = NULL;
 	tmp = *tokens;
 	exec = (t_tree *)node;
 	while (tmp)
