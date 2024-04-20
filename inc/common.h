@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/20 16:04:53 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/20 18:28:08 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@
 # ifndef MANY_ARGS_ERROR
 #  define MANY_ARGS_ERROR "Too many argument!"
 # endif /* MANY_ARGS_ERROR */
+
+# ifndef MAX_STATUS_LEN
+#  define MAX_STATUS_LEN 19
+# endif /* MAX_STATUS_LEN */
 /* ---- */
 
 /* INCLUDES */

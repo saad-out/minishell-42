@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:35:23 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/19 18:52:25 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/20 18:26:21 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void	minishell(void)
 		}
 
 		// exit
-		if (strcmp(line, "exit") == 0) // TODO: this is simple exit() implementation for testing only
-			return (free(line));
-		else if (strcmp(line ,"echo $?") == 0)
+		// if (strcmp(line, "exit") == 0) // TODO: this is simple exit() implementation for testing only
+		// 	return (free(line));
+		if (strcmp(line ,"echo $?") == 0)
 		{
 			printf("%d\n", status);
 			status = 0;
