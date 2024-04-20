@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   consturtor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 08:27:27 by saad              #+#    #+#             */
-/*   Updated: 2024/04/01 02:01:54 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/20 16:17:44 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ t_tree	*exec_node(char **args, int argc, char **env)
 	node->type = EXEC;
 	node->argv = args;
 	node->argc = argc;
-	node->env = env;
+	// node->env = env;
 	return ((t_tree *)node);
 }
 

@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/19 19:08:36 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/20 16:04:53 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define COMMON_H
 
 /* MACROS */
-#define SIZE 4096
+# define SIZE 4096
 
 # ifndef MANY_ARGS_ERROR
 #  define MANY_ARGS_ERROR "Too many argument!"
@@ -28,6 +28,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include <sys/stat.h>
 /* ------ */
 
 /* TYPEDEFS */
@@ -165,10 +166,13 @@ void						free_tokens(t_token **token_list);
 void						free_tree(t_tree *tree);
 void						executor(t_tree *tree);
 
+/* -- ENVS ---*/
 t_env						*build_env(char **env);
 char						*get_env_value(t_env *envs, const char *key);
 t_env						*get_env(t_env *envs, const char *key);
 char						**rebuild_env(t_env *envs);
+void						set_env(t_env *envs, const char *key,
+								const char *new_value);
 /* --------- */
 
 #endif /* HEADER_H */

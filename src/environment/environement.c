@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:26:08 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/19 18:53:40 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/20 16:35:36 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,22 @@ t_env	*create_env(char *env)
 	key_value = ft_split(env, '=');
 	new = malloc(sizeof(t_env));
 	new->key = key_value[0];
-	new->value = key_value[1];
-	new->visibility = BOTH;
+	if (ft_strcmp(new->key, "OLDPWD") == 0)
+	{
+		free(key_value[1]);
+		new->value = NULL;
+		new->visibility = EXPORT;
+	}
+	else
+	{
+		new->value = key_value[1];
+		new->visibility = BOTH;
+	}
 	new->masked = false;
 	new->prev = NULL;
 	new->next = NULL;
 	// TODO: free char **key_value
+	free(key_value);
 	return (new);
 }
 
@@ -88,10 +98,25 @@ t_env	*get_env(t_env *envs, const char *key)
 	return (NULL);
 }
 
+void	set_env(t_env *envs, const char *key, const char *new_value)
+{
+	while (envs)
+	{
+		if (ft_strcmp(envs->key, key) == 0)
+		{
+			free(envs->value);
+			// envs->value = new_value;
+			envs->value = ft_strdup(new_value);
+		}
+		envs = envs->next;
+	}
+}
+
 void	remove_env(t_env **envs, t_env *env)
 {
 	t_env	*head;
 
+	head = *envs;
 	while (head)
 	{
 		if (head == env)
@@ -102,7 +127,6 @@ void	remove_env(t_env **envs, t_env *env)
 		head = head->next;
 	}
 }
-
 
 t_env	*build_env(char **env)
 {

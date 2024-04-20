@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/19 18:29:10 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/20 16:14:18 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int		get_status(t_tree *tree);
 int (*is_builtin(char *cmd))(t_exec *exec);
 int		ft_echo(t_exec *cmd);
 int		ft_pwd(t_exec *cmd);
+int	    ft_cd(t_exec *cmd);
 /* --------- */
 
 #endif /* EXECUTOR_H */
