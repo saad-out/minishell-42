@@ -54,3 +54,5 @@ watch out for open() mode last argument
 handle execve() return codes and ERROR_MACROS
 
 permission denied & not a directory => exit with 126
+
+builtins too many args

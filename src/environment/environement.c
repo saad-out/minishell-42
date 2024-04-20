@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:26:08 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/20 16:53:56 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/20 19:02:01 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void	set_env(t_env *envs, const char *key, const char *new_value)
 			// envs->value = new_value;
 			envs->value = ft_strdup(new_value);
 			envs->masked = false;
+			envs->visibility = BOTH;
 		}
 		envs = envs->next;
 	}

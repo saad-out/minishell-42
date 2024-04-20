@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/20 18:28:08 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/20 18:57:29 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,9 @@ enum						e_token_type
 
 enum						e_visibility
 {
-	ENVE,
-	EXPORT,
-	BOTH
+	ENVE = 1 << 0,
+	EXPORT = 1 << 1,
+	BOTH = 1 << 2
 };
 /* ------ */
 
