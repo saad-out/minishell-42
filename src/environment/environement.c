@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:26:08 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/20 16:35:36 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/20 16:53:56 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ char	*get_env_value(t_env *envs, const char *key)
 {
 	while (envs)
 	{
-		if (ft_strcmp(envs->key, key) == 0)
+		if (ft_strcmp(envs->key, key) == 0 && envs->masked == false)
 			return (envs->value);
 		envs = envs->next;
 	}
@@ -91,7 +91,7 @@ t_env	*get_env(t_env *envs, const char *key)
 {
 	while (envs)
 	{
-		if (ft_strcmp(envs->key, key) == 0)
+		if (ft_strcmp(envs->key, key) == 0 && envs->masked == false)
 			return (envs);
 		envs = envs->next;
 	}
@@ -107,6 +107,7 @@ void	set_env(t_env *envs, const char *key, const char *new_value)
 			free(envs->value);
 			// envs->value = new_value;
 			envs->value = ft_strdup(new_value);
+			envs->masked = false;
 		}
 		envs = envs->next;
 	}

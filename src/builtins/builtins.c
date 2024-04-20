@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 15:08:12 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/20 16:13:08 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/20 16:45:07 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,7 @@ int (*is_builtin(char *cmd))(t_exec *exec)
 		return (ft_pwd);
 	else if (ft_strcmp(cmd, "cd") == 0)
 		return (ft_cd);
+	else if (ft_strcmp(cmd, "unset") == 0)
+		return (ft_unset);
 	return (NULL);
 }
