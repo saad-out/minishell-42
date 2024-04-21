@@ -6,24 +6,29 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:26:08 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/20 19:02:01 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/21 14:40:20 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/common.h"
 
-void	print_all_env(t_env *envs)
+void	print_all_env(t_env *envs, bool env_ex)
 {
 	while (envs)
 	{
 		if (envs->masked == 0)
 		{
-			printf("%s=%s\n", envs->key, envs->value);
+			if (env_ex)
+				printf("%s", DECLARE);
+			printf("%s", envs->key, envs->value);
+			if (envs->value == NULL)
+				printf("=\"\"\n");
+			else
+				printf("=%s\n", envs->value);
 		}
 		// printf("visibility: %d\n", envs->visibility);
 		envs = envs->next;
 	}
-	printf("===============================\n\n\n");
 }
 
 t_env	*create_env(char *env)
@@ -65,17 +70,52 @@ void	add_env(t_env **envs, t_env *new)
 	{
 		// go to the last element of the list
 		while (head->next)
+		{
 			head = head->next;
+		}
 		head->next = new;
 		new->prev = head;
 	}
 }
 
-// void update_env(char *key, char *new_value)
-// {
-// 	free(env->value);
-// 	env->value = new_value;
-// }
+bool	exist_key(t_env *envs, const char *key)
+{
+	while (envs)
+	{
+		if (ft_strcmp(envs->key, key) == 0)
+			return (true);
+		envs = envs->next;
+	}
+	return (false);
+}
+
+void	add_env_char(t_env **envs, char *key, char *value)
+{
+	t_env	*head;
+	t_env	*new_env;
+
+	new_env = (t_env *)malloc(sizeof(t_env));
+	if (!new_env)
+	{
+		return ;
+	}
+	new_env->key = key;
+	if (value)
+		new_env->value = ft_strdup(value);
+	else
+		new_env->value = NULL;
+	new_env->masked = false;
+	new_env->visibility = BOTH;
+	if (value == NULL)
+		new_env->visibility = EXPORT;
+	new_env->next = NULL;
+	new_env->prev = NULL;
+	if (exist_key(*(envs), key))
+		set_env(*(envs), key, value);
+	else
+		add_env(envs, new_env);
+}
+
 char	*get_env_value(t_env *envs, const char *key)
 {
 	while (envs)
@@ -106,9 +146,14 @@ void	set_env(t_env *envs, const char *key, const char *new_value)
 		{
 			free(envs->value);
 			// envs->value = new_value;
-			envs->value = ft_strdup(new_value);
+			envs->value = NULL;
+			if (new_value)
+				envs->value = ft_strdup(new_value);
 			envs->masked = false;
-			envs->visibility = BOTH;
+			if (new_value == NULL)
+				envs->visibility = EXPORT;
+			else
+				envs->visibility = BOTH;
 		}
 		envs = envs->next;
 	}

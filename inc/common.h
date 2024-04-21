@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/20 18:57:29 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/21 10:45:45 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,23 @@
 # ifndef MAX_STATUS_LEN
 #  define MAX_STATUS_LEN 19
 # endif /* MAX_STATUS_LEN */
+
+# ifndef DECLARE
+#  define DECLARE "declare -x "
+# endif /* DECLARE */
 /* ---- */
 
 /* INCLUDES */
 # include "../libs/libft/libft.h"
+# include <readline/history.h>
+# include <readline/readline.h>
+# include <signal.h>
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-# include <unistd.h>
 # include <sys/stat.h>
+# include <unistd.h>
 /* ------ */
 
 /* TYPEDEFS */
@@ -177,6 +184,9 @@ t_env						*get_env(t_env *envs, const char *key);
 char						**rebuild_env(t_env *envs);
 void						set_env(t_env *envs, const char *key,
 								const char *new_value);
+void						add_env_char(t_env **envs, char *key, char *value);
+
 /* --------- */
+void						ft_init_signals(void);
 
 #endif /* HEADER_H */
