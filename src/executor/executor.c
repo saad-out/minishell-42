@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/19 16:24:10 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/22 11:17:05 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ int	run_cmd(t_tree *tree)
 	exec = (t_exec *)tree;
 	status_ = 0;
 	exec->env = &env_;
+	expander(exec);
 	// expander(exec);
 	if (fork() == 0)
 	{

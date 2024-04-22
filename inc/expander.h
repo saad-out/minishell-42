@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:19:03 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/19 16:26:01 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/22 11:16:29 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,9 @@
 /* INCLUDES */
 # include "common.h"
 /* ------- */
+
+/* PROTOTYPES */
+void	expander(t_tree *node);
+/* --------- */
 
 #endif /* EXPANDER_H */
