@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:18:37 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/22 12:31:18 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/22 18:40:15 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	expand_wildcards(t_tree *node)
 
 void	expander(t_tree *node)
 {
-	// printf("expander\n");
-	// expand_vars(node);
+	printf("expander\n");
+	expand_vars(node);
 	expand_wildcards(node);
 }

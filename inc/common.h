@@ -6,26 +6,42 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/19 16:22:20 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/22 18:37:55 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COMMON_H
 # define COMMON_H
+# define READLINE_LIBRARY
 
 /* MACROS */
+# define SIZE 4096
 
+# ifndef MANY_ARGS_ERROR
+#  define MANY_ARGS_ERROR "Too many argument!"
+# endif /* MANY_ARGS_ERROR */
+
+# ifndef MAX_STATUS_LEN
+#  define MAX_STATUS_LEN 19
+# endif /* MAX_STATUS_LEN */
+
+# ifndef DECLARE
+#  define DECLARE "declare -x "
+# endif /* DECLARE */
 /* ---- */
 
 /* INCLUDES */
 # include "../libs/libft/libft.h"
+# include <signal.h>
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
+# include <sys/stat.h>
 # include <unistd.h>
+# include "/Users/soutchak/readline/include/readline/history.h"
+# include "/Users/soutchak/readline/include/readline/readline.h"
 /* ------ */
-
 
 /* TYPEDEFS */
 typedef struct s_slice		t_slice;
@@ -68,6 +84,7 @@ enum						e_token_type
 	BLOCK = 1 << 16,
 	EXEC = 1 << 17,
 	UNKNOWN = 1 << 18,
+	VOID = 1 << 19,
 	PARAN = LPAR | RPAR,
 	QUOTES = SINGLE_Q | DOUBLE_Q,
 	REDIR = REDIR_IN | REDIR_OUT | APPEND | HEREDOC,
@@ -78,9 +95,9 @@ enum						e_token_type
 
 enum						e_visibility
 {
-	ENVE,
-	EXPORT,
-	BOTH
+	ENVE = 1 << 0,
+	EXPORT = 1 << 1,
+	BOTH = 1 << 2
 };
 /* ------ */
 
@@ -162,10 +179,16 @@ void						free_tokens(t_token **token_list);
 void						free_tree(t_tree *tree);
 void						executor(t_tree *tree);
 
+/* -- ENVS ---*/
 t_env						*build_env(char **env);
 char						*get_env_value(t_env *envs, const char *key);
 t_env						*get_env(t_env *envs, const char *key);
 char						**rebuild_env(t_env *envs);
+void						set_env(t_env *envs, const char *key,
+								const char *new_value);
+void						add_env_char(t_env **envs, char *key, char *value);
+
 /* --------- */
+void						ft_init_signals(void);
 
 #endif /* HEADER_H */

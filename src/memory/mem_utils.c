@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   mem_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 17:34:18 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/21 16:01:32 by klakbuic         ###   ########.fr       */
+/*   Created: 2024/04/21 08:30:53 by klakbuic          #+#    #+#             */
+/*   Updated: 2024/04/21 08:32:33 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../../inc/common.h"
 
-t_env	*env_ = NULL;
-int		status = 0;
-
-int	main(int ac, char **av, char **env)
+void	split_free(char **splited_str)
 {
-	env_ = build_env(env);
-	minishell();
-	return (0);
+	int i;
+
+	i = -1;
+	if (splited_str == NULL)
+		return ;
+	while (splited_str[++i] != NULL)
+		free(splited_str[i]);
+	free(splited_str);
 }

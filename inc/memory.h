@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   memory.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 17:34:18 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/21 16:01:32 by klakbuic         ###   ########.fr       */
+/*   Created: 2024/04/21 08:33:08 by klakbuic          #+#    #+#             */
+/*   Updated: 2024/04/21 08:34:47 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#ifndef MEMORY_H
+#define MEMORY_H
 
-t_env	*env_ = NULL;
-int		status = 0;
-
-int	main(int ac, char **av, char **env)
-{
-	env_ = build_env(env);
-	minishell();
-	return (0);
-}
+/*--- PROTOTYPES ---*/
+void	split_free(char **splited_str);
+/*---            ---*/
+#endif

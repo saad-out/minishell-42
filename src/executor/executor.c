@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/22 11:17:05 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/22 18:40:23 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,23 +119,31 @@ int	run_cmd(t_tree *tree)
 {
 	t_exec	*exec;
 	int		status_;
+	int (*builtin)(t_exec *exec);
 
 	exec = (t_exec *)tree;
 	status_ = 0;
 	exec->env = &env_;
 	expander(exec);
-	// expander(exec);
+	builtin = is_builtin(exec->argv[0]);
+	if (builtin)
+		return (status = builtin(exec), status);
 	if (fork() == 0)
 	{
+		// TODO: if builtins
 		if (exec->argv[0][0] != '/' && exec->argv[0][0] != '.')
+		{
 			exec->argv[0] = get_cmd_path(exec->argv[0]);
+		}
 		if (!exec->argv[0])
 		{
 			//printf("outlaakSH: %s: command not found\n", exec->argv[0]);
 			status = 127;
 			exit(status);
 		}
-		execve(exec->argv[0], exec->argv, rebuild_env(env_));
+		// for (int w = 0; w < exec->argc; w++)
+		// 	printf("-====> |%s|\n", exec->argv[w]);
+		execve(exec->argv[0], exec->argv, NULL);
 		printf("minishell: %s: %s\n", exec->argv[0], strerror(errno)); // print on stderr
 		status = 127;
 		exit(status); //TODO: check if this is the right exit status & free memory

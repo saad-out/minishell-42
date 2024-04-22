@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 17:34:18 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/21 16:01:32 by klakbuic         ###   ########.fr       */
+/*   Created: 2024/04/20 18:53:10 by klakbuic          #+#    #+#             */
+/*   Updated: 2024/04/20 18:58:47 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../../inc/common.h"
 
-t_env	*env_ = NULL;
-int		status = 0;
-
-int	main(int ac, char **av, char **env)
+int	ft_env(t_exec *cmd)
 {
-	env_ = build_env(env);
-	minishell();
+	t_env *head;
+
+	if (cmd->argc > 1)
+	{
+		ft_putendl_fd("Too many args", STDERR_FILENO);
+		return (1);
+	}
+	head = *(cmd->env);
+	while (head)
+	{
+		if (head->masked == false && (head->visibility & (ENVE | BOTH)))
+			printf("%s=%s\n", head->key, head->value);
+		head = head->next;
+	}
 	return (0);
 }

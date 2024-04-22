@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 17:34:18 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/21 16:01:32 by klakbuic         ###   ########.fr       */
+/*   Created: 2024/04/20 16:37:20 by klakbuic          #+#    #+#             */
+/*   Updated: 2024/04/20 16:56:21 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../../inc/common.h"
 
-t_env	*env_ = NULL;
-int		status = 0;
-
-int	main(int ac, char **av, char **env)
+int	ft_unset(t_exec *cmd)
 {
-	env_ = build_env(env);
-	minishell();
+	t_env	*tmp;
+	int		i;
+
+	i = 1;
+	while (i < cmd->argc)
+	{
+		tmp = get_env(*(cmd)->env, cmd->argv[i]);
+		if (tmp)
+			tmp->masked = true;
+		i++;
+	}
 	return (0);
 }
