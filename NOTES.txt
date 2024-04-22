@@ -74,3 +74,8 @@ bash-3.2$ export PWD=slm
 bash-3.2$ pwd
 /Users/klakbuic/a/a
 bash-3.2$ 
+
+bash-3.2$ ^C
+bash-3.2$ echo $?
+1
+bash-3.2$ 
