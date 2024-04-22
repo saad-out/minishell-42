@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:35:23 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/22 10:53:19 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/22 11:51:54 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	minishell(void)
 		// break line into tokens
 		lexer(&tokens, line);
 		// print_all_tokens(&tokens);
-		post_lexer(&tokens);
 		if (syntax_checker(&tokens))
 		{
 			free(line);
@@ -72,6 +71,7 @@ void	minishell(void)
 				line = readline(NULL);
 			continue ;
 		}
+		post_lexer(&tokens);
 		// printf("===> AFTER POST LEXER:\n");
 		// print_all_tokens(&tokens);
 		// printf("\n");
