@@ -6,12 +6,13 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/22 11:39:39 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/22 17:08:57 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COMMON_H
 # define COMMON_H
+# define READLINE_LIBRARY
 
 /* MACROS */
 # define SIZE 4096
@@ -31,8 +32,6 @@
 
 /* INCLUDES */
 # include "../libs/libft/libft.h"
-# include <readline/history.h>
-# include <readline/readline.h>
 # include <signal.h>
 # include <stdbool.h>
 # include <stdio.h>
@@ -40,6 +39,8 @@
 # include <string.h>
 # include <sys/stat.h>
 # include <unistd.h>
+# include "/Users/klakbuic/readline/include/readline/history.h"
+# include "/Users/klakbuic/readline/include/readline/readline.h"
 /* ------ */
 
 /* TYPEDEFS */

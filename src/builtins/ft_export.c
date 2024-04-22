@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:05:57 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/21 15:11:37 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/22 18:20:56 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static void join_env(t_env **envs,char *argv)
 
 	// puts("ana f join");
 	splited = ft_split(argv, '=');
-	printf("%p\n", splited[0]);
+	// printf("%p\n", splited[0]);
 	if (!is_valide_name(splited[0]))
 	{
 		// puts("1");
