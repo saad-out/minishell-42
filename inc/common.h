@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/21 10:45:45 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/22 09:29:07 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ extern int					status;
 /* ENUMS */
 enum						e_token_type
 {
+	VOID = 0,
 	WORD = 1 << 0,
 	PIPE = 1 << 1,
 	REDIR_IN = 1 << 2,

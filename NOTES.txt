@@ -56,3 +56,21 @@ handle execve() return codes and ERROR_MACROS
 permission denied & not a directory => exit with 126
 
 builtins too many args
+
+save pwd => 
+bash-3.2$ pwd
+/Users/klakbuic/a/a
+bash-3.2$ ls
+a
+bash-3.2$ rm -rf /Users/klakbuic/a/a
+bash-3.2$ pwd
+/Users/klakbuic/a/a
+bash-3.2$ cd a
+bash: cd: a: No such file or directory
+bash-3.2$ ls
+bash-3.2$ pwd
+/Users/klakbuic/a/a
+bash-3.2$ export PWD=slm
+bash-3.2$ pwd
+/Users/klakbuic/a/a
+bash-3.2$ 

@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:01:14 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/18 15:48:09 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/22 10:36:34 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,7 @@ void			add_token(t_token **head, t_token *token);
 t_token			*new_token(t_etype type, char *s, size_t len);
 
 /* --- Sytax error*/
-void	syntax_checker(t_token **tokens);
-
+bool	syntax_checker(t_token **tokens);
 
 void	remove_token(t_token **head, t_token *token);
 
