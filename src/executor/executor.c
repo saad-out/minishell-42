@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/22 18:40:23 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/23 15:55:17 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,11 @@ int	run_redir(t_tree *tree)
 	close(redir->fd); // TODO: handle system call failure
 	if ((fd = open(redir->file, redir->flags, 0644)) == -1)
 	{
-		perror("open");
-		exit(1); // TODO: free memory & kill all running processes
+		perror("===>> open");
+		ft_putendl_fd("minishell: open: No such file or directory kk", 2);
+		dup2(copy_fd, redir->fd);
+		status = 1;
+		return (EXIT_FAILURE);
 	}
 	status_ = get_status(redir->child);
 	status = status_;
@@ -122,6 +125,8 @@ int	run_cmd(t_tree *tree)
 	int (*builtin)(t_exec *exec);
 
 	exec = (t_exec *)tree;
+	if (exec->argc == 0)
+		return (EXIT_SUCCESS);
 	status_ = 0;
 	exec->env = &env_;
 	expander(exec);
@@ -137,22 +142,21 @@ int	run_cmd(t_tree *tree)
 		}
 		if (!exec->argv[0])
 		{
-			//printf("outlaakSH: %s: command not found\n", exec->argv[0]);
 			status = 127;
 			exit(status);
 		}
-		// for (int w = 0; w < exec->argc; w++)
-		// 	printf("-====> |%s|\n", exec->argv[w]);
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		execve(exec->argv[0], exec->argv, NULL);
-		printf("minishell: %s: %s\n", exec->argv[0], strerror(errno)); // print on stderr
+		fprintf(stderr, "minishell: %s: %s\n", exec->argv[0], strerror(errno)); // print on stderr
 		status = 127;
 		exit(status); //TODO: check if this is the right exit status & free memory
 	}
 	wait(&status_);
 	if (WIFEXITED(status_))
 		status_ = WEXITSTATUS(status_);
-	else
-		status_ = EXIT_FAILURE;
+	else if (WIFSIGNALED(status_))
+		status_ = WTERMSIG(status_) + 128;
 	status = status_;
 	return (status_);
 }
@@ -177,4 +181,5 @@ void	executor(t_tree *tree)
 	if (!tree)
 		return ;
 	status = get_status(tree);
+	// printf("===> status: %d\n", status);
 }
