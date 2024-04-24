@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 10:33:09 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/22 18:17:22 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/24 18:05:41 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	interrput_handler(int sig)
 	rl_replace_line("", 0);
 	rl_redisplay();
 	status = 1;
+	exit(1010);
 }
 
 void ft_init_signals()

@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 22:18:28 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/01 02:05:40 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:24:05 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ void	ft_putchar_fd(char c, int fd);
 int		ft_atoi(const char *str);
 void	*ft_calloc(size_t nmemb, size_t size);
 char	*ft_itoa(int n);
+char	*ft_strndup(const char *str, int n);
 
 #endif
