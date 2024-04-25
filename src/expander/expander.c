@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:18:37 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/25 16:46:44 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/25 17:10:27 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,9 @@ char	*get_var_value(char *var, int len)
 		return (NULL); // handle malloc failure
 	value = get_env_value(env_, key);
 	if (!value)
-		return (ft_strjoin("$", ft_strndup(var, len)));
+		return (NULL);
+		// return (ft_strdup(""));
+		// return (ft_strjoin("$", ft_strndup(var, len)));
 	return (ft_strdup(value));
 }
 
@@ -244,7 +246,8 @@ void	expand_exec_vars(t_exec *exec)
 		// else
 		// 	printf("joined= (NULL) & j= (%c)\n", exec->argv[i][j]);
 		
-		add_to_argv(&new_argv, joined, &new_argc, split);
+		if (joined)
+			add_to_argv(&new_argv, joined, &new_argc, split);
 	}
 
 	exec->argv = new_argv;
