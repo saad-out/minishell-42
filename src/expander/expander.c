@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:18:37 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/25 17:10:27 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/25 17:21:03 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ char	*join_var(char *joined, char *s, int *i)
 	// printf("===> DONE (%s) and var (%s)\n", s + j, var);
 	if (!joined)
 		return (var);
-	joined = ft_strjoin(joined, var); // free old joined if not NULL
+	if (var)
+		joined = ft_strjoin(joined, var); // free old joined if not NULL
 	return (joined);
 }
 
@@ -56,7 +57,7 @@ char	*join_regular(char *joined, char *s, int *i, const char *set)
 	if (j > 0)
 		tmp = ft_strndup(s, j);
 	(*i) += j;
-	// printf("===> DONE (%s)\n", s + j);
+	// printf("===> DONE (%s) tmp (%s)\n", s + j, tmp);
 	if (!joined)
 		return (tmp);
 	joined = ft_strjoin(joined, tmp); // free old joined if not NULL

@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/24 15:05:11 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/25 17:19:33 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,8 @@ int	run_cmd(t_tree *tree)
 	status_ = 0;
 	exec->env = &env_;
 	expander(exec);
+	if (exec->argc == 0)
+		return (status = 0, 0);
 	builtin = is_builtin(exec->argv[0]);
 	if (builtin)
 		return (status = builtin(exec), status);
