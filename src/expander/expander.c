@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:18:37 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/25 17:21:03 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/25 18:30:15 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,10 +150,9 @@ int	count_words(char **words)
 	return (len);
 }
 
-char	*add_empty_string(char **words, int *size)
+char	**add_empty_string(char **words, int *size)
 {
 	char 	**tmp;
-	char	*s;
 
 	tmp = malloc(sizeof(char *) * 2);
 	if (!tmp)
@@ -260,7 +259,56 @@ void	expand_exec_vars(t_exec *exec)
 }
 
 void	expand_redir_vars(t_redir *redir)
-{}
+{
+	int		i;
+	bool	split;
+	char	*joined;
+	char	**words;
+	int		size;
+
+	joined = NULL;
+	words = NULL;
+	size = 0;
+	i = 0;
+	while (redir->file[i])
+	{
+		split = 1;
+		if (to_expand(redir->file[i]))
+		{
+			if (redir->file[i] == '\'' || redir->file[i] == '"')
+				split = 0;
+			joined = join_var(joined, redir->file + i, &i);
+		}
+		else
+			joined = join_regular(joined, redir->file + i, &i, "'\" $");
+
+		if (joined)
+			add_to_argv(&words, joined, &size, split);
+	}
+	// printf("====> FILE: (%s)\n", joined);
+
+
+	// for (int i = 0; i < size; i++)
+	// 	printf("====> FILE: (%s)\n", words[i]);
+	// printf("-------------------\n\n");
+
+
+	// words = ft_split(joined, ' ');
+	if (!words || count_words(words) != 1)
+	{
+		ft_putstr_fd("outlaakSH: ", STDERR_FILENO);
+		ft_putstr_fd(redir->file, STDERR_FILENO);
+		ft_putendl_fd(": ambiguous redirect", STDERR_FILENO);
+		free(redir->file);
+		redir->file = NULL;
+	}
+	else
+	{
+		free(redir->file);
+		redir->file = words[0];
+	}
+	free(words); // TODO: free all words if more than one word
+}
 
 void	expand_vars(t_tree *node)
 {
