@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:18:37 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/24 22:53:26 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:46:44 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*join_var(char *joined, char *s, int *i)
 	int		j;
 
 	var = NULL;
-	printf("===> lets expand VAR from (%s)\n", s);
+	// printf("===> lets expand VAR from (%s)\n", s);
 	j = 0;
 	if (*s == '"')
 		var = expand_double_q(s, &j);
@@ -36,7 +36,7 @@ char	*join_var(char *joined, char *s, int *i)
 	else
 		var = expand_var(s, &j);
 	(*i) += j;
-	printf("===> DONE (%s)\n", s + j);
+	// printf("===> DONE (%s) and var (%s)\n", s + j, var);
 	if (!joined)
 		return (var);
 	joined = ft_strjoin(joined, var); // free old joined if not NULL
@@ -56,7 +56,7 @@ char	*join_regular(char *joined, char *s, int *i, const char *set)
 	if (j > 0)
 		tmp = ft_strndup(s, j);
 	(*i) += j;
-	printf("===> DONE (%s)\n", s + j);
+	// printf("===> DONE (%s)\n", s + j);
 	if (!joined)
 		return (tmp);
 	joined = ft_strjoin(joined, tmp); // free old joined if not NULL
@@ -106,7 +106,7 @@ char	*expand_double_q(char *s, int *i)
 	(*i)++;
 
 	joined = NULL;
-	printf("===> lets expand Dq from (%s)\n", s);
+	// printf("===> lets expand Dq from (%s)\n", s);
 	j = 0;
 	while (s && !(s[j] == '"'))
 	{
@@ -129,7 +129,7 @@ char	*expand_single_q(char *s, int *i)
 	s++;
 	(*i)++;
 
-	printf("===> lets expand Sq from (%s)\n", s);
+	// printf("===> lets expand Sq from (%s)\n", s);
 	j = 0;
 	while (s && !(s[j] == '\''))
 		j++;
@@ -137,29 +137,88 @@ char	*expand_single_q(char *s, int *i)
 	return (ft_strndup(s, j));
 }
 
-void	add_to_argv(char ***argv, char *s, int *argc)
+int	count_words(char **words)
 {
-	char	**words;
-	int		i;
-	int		j;
+	int	len;
 
-	words = ft_split(s, ' ');
-	i = 0;
-	while (words[i])
-		i++;
-	*argv = realloc(*argv, *argc + i);
-	j = 0;
-	while (*argc < i)
+	len = 0;
+	while (words[len])
+		len++;
+	return (len);
+}
+
+char	*add_empty_string(char **words, int *size)
+{
+	char 	**tmp;
+	char	*s;
+
+	tmp = malloc(sizeof(char *) * 2);
+	if (!tmp)
+		return (perror("malloc()"), exit(1), NULL);
+	tmp[0] = ft_strdup("");
+	tmp[1] = NULL;
+	*size = 1;
+	free(words);
+	return (tmp);
+}
+
+void	add_to_argv(char ***argv, char *s, int *argc, bool splt)
+{
+	int		old_ac;
+	char	**old_av;
+	// int		new_ac;
+	char	**new_av;
+	char	**words;
+	int		w_size;
+
+	old_ac = *argc;
+	old_av = *argv;
+
+	/* split */
+	if (splt)
 	{
-		(*argv)[(*argc)++] = words[j++];
-		// printf("====> %d -> (%s)\n", (*argc) - 1, (*argv)[(*argc) - 1]);
+		words = ft_split(s, ' ');
+		w_size = count_words(words);
+		if (w_size == 0)
+			words = add_empty_string(words, &w_size);
 	}
+
+	/* copy to new arr */
+	if (splt)
+		new_av = malloc(sizeof(char *) * (old_ac + w_size + 1));
+	else
+		new_av = malloc(sizeof(char *) * (old_ac + 2));
+	if (!new_av)
+		return (perror("malloc()"), exit(1));
+
+	for (int i = 0; i < old_ac; i++)
+		new_av[i] = old_av[i];
+	if (splt)
+	{
+		for (int i = 0; i < w_size; i++)
+			new_av[i + old_ac] = words[i];
+		new_av[old_ac + w_size] = NULL;
+		free(words);
+		*argc = old_ac + w_size;
+	}
+	else
+	{
+		new_av[old_ac] = s;
+		new_av[old_ac + 1] = NULL;
+		*argc = old_ac + 1;
+	}
+
+	/* free old */
+	free(old_av);
+
+	*argv = new_av;
 }
 
 void	expand_exec_vars(t_exec *exec)
 {
 	char	**new_argv;
 	int		new_argc;
+	bool	split;
 
 	new_argv = NULL;
 	new_argc = 0;
@@ -170,27 +229,30 @@ void	expand_exec_vars(t_exec *exec)
 
 		while (exec->argv[i][j])
 		{
+			split = 1;
 			if (to_expand(exec->argv[i][j]))
+			{
+				if (exec->argv[i][j] == '\'' || exec->argv[i][j] == '"')
+					split = 0;
 				joined = join_var(joined, exec->argv[i] + j, &j);
+			}
 			else
 				joined = join_regular(joined, exec->argv[i] + j, &j, "'\" $");
 		}
-		if (joined)
-			printf("joined= (%s) & j= (%c)\n", joined, exec->argv[i][j]);
-		else
-			printf("joined= (NULL) & j= (%c)\n", exec->argv[i][j]);
+		// if (joined)
+		// 	printf("joined= (%s) & j= (%c)\n", joined, exec->argv[i][j]);
+		// else
+		// 	printf("joined= (NULL) & j= (%c)\n", exec->argv[i][j]);
 		
-		add_to_argv(&new_argv, joined, &new_argc);
+		add_to_argv(&new_argv, joined, &new_argc, split);
 	}
-
-	// new_argv = realloc(new_argv, new_argc + 1);
-	// new_argv[new_argc] = NULL;
 
 	exec->argv = new_argv;
 	exec->argc = new_argc;
-	for (int i = 0; i < exec->argc; i++)
-		printf("argv[%d] = (%s)\n", i, exec->argv[i]);
-	printf("---------\n\n");
+	// printf("\n------ argc -> %d\n", new_argc);
+	// for (int i = 0; i < exec->argc; i++)
+	// 	printf("argv[%d] = (%s)\n", i, exec->argv[i]);
+	// printf("---------\n\n");
 }
 
 void	expand_redir_vars(t_redir *redir)

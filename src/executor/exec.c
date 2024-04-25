@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/22 10:52:35 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:21:21 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@ char	*get_cmd_path(char *cmd)
 	char	*full_path;
 	char	*tmp;
 
+	if (ft_strcmp(cmd, "") == 0)
+	{
+		ft_putstr_fd("outlaakSH: \"\"", STDERR_FILENO);
+		// ft_putstr_fd(cmd, STDERR_FILENO);
+		ft_putendl_fd(": command not found", STDERR_FILENO);
+		return (NULL);
+	}
 	path_var = getenv("PATH");
 	if (!path_var)
 	{
