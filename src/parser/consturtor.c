@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   consturtor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 08:27:27 by saad              #+#    #+#             */
-/*   Updated: 2024/04/20 16:17:44 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/26 23:33:58 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ t_tree	*redir_node(t_etype type, t_tree *child, char *s)
 	if (!node)
 		return (NULL);
 	node->type = type;
+	node->expand = false;
 	if (!set_filename(node, s, type))
 		return (NULL);
 	if (type == REDIR_IN || type == HEREDOC)

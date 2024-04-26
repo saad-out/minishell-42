@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/24 15:01:47 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/26 23:33:24 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ struct						s_redir
 	char					*file;
 	int flags;   // O_RDONLY, O_WRONLY, O_CREAT, O_APPEND
 	mode_t mode; // S_IRUSR, S_IWUSR, S_IRGRP, S_IROTH ==> leave to default
+	bool					expand;
 	t_tree					*child;
 };
 
