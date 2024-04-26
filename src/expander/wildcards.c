@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:42:36 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/26 17:21:03 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/26 17:41:31 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,28 @@ void	expand_exec_wd(t_exec *exec)
 }
 
 void	expand_redir_wd(t_redir *redir)
-{}
+{
+	char	**match;
+
+	match = NULL;
+	match = get_wd_match(redir->file);
+	if (!match)
+		return ;
+	if (match && match[0] && match[1] == NULL)
+	{
+		free(redir->file);
+		redir->file = match[0];
+	}
+	else
+	{
+		ft_putstr_fd("outlaakSH: ", STDERR_FILENO);
+		ft_putstr_fd(redir->file, STDERR_FILENO);
+		ft_putendl_fd(": ambiguous redirect", STDERR_FILENO);
+		free(redir->file);
+		redir->file = NULL;
+	}
+	free(match); // TODO: free all words if more than one word
+}
 
 void	expand_wildcards(t_tree *node)
 {
