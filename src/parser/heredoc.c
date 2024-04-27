@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saad <saad@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 01:37:28 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/26 23:55:51 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/27 02:05:51 by saad             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static char	*get_regular(char *del, int *i)
 static char	*remove_quotes(char *del, bool *expand)
 {
 	char	*tmp;
+	char	*tmp2;
 	char	*joined;
 	int		i;
 
@@ -55,36 +56,46 @@ static char	*remove_quotes(char *del, bool *expand)
 		{
 			*expand = true;
 			tmp = get_literal(del, &i);
-			printf("====>  tmp: (%s) and del[%d]=%c\n", tmp, i, del[i]);
+			// printf("====>  tmp: (%s) and del[%d]=%c\n", tmp, i, del[i]);
 			if (joined)
-				ft_strjoin(joined, tmp);
+			{
+				tmp2 = ft_strjoin(joined, tmp);
+				free(tmp);
+				free(joined);
+				joined = tmp2;
+			}
 			else
 				joined = tmp;
 		}
 		else
 		{
 			tmp = get_regular(del, &i);
-			printf("====>  tmp: (%s) and del[%d]=%c\n", tmp, i, del[i]);
+			// printf("====>  tmp: (%s) and del[%d]=%c\n", tmp, i, del[i]);
 			if (joined)
-				ft_strjoin(joined, tmp);
+			{
+				tmp2 = ft_strjoin(joined, tmp);
+				free(tmp);
+				free(joined);
+				joined = tmp2;
+			}
 			else
 				joined = tmp;
 		}
+		// printf("====> JOINED: (%s)\n", joined);
 	}
 	free(del);
 	return (joined);
 }
 
-char	*read_heardoc(char *delimiter)
+char	*read_heardoc(char *delimiter, bool *expand)
 {
 	static int	heredoc = 1;
 	char		*line;
 	char		*filename;
 	int			fd;
-	bool		expand;
 
-	delimiter = remove_quotes(delimiter, &expand);
-	printf("\t\t====> dilimiter: (%s)\n\n", delimiter);
+	delimiter = remove_quotes(delimiter, expand);
+	printf("\t====> dilimiter: (%s)\n\n", delimiter);
 	filename = ft_strjoin(HEREDOC_FILENAME, ft_itoa(heredoc++));
 	fd = open(filename, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (fd == -1)
@@ -99,5 +110,6 @@ char	*read_heardoc(char *delimiter)
 	}
 	if (close(fd) == -1)
 		return (NULL);
+	free(delimiter);
 	return (filename);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saad <saad@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/01 02:13:15 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/27 02:00:43 by saad             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_tree	*parse_sequence(t_token **tokens);
 t_tree	*parse_sequence_tail(t_token **tokens, t_tree *left);
 
 t_redir	*get_last_redir(t_tree *tree);
-char	*read_heardoc(char *delimiter);
+char	*read_heardoc(char *delimiter, bool *expand);
 char	*set_filename(t_redir *node, char *s, t_etype type);
 
 // char	*ft_strjoin(char const *s1, char const *s2);

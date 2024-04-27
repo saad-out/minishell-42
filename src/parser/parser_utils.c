@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saad <saad@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 06:10:57 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/01 16:48:26 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/27 01:59:53 by saad             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,14 @@ t_redir	*get_last_redir(t_tree *tree)
 char	*set_filename(t_redir *node, char *s, t_etype type)
 {
 	char	*filename;
+	bool	expand;
 
 	if (type != HEREDOC)
 		return (node->file = s, s);
-	filename = read_heardoc(s);
+	expand = false;
+	filename = read_heardoc(s, &expand);
+	node->expand = expand;
 	if (!filename)
 		return (NULL);
-	free(s);
 	return (node->file = filename, node->file);
 }
