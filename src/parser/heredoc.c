@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saad <saad@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 01:37:28 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/27 02:05:51 by saad             ###   ########.fr       */
+/*   Updated: 2024/04/27 21:07:44 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ static char	*remove_quotes(char *del, bool *expand)
 	char	*joined;
 	int		i;
 
-	*expand = false;
+	*expand = true;
 	i = 0;
 	joined = NULL;
 	while (del[i])
 	{
 		if (del[i] == '\'' || del[i] == '\"')
 		{
-			*expand = true;
+			*expand = false;
 			tmp = get_literal(del, &i);
 			// printf("====>  tmp: (%s) and del[%d]=%c\n", tmp, i, del[i]);
 			if (joined)

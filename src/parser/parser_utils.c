@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saad <saad@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 06:10:57 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/27 01:59:53 by saad             ###   ########.fr       */
+/*   Updated: 2024/04/27 21:08:12 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*set_filename(t_redir *node, char *s, t_etype type)
 
 	if (type != HEREDOC)
 		return (node->file = s, s);
-	expand = false;
+	expand = true;
 	filename = read_heardoc(s, &expand);
 	node->expand = expand;
 	if (!filename)

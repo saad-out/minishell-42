@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:41:06 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/26 16:05:13 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/27 21:10:13 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,10 +254,6 @@ void	expand_exec_vars(t_exec *exec)
 
 	exec->argv = new_argv;
 	exec->argc = new_argc;
-	// printf("\n------ argc -> %d\n", new_argc);
-	// for (int i = 0; i < exec->argc; i++)
-	// 	printf("argv[%d] = (%s)\n", i, exec->argv[i]);
-	// printf("---------\n\n");
 }
 
 void	expand_redir_vars(t_redir *redir)
@@ -287,15 +283,6 @@ void	expand_redir_vars(t_redir *redir)
 		if (joined)
 			add_to_argv(&words, joined, &size, split);
 	}
-	// printf("====> FILE: (%s)\n", joined);
-
-
-	// for (int i = 0; i < size; i++)
-	// 	printf("====> FILE: (%s)\n", words[i]);
-	// printf("-------------------\n\n");
-
-
-	// words = ft_split(joined, ' ');
 	if (!words || count_words(words) != 1)
 	{
 		ft_putstr_fd("outlaakSH: ", STDERR_FILENO);
