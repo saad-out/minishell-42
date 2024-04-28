@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/26 23:29:40 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/28 23:05:57 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ int	run_cmd(t_tree *tree)
 	t_exec	*exec;
 	int		status_;
 	int (*builtin)(t_exec *exec);
+	struct stat info;
 
 	exec = (t_exec *)tree;
 	if (exec->argc == 0)
@@ -139,18 +140,35 @@ int	run_cmd(t_tree *tree)
 	builtin = is_builtin(exec->argv[0]);
 	if (builtin)
 		return (status = builtin(exec), status);
+	if (exec->argv[0][0] != '/' && exec->argv[0][0] != '.')
+		exec->argv[0] = get_cmd_path(exec->argv[0]);
+	else
+	{
+		if (access(exec->argv[0], F_OK) == -1)
+		{
+			ft_putendl_fd("No such file or directory", STDERR_FILENO);
+			return (status = 127, 127);
+		}
+		if (stat(exec->argv[0], &info) == -1)
+		{
+			ft_putendl_fd("stat() error", STDERR_FILENO);
+			return (1);
+		}
+		if (S_ISDIR(info.st_mode))
+		{
+			ft_putendl_fd("Is a directory", STDERR_FILENO);
+			return (status = 126, 126);
+		}
+		if (access(exec->argv[0], R_OK | X_OK) == -1)
+		{
+			ft_putendl_fd("Permission denied", STDERR_FILENO);
+			return (status = 126, 126);
+		}
+	}
+	if (!exec->argv[0])
+		return (status = 127, 127);
 	if (fork() == 0)
 	{
-		// TODO: if builtins
-		if (exec->argv[0][0] != '/' && exec->argv[0][0] != '.')
-		{
-			exec->argv[0] = get_cmd_path(exec->argv[0]);
-		}
-		if (!exec->argv[0])
-		{
-			status = 127;
-			exit(status);
-		}
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 		execve(exec->argv[0], exec->argv, NULL);
@@ -187,5 +205,4 @@ void	executor(t_tree *tree)
 	if (!tree)
 		return ;
 	status = get_status(tree);
-	// printf("===> status: %d\n", status);
 }
