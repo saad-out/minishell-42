@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 01:37:28 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/27 21:07:44 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/28 18:46:34 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ char	*read_heardoc(char *delimiter, bool *expand)
 	int			fd;
 
 	delimiter = remove_quotes(delimiter, expand);
-	printf("\t====> dilimiter: (%s)\n\n", delimiter);
 	filename = ft_strjoin(HEREDOC_FILENAME, ft_itoa(heredoc++));
 	fd = open(filename, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (fd == -1)

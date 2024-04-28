@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:41:06 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/27 21:10:13 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/28 18:24:16 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ char	*join_var(char *joined, char *s, int *i)
 	// printf("===> DONE (%s) and var (%s)\n", s + j, var);
 	if (!joined)
 		return (var);
+	// printf("====> j: (%s) & var: (%s) ", joined, var);
 	if (var)
 		joined = ft_strjoin(joined, var); // free old joined if not NULL
+	// printf("=%s\n", joined);
 	return (joined);
 }
 
@@ -90,7 +92,7 @@ char	*expand_var(char *var, int *i)
 
 	// get var length
 	len = 0;
-	while (var[len] && !ft_strchr("'\"$ ", var[len]))
+	while (var[len] && !ft_strchr("'\"$ \n()|&", var[len]))
 		len++;
 	
 	(*i) += len;
@@ -239,7 +241,7 @@ void	expand_exec_vars(t_exec *exec)
 				joined = join_var(joined, exec->argv[i] + j, &j);
 			}
 			else
-				joined = join_regular(joined, exec->argv[i] + j, &j, "'\" $");
+				joined = join_regular(joined, exec->argv[i] + j, &j, "'\"$");
 		}
 		// if (joined)
 		// 	printf("joined= (%s) & j= (%c)\n", joined, exec->argv[i][j]);
@@ -264,12 +266,15 @@ void	expand_redir_vars(t_redir *redir)
 	char	**words;
 	int		size;
 
+	if (redir->type == HEREDOC)
+		return (expand_heredoc(redir));
 	joined = NULL;
 	words = NULL;
 	size = 0;
 	i = 0;
 	while (redir->file[i])
 	{
+		joined = NULL;
 		split = 1;
 		if (to_expand(redir->file[i]))
 		{
@@ -279,7 +284,7 @@ void	expand_redir_vars(t_redir *redir)
 		}
 		else
 			joined = join_regular(joined, redir->file + i, &i, "'\" $");
-
+		
 		if (joined)
 			add_to_argv(&words, joined, &size, split);
 	}

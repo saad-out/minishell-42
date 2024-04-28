@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
@@ -13,14 +13,24 @@
 #ifndef EXPANDER_H
 # define EXPANDER_H
 
+/* MARCROS */
+/* ------ */
+
 /* INCLUDES */
 # include "common.h"
 # include <dirent.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 /* ------- */
 
 /* PROTOTYPES */
 void	expander(t_tree *node);
 void	expand_vars(t_tree *node);
+void	expand_heredoc(t_redir *redir);
+char	*get_next_line(int fd);
+char	*join_var(char *joined, char *s, int *i);
+char	*join_regular(char *joined, char *s, int *i, const char *set);
 /* --------- */
 
 #endif /* EXPANDER_H */
