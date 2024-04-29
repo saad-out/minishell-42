@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:41:06 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/28 18:24:16 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/29 15:09:56 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char	*expand_var(char *var, int *i)
 
 	// get var length
 	len = 0;
-	while (var[len] && !ft_strchr("'\"$ \n()|&", var[len]))
+	while (var[len] && !ft_strchr("'\"$ \n()|&=", var[len]))
 		len++;
 	
 	(*i) += len;
@@ -231,9 +231,10 @@ void	expand_exec_vars(t_exec *exec)
 		char	*joined = NULL;
 		int		j = 0;
 
+		// printf("===> lets expand from (%s)\n", exec->argv[i]);
+		split = 1;
 		while (exec->argv[i][j])
 		{
-			split = 1;
 			if (to_expand(exec->argv[i][j]))
 			{
 				if (exec->argv[i][j] == '\'' || exec->argv[i][j] == '"')
@@ -242,11 +243,11 @@ void	expand_exec_vars(t_exec *exec)
 			}
 			else
 				joined = join_regular(joined, exec->argv[i] + j, &j, "'\"$");
+			// if (joined)
+			// 	printf("joined= (%s) & j= (%c)\n", joined, exec->argv[i][j]);
+			// else
+			// 	printf("joined= (NULL) & j= (%c)\n", exec->argv[i][j]);
 		}
-		// if (joined)
-		// 	printf("joined= (%s) & j= (%c)\n", joined, exec->argv[i][j]);
-		// else
-		// 	printf("joined= (NULL) & j= (%c)\n", exec->argv[i][j]);
 		
 		if (joined)
 			add_to_argv(&new_argv, joined, &new_argc, split);

@@ -31,6 +31,7 @@ void	expand_heredoc(t_redir *redir);
 char	*get_next_line(int fd);
 char	*join_var(char *joined, char *s, int *i);
 char	*join_regular(char *joined, char *s, int *i, const char *set);
+char	*expand_var(char *var, int *i);
 /* --------- */
 
 #endif /* EXPANDER_H */
