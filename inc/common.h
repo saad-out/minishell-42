@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   common.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/29 16:36:18 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/29 17:20:20 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 /* ---- */
 
 /* INCLUDES */
+# include "../libs/ft_containers/ft_data_structres.h"
 # include "../libs/libft/libft.h"
 # include <signal.h>
 # include <stdbool.h>
