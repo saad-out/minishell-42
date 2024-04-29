@@ -6,11 +6,12 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:41:06 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/29 15:09:56 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:27:28 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/expander.h"
+#include "../../inc/globals.h"
 
 char	*expand_var(char *var, int *i);
 char	*expand_double_q(char *s, int *i);
@@ -74,7 +75,8 @@ char	*get_var_value(char *var, int len)
 	key = ft_substr(var, 0, len);
 	if (!key)
 		return (NULL); // handle malloc failure
-	value = get_env_value(env_, key);
+	// value = get_env_value(env_, key);
+	value = get_env_value(*get_env_list(), key);
 	if (!value)
 		return (NULL);
 		// return (ft_strdup(""));

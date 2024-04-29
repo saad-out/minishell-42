@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environement.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:26:08 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/21 14:40:20 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:35:38 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,4 +192,38 @@ t_env	*build_env(char **env)
 	}
 	// print_all_env(envs);
 	return (envs);
+}
+
+char	**rebuild_env_to_char(t_env *envs)
+{
+	char	**env;
+	int		i;
+	t_env	*head;
+
+	head = envs;
+	i = 0;
+	while (head)
+	{
+		if (head->masked == 0)
+			i++;
+		head = head->next;
+	}
+	env = (char **)malloc(sizeof(char *) * (i + 1));
+	if (!env)
+		return (NULL); // TODO: handle malloc failure
+	i = 0;
+	head = envs;
+	while (head)
+	{
+		if (head->masked == 0)
+		{
+			env[i] = ft_strjoin(head->key, "=");
+			if (head->value)
+				env[i] = ft_strjoin(env[i], head->value);
+			i++;
+		}
+		head = head->next;
+	}
+	env[i] = NULL;
+	return (env);
 }

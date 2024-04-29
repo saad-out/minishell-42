@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/26 23:33:24 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:36:18 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,10 +186,10 @@ void						executor(t_tree *tree);
 t_env						*build_env(char **env);
 char						*get_env_value(t_env *envs, const char *key);
 t_env						*get_env(t_env *envs, const char *key);
-char						**rebuild_env(t_env *envs);
 void						set_env(t_env *envs, const char *key,
 								const char *new_value);
 void						add_env_char(t_env **envs, char *key, char *value);
+char						**rebuild_env_to_char(t_env *envs);
 
 /* --------- */
 void						ft_init_signals(void);

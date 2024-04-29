@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   globals.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 17:34:18 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/29 16:26:49 by soutchak         ###   ########.fr       */
+/*   Created: 2024/04/29 15:40:00 by soutchak          #+#    #+#             */
+/*   Updated: 2024/04/29 16:26:17 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
-#include "../inc/globals.h"
+#ifndef GLOBALS_H
+# define GLOBALS_H
 
-// t_env	*env_ = NULL;
-// int		status = 0;
+/* INCLUDES */
+# include "common.h"
+/* ------- */
 
-int	main(int ac, char **av, char **env)
-{
-	t_env	**env_ = NULL;
+/* PROTOTYPES */
+int		get_exit_status(void);
+void	set_exit_status(int status);
+t_env 	**get_env_list(void);
+/* --------- */
 
-	env_ = get_env_list();
-	*env_ = build_env(env);
-	// env_ = build_env(env);
-	minishell();
-	return (0);
-}
+#endif /* GLOBALS_H */

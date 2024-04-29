@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:35:23 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/22 11:51:54 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:39:34 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+#include "../inc/globals.h"
 
 void	minishell(void)
 {
@@ -47,8 +48,10 @@ void	minishell(void)
 		// 	return (free(line));
 		if (strcmp(line, "echo $?") == 0)
 		{
-			printf("%d\n", status);
-			status = 0;
+			// printf("%d\n", status);
+			printf("%d\n", get_exit_status());
+			// status = 0;
+			set_exit_status(0);
 			free(line);
 			if (isatty(STDIN_FILENO))
 				line = readline(PROMPT);

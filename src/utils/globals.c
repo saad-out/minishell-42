@@ -1,28 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   globals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 17:34:18 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/29 16:26:49 by soutchak         ###   ########.fr       */
+/*   Created: 2024/04/29 15:37:50 by soutchak          #+#    #+#             */
+/*   Updated: 2024/04/29 16:26:11 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
-#include "../inc/globals.h"
+#include "../../inc/globals.h"
 
-// t_env	*env_ = NULL;
-// int		status = 0;
-
-int	main(int ac, char **av, char **env)
+static int	*get_exit_status_g(void)
 {
-	t_env	**env_ = NULL;
+	static int	status = 0;
 
-	env_ = get_env_list();
-	*env_ = build_env(env);
-	// env_ = build_env(env);
-	minishell();
-	return (0);
+	return (&status);
+}
+
+void	set_exit_status(int status)
+{
+	*get_exit_status_g() = status;
+}
+
+int	get_exit_status(void)
+{
+	return (*get_exit_status_g());
+}
+
+t_env **get_env_list(void)
+{
+	static t_env	*env = NULL;
+
+	return (&env);
 }
