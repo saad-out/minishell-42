@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environement.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: khalid <khalid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:26:08 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/30 12:18:43 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/30 14:54:24 by khalid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,7 @@ static void	add_empty_env(t_env **envs)
 	int		i;
 
 	i = 0;
-	pwd = getcwd(NULL, 1);
+	pwd = getcwd(NULL, 0);
 	if (pwd == NULL)
 	{
 		ft_putendl_fd("getcwd() error", STDERR_FILENO);

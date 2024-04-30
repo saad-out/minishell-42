@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: khalid <khalid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:09:05 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/18 15:49:19 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/30 14:59:18 by khalid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/lexer.h"
+#include "../../inc/memory.h"
 
 void	remove_token(t_token **head, t_token *token)
 {
@@ -25,16 +26,15 @@ void	remove_token(t_token **head, t_token *token)
 		if (token->next)
 			token->next->prev = token->prev;
 	}
-	free(token);
+	// free(token);
+	ft_free(token, LEXER);
 }
 
 t_token	*new_token(t_etype type, char *s, size_t len)
 {
 	t_token	*token;
 
-	token = malloc(sizeof(t_token));
-	if (!token)
-		return (NULL);
+	token = ft_malloc(sizeof(t_token), LEXER);
 	token->type = type;
 	token->location.start = s;
 	token->location.len = len;
@@ -82,7 +82,8 @@ void	free_tokens(t_token **token_list)
 	{
 		// free(tmp->str); // TODO: free only if str is alloc'ed with malloc()
 		next = tmp->next;
-		free(tmp);
+		// free(tmp);
+		ft_free(tmp, LEXER);
 		tmp = next;
 	}
 	*token_list = NULL;

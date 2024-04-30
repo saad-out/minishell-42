@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: khalid <khalid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:47:57 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/30 12:20:14 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/30 14:54:21 by khalid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_pwd(t_exec *cmd)
 
 	if (cmd->argc != 1)
 		return (ft_putendl_fd(MANY_ARGS_ERROR, STDERR_FILENO), 1);
-	if ((cwd = getcwd(NULL, 1)) != NULL)
+	if ((cwd = getcwd(NULL, 0)) != NULL)
 		printf("%s\n", cwd);
 	else
 		return (print_error_builtins("getcwd syscall failed"));
