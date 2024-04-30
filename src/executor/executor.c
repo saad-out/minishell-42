@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/30 09:26:13 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/30 19:08:15 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,12 @@ int	run_block(t_tree *tree)
 
 	block = (t_block *)tree;
 	status_ = 0;
+	signal(SIGINT, interrput_handler_2);
+	signal(SIGQUIT, interrput_handler_2);
 	if (fork() == 0) // TODO: handle fork failure
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		status_ = get_status(block->child);
 		// status = status_;
 		set_exit_status(status_);
@@ -58,6 +62,7 @@ int	run_block(t_tree *tree)
 		status_ = EXIT_FAILURE;
 	// status = status_;
 	set_exit_status(status_);
+	ft_init_signals();
 	return (status_);
 }
 
@@ -72,6 +77,8 @@ int	run_pipe(t_tree *tree)
 	pipe_node = (t_pipe *)tree;
 	status_ = 0;
 	input = 0;
+	signal(SIGINT, interrput_handler_2);
+	signal(SIGQUIT, interrput_handler_2);
 	for (size_t i = 0; i < pipe_node->nb_pipes - 1; i++)
 	{
 		if (pipe(filedes) == -1)
@@ -93,6 +100,7 @@ int	run_pipe(t_tree *tree)
 		wait(NULL);
 	// status = status_;
 	set_exit_status(status_);
+	ft_init_signals();
 	return (status_);
 }
 
@@ -185,6 +193,9 @@ int	run_cmd(t_tree *tree)
 		return (set_exit_status(127), 127);
 		// return (status = 127, 127);
 
+	// signal(SIGINT, SIG_IGN);
+	signal(SIGINT, interrput_handler_2);
+	signal(SIGQUIT, interrput_handler_2);
 	if (fork() == 0)
 	{
 		signal(SIGINT, SIG_DFL);
@@ -204,6 +215,7 @@ int	run_cmd(t_tree *tree)
 	// status = status_;
 	set_env(*get_env_list(), "_", exec->argv[exec->argc - 1]);
 	set_exit_status(status_);
+	ft_init_signals();
 	return (status_);
 }
 

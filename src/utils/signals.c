@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 10:33:09 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/29 16:39:59 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/30 18:59:52 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,18 @@ void	interrput_handler(int sig)
 	(void)sig;
 	ft_putstr_fd("\n", STDOUT_FILENO);
 	rl_on_new_line();
-	// rl_replace_line("", 0);
+	rl_replace_line("", 0);
 	rl_redisplay();
 	// status = 1;
 	set_exit_status(1);
-	exit(1010);
+	// exit(1010);
+}
+
+void	interrput_handler_2(int sig)
+{
+	(void)sig;
+	ft_putstr_fd("\n", STDOUT_FILENO);
+	set_exit_status(1);
 }
 
 void ft_init_signals()
