@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: khalid <khalid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 09:53:23 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/30 08:25:21 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/30 14:54:16 by khalid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_cd(t_exec *cmd)
 	char		*old_pwd;
 	struct stat	info;
 
-	old_pwd = getcwd(NULL, 1);
+	old_pwd = getcwd(NULL, 0);
 	if (old_pwd == NULL)
 		return (print_error_builtins("getcwd() error"));
 	if (cmd->argc == EXIT_FAILURE)
@@ -60,5 +60,5 @@ int	ft_cd(t_exec *cmd)
 		tmp = cmd->argv[1];
 	}
 	change_pwd(*(cmd->env), old_pwd, tmp);
-	return (EXIT_SUCCESS);
+	return (set_under(cmd->argv, cmd->argc), EXIT_SUCCESS);
 }

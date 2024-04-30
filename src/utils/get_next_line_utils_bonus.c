@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: khalid <khalid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 23:05:08 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/28 16:31:53 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/30 15:47:29 by khalid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/get_next_line_bonus.h"
 
-void	ft_lstclear(t_line **line)
+void	ft_lstclear2(t_line **line)
 {
 	t_line	*tmp;
 	t_line	*next;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: khalid <khalid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:57:46 by soutchak          #+#    #+#             */
-/*   Updated: 2023/11/17 22:15:46 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/30 15:46:55 by khalid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_line {
 # endif /* BUFFER_SIZE */
 
 char	*get_next_line(int fd);
-void	ft_lstclear(t_line **line);
+void	ft_lstclear2(t_line **line);
 char	*ft_strlcpy(char *dest, char *src, size_t dsize);
 void	ft_lst_add_back(t_line **line, t_line *node);
 t_line	*ft_free_line(t_line **line);

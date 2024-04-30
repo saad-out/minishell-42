@@ -6,11 +6,12 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:53:10 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/23 07:39:23 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:20:06 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/common.h"
+
 
 int	ft_env(t_exec *cmd)
 {
@@ -28,5 +29,5 @@ int	ft_env(t_exec *cmd)
 			printf("%s=%s\n", head->key, head->value);
 		head = head->next;
 	}
-	return (EXIT_SUCCESS);
+	return (set_under(cmd->argv, cmd->argc), EXIT_SUCCESS);
 }

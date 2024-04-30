@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/25 16:21:21 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/30 11:52:50 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/executor.h"
+#include "../../inc/globals.h"
 
 void	free_tab(char **tab)
 {
@@ -33,7 +34,7 @@ char	*get_cmd_path(char *cmd)
 		ft_putendl_fd(": command not found", STDERR_FILENO);
 		return (NULL);
 	}
-	path_var = getenv("PATH");
+	path_var = get_env_value(*get_env_list(),"PATH");
 	if (!path_var)
 	{
 		printf("outlaakSH: %s: command not found\n", cmd); // cmd memory leak

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: khalid <khalid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 21:01:51 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/28 16:31:45 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/30 15:47:16 by khalid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,16 +114,16 @@ char	*get_next_line(int fd)
 	line = &arr[fd];
 	buffer = (char *)malloc(sizeof(char) * BUFFER_SIZE);
 	if (!buffer)
-		return (ft_lstclear(line), NULL);
+		return (ft_lstclear2(line), NULL);
 	bytes = 1;
 	while (bytes)
 	{
 		bytes = read(fd, buffer, BUFFER_SIZE);
 		if (bytes == -1 || !ft_add_to_line(line, buffer, bytes))
-			return (ft_lstclear(line), free(buffer), NULL);
+			return (ft_lstclear2(line), free(buffer), NULL);
 		ret_line = ft_get_one_line(line, (bytes == 0));
 		if (ret_line)
 			return (free(buffer), ret_line);
 	}
-	return (ft_lstclear(line), free(buffer), NULL);
+	return (ft_lstclear2(line), free(buffer), NULL);
 }
