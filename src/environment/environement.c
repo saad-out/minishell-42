@@ -6,11 +6,12 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:26:08 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/30 08:54:09 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:18:43 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/common.h"
+#include "../../inc/globals.h"
 
 void	print_all_env(t_env *envs, bool env_ex)
 {
@@ -188,6 +189,7 @@ void	remove_env(t_env **envs, t_env *env)
 		head = head->next;
 	}
 }
+
 static void	add_empty_env(t_env **envs)
 {
 	t_env	*new[5];
@@ -214,6 +216,7 @@ static void	add_empty_env(t_env **envs)
 	while (i < 5)
 		add_env(envs, new[i++]);
 }
+
 t_env	*build_env(char **env)
 {
 	t_env	*new;
@@ -268,4 +271,24 @@ char	**rebuild_env_to_char(t_env *envs)
 	}
 	env[i] = NULL;
 	return (env);
+}
+
+void	set_under(char **argv, int argc)
+{
+	char **splited;
+	int i;
+
+	i = 0;
+	if ((argc - 1) != 0)
+	{
+		set_env(*get_env_list(), "_", argv[argc - 1]);
+		return ;
+	}
+	splited = ft_split(argv[argc - 1], '/');
+	while (splited[i])
+		i++;
+	if (i == 0)
+		i = 1;
+	set_env(*get_env_list(), "_", splited[i - 1]);
+	free(splited);
 }

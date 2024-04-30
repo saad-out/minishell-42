@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/29 18:57:01 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:15:38 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 /* INCLUDES */
 # include "../libs/ft_containers/ft_data_structres.h"
 # include "../libs/libft/libft.h"
+# include <readline/history.h>
+# include <readline/readline.h>
 # include <signal.h>
 # include <stdbool.h>
 # include <stdio.h>
@@ -40,8 +42,6 @@
 # include <string.h>
 # include <sys/stat.h>
 # include <unistd.h>
-# include <readline/history.h>
-# include <readline/readline.h>
 // # include "/Users/soutchak/readline/include/readline/history.h"
 // # include "/Users/soutchak/readline/include/readline/readline.h"
 /* ------ */
@@ -192,6 +192,7 @@ void						set_env(t_env *envs, const char *key,
 								const char *new_value);
 void						add_env_char(t_env **envs, char *key, char *value);
 char						**rebuild_env_to_char(t_env *envs);
+void						set_under(char **argv, int argc);
 
 /* --------- */
 void						ft_init_signals(void);

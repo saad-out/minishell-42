@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:47:57 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/30 08:25:29 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:20:14 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,5 @@ int	ft_pwd(t_exec *cmd)
 	else
 		return (print_error_builtins("getcwd syscall failed"));
 	free(cwd);
-	return (EXIT_SUCCESS);
+	return (set_under(cmd->argv, cmd->argc), EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:05:57 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/30 10:27:59 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:21:16 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,5 @@ int	ft_export(t_exec *cmd)
 			join_env(cmd->env, cmd->argv[i]);
 		}
 	}
-	return (EXIT_SUCCESS);
+	return (set_under(cmd->argv, cmd->argc), EXIT_SUCCESS);
 }

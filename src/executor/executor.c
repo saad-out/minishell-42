@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/30 09:26:13 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:16:00 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,7 @@ int	run_cmd(t_tree *tree)
 	else if (WIFSIGNALED(status_))
 		status_ = WTERMSIG(status_) + 128;
 	// status = status_;
-	set_env(*get_env_list(), "_", exec->argv[exec->argc - 1]);
+	set_under(exec->argv, exec->argc);
 	set_exit_status(status_);
 	return (status_);
 }
