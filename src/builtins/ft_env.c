@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:53:10 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/20 18:58:47 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/23 07:39:23 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,5 @@ int	ft_env(t_exec *cmd)
 			printf("%s=%s\n", head->key, head->value);
 		head = head->next;
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }

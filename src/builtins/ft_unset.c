@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 16:37:20 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/20 16:56:21 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/24 06:56:16 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,5 @@ int	ft_unset(t_exec *cmd)
 			tmp->masked = true;
 		i++;
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }

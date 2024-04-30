@@ -3,57 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:05:57 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/29 16:55:20 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/30 10:27:59 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/common.h"
-
-static void	ft_swap(t_env *a, t_env *b)
-{
-	t_env	tmp;
-
-	tmp.key = a->key;
-	tmp.value = a->value;
-	tmp.visibility = a->visibility;
-	tmp.masked = a->masked;
-	a->key = b->key;
-	a->value = b->value;
-	a->visibility = b->visibility;
-	a->masked = b->masked;
-	b->key = tmp.key;
-	b->value = tmp.value;
-	b->visibility = tmp.visibility;
-	b->masked = tmp.masked;
-}
-
-static void	sort_envs(t_env **envs)
-{
-	int		swapped;
-	t_env	*env;
-
-	if (!envs || !*envs)
-		return ;
-	while (true)
-	{
-		env = *envs;
-		swapped = 0;
-		while (env->next)
-		{
-			if (strcmp(env->key, env->next->key) > 0)
-			{
-				ft_swap(env, env->next);
-				swapped = 1;
-			}
-			env = env->next;
-		}
-		if (swapped == 0)
-			break ;
-	}
-}
+#include "../../inc/executor.h"
 
 static void	print_env(t_env *env)
 {
@@ -77,6 +35,8 @@ static bool	is_valide_name(char *arg)
 	int	i;
 
 	i = 0;
+	if (!arg)
+		return (false);
 	if (!(ft_isalpha(arg[i]) || arg[i] == '_'))
 		return (false);
 	while (ft_isalpha(arg[i]) || arg[i] == '_')
@@ -88,47 +48,63 @@ static bool	is_valide_name(char *arg)
 	return (false);
 }
 
-static void join_env(t_env **envs,char *argv)
+static void	join_value(t_env *envs, char **key, char **value)
 {
-	char **splited;
+	char	*key_;
+	char	*value_;
+	char	*tmp;
 
-	// puts("ana f join");
+	key_ = *key;
+	value_ = *value;
+	if (!key_ || !value_)
+		return ;
+	if (key_[ft_strlen(key_) - 1] == '+')
+	{
+		tmp = key_;
+		*key = ft_substr(key_, 0, (ft_strlen(key_) - 1));
+		free(tmp);
+		printf("key: %s\n", *key);
+		if (value_ == NULL)
+			return ;
+		tmp = value_;
+		*value = ft_strjoin(get_env_value(envs, (*key)), value_);
+		if (tmp != NULL)
+			free(tmp);
+		return ;
+	}
+}
+
+static void	join_env(t_env **envs, char *argv)
+{
+	char	**splited;
+
 	splited = ft_split(argv, '=');
-	// printf("%p\n", splited[0]);
+	if (splited[0])
+		join_value((*envs), &splited[0], &splited[1]);
 	if (!is_valide_name(splited[0]))
 	{
-		// puts("1");
 		ft_putstr_fd(argv, STDERR_FILENO);
 		ft_putendl_fd(" : not a valid identifier", STDERR_FILENO);
 		return ;
 	}
 	if (argv[ft_strlen(argv) - 1] == '=')
-	{
-		// puts("3");
 		add_env_char(envs, splited[0], "");
-	}
 	else if (splited[0] && !splited[1])
-	{
-		// puts("2");
 		add_env_char(envs, splited[0], NULL);
-	} // TODO: visibility only export
 	else
-	{
-		// puts("4");
 		add_env_char(envs, splited[0], splited[1]);
-	}
 }
 
 int	ft_export(t_exec *cmd)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	sort_envs(cmd->env);
 	if (cmd->argc == 1)
 	{
 		print_env(*(cmd->env));
-		return (0);
+		return (EXIT_SUCCESS);
 	}
 	else
 	{
@@ -137,5 +113,5 @@ int	ft_export(t_exec *cmd)
 			join_env(cmd->env, cmd->argv[i]);
 		}
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }

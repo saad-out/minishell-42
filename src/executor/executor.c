@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/29 16:37:06 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/30 09:26:13 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,7 @@ int	run_cmd(t_tree *tree)
 	else if (WIFSIGNALED(status_))
 		status_ = WTERMSIG(status_) + 128;
 	// status = status_;
+	set_env(*get_env_list(), "_", exec->argv[exec->argc - 1]);
 	set_exit_status(status_);
 	return (status_);
 }

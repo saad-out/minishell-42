@@ -6,19 +6,24 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 15:08:12 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/20 22:18:54 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/24 08:22:29 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/common.h"
 #include "../../inc/executor.h"
 
-
-//void	*is_builtin(t_exec *cmd)
-int (*is_builtin(char *cmd))(t_exec *exec)
+int	print_error_builtins(char *str)
 {
-	int status_;
+	ft_putendl_fd(str, STDERR_FILENO);
+	return (EXIT_FAILURE);
+}
 
+int	(*is_builtin(char *cmd))(t_exec *exec)
+{
+	int	status_;
+
+	if (!cmd)
+		return (NULL);
 	status_ = 0;
 	if (ft_strcmp(cmd, "echo") == 0)
 		return (ft_echo);

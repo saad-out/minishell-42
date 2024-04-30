@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environement.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:26:08 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/29 16:35:38 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/30 08:54:09 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,15 @@ t_env	*create_env(char *env)
 	key_value = ft_split(env, '=');
 	new = malloc(sizeof(t_env));
 	new->key = key_value[0];
-	if (ft_strcmp(new->key, "OLDPWD") == 0)
+	if (ft_strcmp(new->key, "?") == 0)
 	{
-		free(key_value[1]);
+		new->value = key_value[1];
+		new->visibility = SPECIAL;
+	}
+	else if (ft_strcmp(new->key, "OLDPWD") == 0)
+	{
+		if (key_value[1])
+			free(key_value[1]);
 		new->value = NULL;
 		new->visibility = EXPORT;
 	}
@@ -54,7 +60,6 @@ t_env	*create_env(char *env)
 	new->masked = false;
 	new->prev = NULL;
 	new->next = NULL;
-	// TODO: free char **key_value
 	free(key_value);
 	return (new);
 }
@@ -62,15 +67,24 @@ t_env	*create_env(char *env)
 void	add_env(t_env **envs, t_env *new)
 {
 	t_env	*head;
+	int		old_shlvl;
 
 	head = *envs;
 	if (!head)
 		*envs = new;
 	else
 	{
-		// go to the last element of the list
 		while (head->next)
 		{
+			if (ft_strcmp(head->key, "SHLVL") == 0)
+			{
+				if (head->value)
+				{
+					old_shlvl = ft_atoi(head->value);
+					free(head->value);
+					head->value = ft_itoa(++old_shlvl);
+				}
+			}
 			head = head->next;
 		}
 		head->next = new;
@@ -144,8 +158,8 @@ void	set_env(t_env *envs, const char *key, const char *new_value)
 	{
 		if (ft_strcmp(envs->key, key) == 0)
 		{
-			free(envs->value);
-			// envs->value = new_value;
+			if (envs->value)
+				free(envs->value);
 			envs->value = NULL;
 			if (new_value)
 				envs->value = ft_strdup(new_value);
@@ -174,15 +188,43 @@ void	remove_env(t_env **envs, t_env *env)
 		head = head->next;
 	}
 }
+static void	add_empty_env(t_env **envs)
+{
+	t_env	*new[5];
+	char	*pwd;
+	char	*PWD;
+	int		i;
 
+	i = 0;
+	pwd = getcwd(NULL, 1);
+	if (pwd == NULL)
+	{
+		ft_putendl_fd("getcwd() error", STDERR_FILENO);
+		exit(1);
+	}
+	new[0] = create_env("OLDPWD");
+	PWD = ft_strjoin("PWD=", pwd);
+	new[1] = create_env(PWD);
+	free(PWD);
+	new[2] = create_env("SHLVL=0");
+	new[3] = create_env("PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki");
+	new[3]->visibility = SPECIAL;
+	new[4] = create_env("_=/usr/bin/env");
+	new[4]->visibility = ENVE;
+	while (i < 5)
+		add_env(envs, new[i++]);
+}
 t_env	*build_env(char **env)
 {
-	t_env *new;
-	t_env *envs;
-	int i;
+	t_env	*new;
+	t_env	*envs;
+	int		i;
 
 	envs = NULL;
 	i = -1;
+	add_env(&envs, create_env("?=0"));
+	if (!env[0])
+		add_empty_env(&envs);
 	while (env[++i])
 	{
 		new = create_env(env[i]);

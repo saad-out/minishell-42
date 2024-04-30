@@ -6,11 +6,11 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:47:57 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/19 19:07:33 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/30 08:25:29 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/common.h"
+#include "../../inc/executor.h"
 
 int	ft_pwd(t_exec *cmd)
 {
@@ -21,11 +21,7 @@ int	ft_pwd(t_exec *cmd)
 	if ((cwd = getcwd(NULL, 1)) != NULL)
 		printf("%s\n", cwd);
 	else
-	{
-		perror("getcwd() error");
-		//free(cwd);
-		return (1);
-	}
+		return (print_error_builtins("getcwd syscall failed"));
 	free(cwd);
-	return (0);
+	return (EXIT_SUCCESS);
 }
