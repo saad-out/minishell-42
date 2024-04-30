@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mem.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: khalid <khalid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 18:10:02 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/30 16:05:57 by khalid           ###   ########.fr       */
+/*   Updated: 2024/04/30 17:54:53 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,23 @@ void	*ft_malloc(size_t size, t_mem_context context)
 		perror("malloc() failure!");
 		exit(EXIT_FAILURE);
 	}
+	tmp = ft_lstnew(heap_block);
+	if (!tmp)
+	{
+		ft_free_heap();
+		perror("malloc() failure!");
+		exit(EXIT_FAILURE);
+	}
+	ft_lstadd_back(head, tmp);
+	return (heap_block);
+}
+
+void	*ft_add_mem(void *heap_block, t_mem_context context)
+{
+	t_list	**head;
+	t_list	*tmp;
+
+	head = get_heap(context);
 	tmp = ft_lstnew(heap_block);
 	if (!tmp)
 	{
