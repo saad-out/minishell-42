@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/30 19:13:30 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/04/30 22:00:27 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int	run_block(t_tree *tree)
 
 	block = (t_block *)tree;
 	status_ = 0;
-	signal(SIGINT, interrput_handler_2);
-	signal(SIGQUIT, interrput_handler_2);
+	signal(SIGINT, interrput_handler_3);
+	signal(SIGQUIT, interrput_handler_3);
 	if (fork() == 0) // TODO: handle fork failure
 	{
 		signal(SIGINT, SIG_DFL);
@@ -77,8 +77,8 @@ int	run_pipe(t_tree *tree)
 	pipe_node = (t_pipe *)tree;
 	status_ = 0;
 	input = 0;
-	signal(SIGINT, interrput_handler_2);
-	signal(SIGQUIT, interrput_handler_2);
+	signal(SIGINT, interrput_handler_3);
+	signal(SIGQUIT, interrput_handler_3);
 	for (size_t i = 0; i < pipe_node->nb_pipes - 1; i++)
 	{
 		if (pipe(filedes) == -1)
