@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 21:13:21 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/29 14:20:02 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/01 16:09:51 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,13 @@ void	expand_heredoc(t_redir *redir)
 	close(heredoc_fd);
 
 	/* open file for writing */
-	heredoc_fd = open(redir->file, O_WRONLY | O_TRUNC, 0644);
-	if (heredoc_fd == -1)
-		return ; // handle error
-	write(heredoc_fd, content, ft_strlen(content));
-	close(heredoc_fd);
-	free(content);
+	if (content)
+	{
+		heredoc_fd = open(redir->file, O_WRONLY | O_TRUNC, 0644);
+		if (heredoc_fd == -1)
+			return ; // handle error
+		write(heredoc_fd, content, ft_strlen(content));
+		close(heredoc_fd);
+		free(content);
+	}
 }
