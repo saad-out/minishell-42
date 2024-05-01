@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/01 19:06:56 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/01 22:17:54 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,12 +165,14 @@ int	run_cmd(t_tree *tree)
 		{
 			// ft_putendl_fd("No such file or directory", STDERR_FILENO);
 			error(exec->argv[0], "No such file or directory");
+			set_under(exec->argv, exec->argc);
 			return (set_exit_status(127), 127);
 			// return (status = 127, 127);
 		}
 		if (stat(exec->argv[0], &info) == -1)
 		{
 			error(exec->argv[0], "stat() error");
+			set_under(exec->argv, exec->argc);
 			// ft_putendl_fd("stat() error", STDERR_FILENO);
 			return (1);
 		}
@@ -178,6 +180,7 @@ int	run_cmd(t_tree *tree)
 		{
 			// ft_putendl_fd("Is a directory", STDERR_FILENO);
 			error(exec->argv[0], "Is a directory");
+			set_under(exec->argv, exec->argc);
 			return (set_exit_status(126), 126);
 			// return (status = 126, 126);
 		}
@@ -185,12 +188,16 @@ int	run_cmd(t_tree *tree)
 		{
 			// ft_putendl_fd("Permission denied", STDERR_FILENO);
 			error(exec->argv[0], "Permission denied");
+			set_under(exec->argv, exec->argc);
 			return (set_exit_status(126), 126);
 			// return (status = 126, 126);
 		}
 	}
 	if (!exec->argv[0])
+	{
+		set_under(exec->argv, exec->argc);
 		return (set_exit_status(127), 127);
+	}
 		// return (status = 127, 127);
 
 	// signal(SIGINT, SIG_IGN);
