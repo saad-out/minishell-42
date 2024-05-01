@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/01 08:35:00 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/01 15:54:21 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@
 # ifndef DECLARE
 #  define DECLARE "declare -x "
 # endif /* DECLARE */
+
+# ifndef PATH_MAX
+#  define PATH_MAX 4096
+# endif /* PATH_MAX */
 /* ---- */
 
 /* INCLUDES */

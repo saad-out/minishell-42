@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:53:10 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/30 12:20:06 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/01 15:27:22 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_env(t_exec *cmd)
 	head = *(cmd->env);
 	while (head)
 	{
-		if (head->masked == false && (head->visibility & (ENVE | BOTH)))
+		if (head->masked == false && (head->visibility & (BOTH | ENVE)))
 			printf("%s=%s\n", head->key, head->value);
 		head = head->next;
 	}
