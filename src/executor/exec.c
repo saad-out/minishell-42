@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/01 19:12:39 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/01 22:37:41 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,18 @@ char	*get_cmd_path(char *cmd)
 	char	*tmp;
 
 	if (ft_strcmp(cmd, "") == 0)
-	{
-		error(cmd, "command not found");
 		return (NULL);
-	}
+	// {
+	// 	error(cmd, "command not found");
+	// 	return (NULL);
+	// }
 	path_var = get_env_value(*get_env_list(),"PATH");
 	if (!path_var)
-	{
-		error(cmd, "command not found");
 		return (NULL); //TODO: handle this case as error
-	}
+	// {
+	// 	error(cmd, "command not found");
+	// 	return (NULL); //TODO: handle this case as error
+	// }
 	paths = ft_split(path_var, ':');
 	if (!paths)
 		return (NULL); //TODO: handle this case as error
@@ -53,6 +55,6 @@ char	*get_cmd_path(char *cmd)
 	}
 	// free(path_var);
 	free_tab(paths);
-	error(cmd, "command not found");
+	// error(cmd, "command not found");
 	return (NULL);
 }

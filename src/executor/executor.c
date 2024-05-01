@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/01 22:17:54 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/01 22:40:27 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ int	run_cmd(t_tree *tree)
 {
 	t_exec	*exec;
 	int		status_;
+	char	*tmp;
 	int (*builtin)(t_exec *exec);
 	struct stat info;
 
@@ -158,7 +159,17 @@ int	run_cmd(t_tree *tree)
 		return (set_exit_status(builtin(exec)), get_exit_status());
 		// return (status = builtin(exec), status);
 	if (exec->argv[0][0] != '/' && exec->argv[0][0] != '.')
-		exec->argv[0] = get_cmd_path(exec->argv[0]);
+	{
+		tmp = get_cmd_path(exec->argv[0]);
+		if (!tmp)
+		{
+			error(exec->argv[0], "command not found");
+			set_under(exec->argv, exec->argc);
+			return (set_exit_status(127), 127);
+		}
+		free(exec->argv[0]);
+		exec->argv[0] = tmp;
+	}
 	else
 	{
 		if (access(exec->argv[0], F_OK) == -1)
@@ -193,12 +204,8 @@ int	run_cmd(t_tree *tree)
 			// return (status = 126, 126);
 		}
 	}
-	if (!exec->argv[0])
-	{
-		set_under(exec->argv, exec->argc);
-		return (set_exit_status(127), 127);
-	}
-		// return (status = 127, 127);
+	// if (!exec->argv[0])
+	// 	return (set_exit_status(127), 127);
 
 	// signal(SIGINT, SIG_IGN);
 	signal(SIGINT, interrput_handler_2);
