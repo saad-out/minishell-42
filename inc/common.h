@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   common.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/30 21:59:42 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/01 08:35:00 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 
 /* INCLUDES */
 // # include "../libs/ft_containers/ft_data_structres.h"
-# include "../libs/libft/libft.h"
+# include "libs.h"
 # include <signal.h>
 # include <stdbool.h>
 # include <stdio.h>
@@ -42,8 +42,8 @@
 # include <unistd.h>
 // # include <readline/history.h>
 // # include <readline/readline.h>
-# include "/Users/soutchak/readline/include/readline/readline.h"
-# include "/Users/soutchak/readline/include/readline/history.h"
+# include "/Users/klakbuic/readline/include/readline/readline.h"
+# include "/Users/klakbuic/readline/include/readline/history.h"
 /* ------ */
 
 /* TYPEDEFS */
