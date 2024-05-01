@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saad <saad@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/27 02:00:43 by saad             ###   ########.fr       */
+/*   Updated: 2024/04/30 22:28:55 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@
 # ifndef HEREDOC_PROMPT
 #  define HEREDOC_PROMPT "heredoc> "
 # endif /* HEREDOC_PROMPT */
+
+# ifndef MAX_HEREDOC
+#  define MAX_HEREDOC 16
+# endif /* MAX_HEREDOC */
 /* ---- */
 
 /* INCLUDES */
@@ -58,6 +62,7 @@ char	*set_filename(t_redir *node, char *s, t_etype type);
 // char	*ft_strjoin(char const *s1, char const *s2);
 // char	**ft_split(char const *s, char c);
 char	*token_type_to_str(t_etype type); // TODO: remove (only for debugging)
+bool	max_heredoc(t_token *tokens);
 /* --------- */
 
 #endif /* PARSER_H */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:35:23 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/29 18:27:57 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/04/30 22:31:01 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,13 @@ void	minishell(void)
 		// break line into tokens
 		lexer(&tokens, line);
 		// print_all_tokens(&tokens);
+		if (max_heredoc(tokens))
+		{
+			ft_putendl_fd("max heredoc exceeded", STDERR_FILENO);
+			free(line);
+			free_tokens(&tokens);
+			exit(2);
+		}
 		if (syntax_checker(&tokens))
 		{
 			free(line);
