@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: khalid <khalid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 09:53:23 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/30 14:54:16 by khalid           ###   ########.fr       */
+/*   Updated: 2024/05/01 15:54:49 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,10 @@ static void	change_pwd(t_env *envs, char *old_pwd, char *pwd)
 int	ft_cd(t_exec *cmd)
 {
 	char		*tmp;
-	char		*old_pwd;
+	char		old_pwd[PATH_MAX];
 	struct stat	info;
 
-	old_pwd = getcwd(NULL, 0);
-	if (old_pwd == NULL)
-		return (print_error_builtins("getcwd() error"));
+	getcwd(old_pwd, PATH_MAX);
 	if (cmd->argc == EXIT_FAILURE)
 	{
 		tmp = get_env_value(*(cmd->env), "HOME");

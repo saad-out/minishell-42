@@ -1,24 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/19 14:47:57 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/01 15:55:19 by klakbuic         ###   ########.fr       */
+/*   Created: 2023/11/05 20:51:15 by klakbuic          #+#    #+#             */
+/*   Updated: 2024/05/01 08:34:50 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/executor.h"
+#include "../../inc/libs.h"
 
-int	ft_pwd(t_exec *cmd)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	char cwd[PATH_MAX];
+	int					i;
+	unsigned char		*dst;
+	const unsigned char	*sc;
 
-	if (cmd->argc != 1)
-		return (ft_putendl_fd(MANY_ARGS_ERROR, STDERR_FILENO), 1);
-	getcwd(cwd, PATH_MAX);
-	printf("%s\n", cwd);
-	return (set_under(cmd->argv, cmd->argc), EXIT_SUCCESS);
+	if (!dest && !src)
+		return (dest);
+	i = 0;
+	dst = dest;
+	sc = src;
+	if (n != 0)
+	{
+		while (n-- > 0)
+		{
+			dst[i] = sc[i];
+			i++;
+		}
+	}
+	return (dst);
 }

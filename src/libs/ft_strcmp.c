@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/19 14:47:57 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/01 15:55:19 by klakbuic         ###   ########.fr       */
+/*   Created: 2024/04/01 02:04:55 by soutchak          #+#    #+#             */
+/*   Updated: 2024/05/01 14:33:54 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/executor.h"
-
-int	ft_pwd(t_exec *cmd)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	char cwd[PATH_MAX];
-
-	if (cmd->argc != 1)
-		return (ft_putendl_fd(MANY_ARGS_ERROR, STDERR_FILENO), 1);
-	getcwd(cwd, PATH_MAX);
-	printf("%s\n", cwd);
-	return (set_under(cmd->argv, cmd->argc), EXIT_SUCCESS);
+	while (*s1 && *s2 && *s1 == *s2)
+	{
+		s1++;
+		s2++;
+	}
+	return ((unsigned char)*s1 - (unsigned char)*s2);
 }

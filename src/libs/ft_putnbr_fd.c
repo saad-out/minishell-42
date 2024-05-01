@@ -1,24 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/19 14:47:57 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/01 15:55:19 by klakbuic         ###   ########.fr       */
+/*   Created: 2023/11/02 15:28:10 by klakbuic          #+#    #+#             */
+/*   Updated: 2024/05/01 08:34:50 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/executor.h"
+#include "../../inc/libs.h"
+#include <limits.h>
 
-int	ft_pwd(t_exec *cmd)
+void	ft_putnbr_fd(int n, int fd)
 {
-	char cwd[PATH_MAX];
-
-	if (cmd->argc != 1)
-		return (ft_putendl_fd(MANY_ARGS_ERROR, STDERR_FILENO), 1);
-	getcwd(cwd, PATH_MAX);
-	printf("%s\n", cwd);
-	return (set_under(cmd->argv, cmd->argc), EXIT_SUCCESS);
+	if (n == -2147483648)
+	{
+		ft_putstr_fd("-2147483648", fd);
+		return ;
+	}
+	if (n < 0)
+	{
+		ft_putchar_fd('-', fd);
+		n = -n;
+	}
+	if (n < 10)
+	{
+		ft_putchar_fd((n % 10) + '0', fd);
+		return ;
+	}
+	ft_putnbr_fd(n / 10, fd);
+	ft_putchar_fd((n % 10) + '0', fd);
 }
