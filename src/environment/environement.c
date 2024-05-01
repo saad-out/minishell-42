@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environement.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: khalid <khalid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:26:08 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/30 14:54:24 by khalid           ###   ########.fr       */
+/*   Updated: 2024/05/01 19:54:38 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,7 @@ void	set_env(t_env *envs, const char *key, const char *new_value)
 				envs->visibility = EXPORT;
 			else
 				envs->visibility = BOTH;
+			return ;
 		}
 		envs = envs->next;
 	}

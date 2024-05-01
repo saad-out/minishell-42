@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 09:53:23 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/01 15:54:49 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/01 19:57:03 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ int	ft_cd(t_exec *cmd)
 	struct stat	info;
 
 	getcwd(old_pwd, PATH_MAX);
-	if (cmd->argc == EXIT_FAILURE)
+	if (cmd->argc == 1)
 	{
 		tmp = get_env_value(*(cmd->env), "HOME");
 		if (!tmp)
-			return (print_error_builtins("cd : HOME not set"));
+			return (error("cd", "HOME not set"), EXIT_FAILURE);
 		if (chdir(tmp) == -1)
 			return (EXIT_FAILURE);
 	}
@@ -38,23 +38,24 @@ int	ft_cd(t_exec *cmd)
 	{
 		tmp = get_env_value(*(cmd->env), "OLDPWD");
 		if (!tmp)
-			return (print_error_builtins("cd : OLDPWD not set"));
+			return (error("cd", "OLDPWD not set"), EXIT_FAILURE);
+		tmp = ft_strdup(tmp);
 		if (chdir(tmp) == -1)
-			return (print_error_builtins("chdir() error"));
+			return (error("cd", NULL), EXIT_FAILURE);
 		ft_putendl_fd(tmp, STDOUT_FILENO);
 	}
 	else
 	{
 		if (access(cmd->argv[1], F_OK) == -1)
-			return (print_error_builtins("cd: No such file or directory"));
+			return (error("cd", "No such file or directory"), EXIT_FAILURE);
 		if (stat(cmd->argv[1], &info) == -1)
-			return (print_error_builtins("stat() error"));
+			return (error("cd", NULL), EXIT_FAILURE);
 		if (!S_ISDIR(info.st_mode))
-			return (print_error_builtins("cd: Not a directory"));
+			return (error("cd", "Not a directory"), EXIT_FAILURE);
 		if (access(cmd->argv[1], R_OK | X_OK) == -1)
-			print_error_builtins("Permission denied");
+			return (error("cd", "Permission denied"), EXIT_FAILURE);
 		if (chdir(cmd->argv[1]) == -1)
-			return (print_error_builtins("chdir() error"));
+			return (error("cd", NULL), EXIT_FAILURE);
 		tmp = cmd->argv[1];
 	}
 	change_pwd(*(cmd->env), old_pwd, tmp);

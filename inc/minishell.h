@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:31:17 by soutchak          #+#    #+#             */
-/*   Updated: 2024/03/30 05:08:34 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/01 18:12:25 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,36 @@
 # define MINISHELL_H
 
 /* MARCORS */
+#ifndef YELLOW
+# define YELLOW "\033[0;33m"
+#endif /* YELLOW */
+
+#ifndef RED
+# define RED "\033[0;31m"
+#endif /* RED */
+
+#ifndef GREEN
+# define GREEN "\033[0;32m"
+#endif /* GREEN */
+
+#ifndef BLUE
+# define BLUE "\033[0;34m"
+#endif /* BLUE */
+
+#ifndef CYAN
+# define CYAN "\033[0;36m"
+#endif /* CYAN */
+
+#ifndef MAGENTA
+# define MAGENTA "\033[0;35m"
+#endif /* MAGENTA */
+
+#ifndef RESET
+# define RESET "\033[0m"
+#endif /* RESET */
+
 # ifndef PROMPT
-#  define PROMPT "Minishell$> "
+#  define PROMPT CYAN "outlaakSH$> " RESET
 # endif /* PROMPT */
 /* ----- */
 

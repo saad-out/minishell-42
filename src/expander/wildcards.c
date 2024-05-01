@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:42:36 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/28 17:15:46 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/01 19:14:49 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,9 +182,10 @@ void	expand_redir_wd(t_redir *redir)
 	}
 	else
 	{
-		ft_putstr_fd("outlaakSH: ", STDERR_FILENO);
-		ft_putstr_fd(redir->file, STDERR_FILENO);
-		ft_putendl_fd(": ambiguous redirect", STDERR_FILENO);
+		// ft_putstr_fd("outlaakSH: ", STDERR_FILENO);
+		// ft_putstr_fd(redir->file, STDERR_FILENO);
+		// ft_putendl_fd(": ambiguous redirect", STDERR_FILENO);
+		error(redir->file, "ambiguous redirect");
 		free(redir->file);
 		redir->file = NULL;
 	}

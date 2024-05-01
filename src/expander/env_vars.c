@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_vars.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:41:06 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/01 14:40:42 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/01 19:59:38 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -295,9 +295,7 @@ void	expand_redir_vars(t_redir *redir)
 	}
 	if (!words || count_words(words) != 1)
 	{
-		ft_putstr_fd("outlaakSH: ", STDERR_FILENO);
-		ft_putstr_fd(redir->file, STDERR_FILENO);
-		ft_putendl_fd(": ambiguous redirect", STDERR_FILENO);
+		error(redir->file, "ambiguous redirect");
 		free(redir->file);
 		redir->file = NULL;
 	}

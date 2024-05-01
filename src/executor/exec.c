@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/30 11:52:50 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/01 19:12:39 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,13 @@ char	*get_cmd_path(char *cmd)
 
 	if (ft_strcmp(cmd, "") == 0)
 	{
-		ft_putstr_fd("outlaakSH: \"\"", STDERR_FILENO);
-		// ft_putstr_fd(cmd, STDERR_FILENO);
-		ft_putendl_fd(": command not found", STDERR_FILENO);
+		error(cmd, "command not found");
 		return (NULL);
 	}
 	path_var = get_env_value(*get_env_list(),"PATH");
 	if (!path_var)
 	{
-		printf("outlaakSH: %s: command not found\n", cmd); // cmd memory leak
+		error(cmd, "command not found");
 		return (NULL); //TODO: handle this case as error
 	}
 	paths = ft_split(path_var, ':');
@@ -55,9 +53,6 @@ char	*get_cmd_path(char *cmd)
 	}
 	// free(path_var);
 	free_tab(paths);
-	//printf("outlaakSH: %s: command not found\n", cmd); // cmd memory leak
-	ft_putstr_fd("outlaakSH: ", STDERR_FILENO);
-	ft_putstr_fd(cmd, STDERR_FILENO);
-	ft_putendl_fd(": command not found", STDERR_FILENO);
+	error(cmd, "command not found");
 	return (NULL);
 }

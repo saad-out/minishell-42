@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   common.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/01 15:54:21 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/01 18:49:12 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 # define READLINE_LIBRARY
 
 /* MACROS */
-# define SIZE 4096
-
 # ifndef MANY_ARGS_ERROR
 #  define MANY_ARGS_ERROR "Too many argument!"
 # endif /* MANY_ARGS_ERROR */
@@ -32,6 +30,10 @@
 # ifndef PATH_MAX
 #  define PATH_MAX 4096
 # endif /* PATH_MAX */
+
+# ifndef SHELL_ERROR
+#  define SHELL_ERROR "outlaakSH: "
+# endif /* SHELL_ERROR */
 /* ---- */
 
 /* INCLUDES */
@@ -46,8 +48,8 @@
 # include <unistd.h>
 // # include <readline/history.h>
 // # include <readline/readline.h>
-# include "/Users/klakbuic/readline/include/readline/readline.h"
-# include "/Users/klakbuic/readline/include/readline/history.h"
+# include "/Users/soutchak/readline/include/readline/readline.h"
+# include "/Users/soutchak/readline/include/readline/history.h"
 /* ------ */
 
 /* TYPEDEFS */
@@ -202,5 +204,6 @@ void						set_under(char **argv, int argc);
 void						ft_init_signals(void);
 void						interrput_handler_2(int sig);
 void						interrput_handler_3(int sig);
+void    					error(char *word, char *msg);
 
 #endif /* HEADER_H */

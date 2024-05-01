@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/30 22:00:27 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/01 19:06:56 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ int	run_pipe(t_tree *tree)
 	{
 		if (pipe(filedes) == -1)
 		{
-			perror("pipe");
+			// perror("pipe");
+			error("pipe", NULL);
 			exit(1); // TODO: free memory & kill all running processes
 		}
 		spawn_process(input, filedes[1], pipe_node->nodes[i]);
@@ -115,21 +116,16 @@ int	run_redir(t_tree *tree)
 	expander((t_tree *)redir);
 	if (!redir->file)
 		return (set_exit_status(1), 1);
-		// return (status = 1, 1);
 	copy_fd = dup(redir->fd);
 	close(redir->fd); // TODO: handle system call failure
-	// TODO: here we need to check file type (if dir report Is a directory error)
 	if ((fd = open(redir->file, redir->flags, 0644)) == -1)
 	{
-		perror("===>> open");
-		ft_putendl_fd("minishell: open: No such file or directory kk", 2);
+		error(redir->file, NULL);
 		dup2(copy_fd, redir->fd);
-		// status = 1;
 		set_exit_status(1);
 		return (EXIT_FAILURE);
 	}
 	status_ = get_status(redir->child);
-	// status = status_;
 	set_exit_status(status_);
 	close(fd);
 	dup2(copy_fd, redir->fd);
@@ -167,24 +163,28 @@ int	run_cmd(t_tree *tree)
 	{
 		if (access(exec->argv[0], F_OK) == -1)
 		{
-			ft_putendl_fd("No such file or directory", STDERR_FILENO);
+			// ft_putendl_fd("No such file or directory", STDERR_FILENO);
+			error(exec->argv[0], "No such file or directory");
 			return (set_exit_status(127), 127);
 			// return (status = 127, 127);
 		}
 		if (stat(exec->argv[0], &info) == -1)
 		{
-			ft_putendl_fd("stat() error", STDERR_FILENO);
+			error(exec->argv[0], "stat() error");
+			// ft_putendl_fd("stat() error", STDERR_FILENO);
 			return (1);
 		}
 		if (S_ISDIR(info.st_mode))
 		{
-			ft_putendl_fd("Is a directory", STDERR_FILENO);
+			// ft_putendl_fd("Is a directory", STDERR_FILENO);
+			error(exec->argv[0], "Is a directory");
 			return (set_exit_status(126), 126);
 			// return (status = 126, 126);
 		}
 		if (access(exec->argv[0], R_OK | X_OK) == -1)
 		{
-			ft_putendl_fd("Permission denied", STDERR_FILENO);
+			// ft_putendl_fd("Permission denied", STDERR_FILENO);
+			error(exec->argv[0], "Permission denied");
 			return (set_exit_status(126), 126);
 			// return (status = 126, 126);
 		}
@@ -200,10 +200,9 @@ int	run_cmd(t_tree *tree)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
-		// execve(exec->argv[0], exec->argv, NULL);
 		execve(exec->argv[0], exec->argv, rebuild_env_to_char(*(exec->env)));
-		fprintf(stderr, "minishell: %s: %s\n", exec->argv[0], strerror(errno)); // print on stderr
-		// status = 127;
+		// fprintf(stderr, "minishell: %s: %s\n", exec->argv[0], strerror(errno)); // print on stderr
+		error(exec->argv[0], NULL);
 		set_exit_status(127);
 		exit(get_exit_status()); //TODO: check if this is the right exit status & free memory
 	}
@@ -212,7 +211,6 @@ int	run_cmd(t_tree *tree)
 		status_ = WEXITSTATUS(status_);
 	else if (WIFSIGNALED(status_))
 		status_ = WTERMSIG(status_) + 128;
-	// status = status_;
 	set_under(exec->argv, exec->argc);
 	set_exit_status(status_);
 	ft_init_signals();
@@ -238,6 +236,5 @@ void	executor(t_tree *tree)
 {
 	if (!tree)
 		return ;
-	// status = get_status(tree);
 	set_exit_status(get_status(tree));
 }
