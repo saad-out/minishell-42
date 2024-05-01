@@ -1,6 +1,5 @@
 I = -L /Users/klakbuic/readline/lib
 FLAGS := -fsanitize=address -g3
-LIBS := libs/libft/libft.a
 
 all:
 	cc -Wall -Wextra src/*.c src/lexer/*.c src/parser/*.c src/executor/*.c src/environment/*.c \

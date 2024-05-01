@@ -6,11 +6,13 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 20:36:18 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/01 08:34:50 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/01 08:44:35 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../inc/common.h"
 #include "../../inc/libs.h"
+#include "../../inc/memory.h"
 #include <stdlib.h>
 
 char	*ft_strjoin(char const *s1, char const *s2)
@@ -27,7 +29,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		len1 = ft_strlen(s1);
 	if (s2)
 		len2 = ft_strlen(s2);
-	str = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
+	str = (char *)ft_malloc((len1 + len2 + 1), GENERAL);
 	if (!str)
 		return (NULL);
 	ft_memcpy(str, s1, len1);

@@ -11,7 +11,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../inc/common.h"
 #include "../../inc/libs.h"
+#include "../../inc/memory.h"
 #include <stdlib.h>
 
 char	*ft_strndup(const char *str, int n)
@@ -22,7 +24,7 @@ char	*ft_strndup(const char *str, int n)
 	min = ft_strlen(str);
 	if (n < min)
 		min = n;
-	nstr = (char *)malloc(sizeof(char) * (min + 1));
+	nstr = (char *)ft_malloc((min + 1), GENERAL);
 	if (!nstr)
 		return (NULL);
 	ft_memcpy(nstr, str, min);

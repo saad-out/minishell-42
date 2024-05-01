@@ -14,13 +14,14 @@
 # define LIBS_H
 # include <string.h>
 
-
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
 int		ft_tolower(int c);
+int		ft_isalnum(int c);
 size_t	ft_strlen(const char *str);
-int     ft_strcmp(const char *s1, const char *s2);
+int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strdup(const char *str);
+char	*ft_strchr(const char *str, int c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	**ft_split(char const *s, char c);

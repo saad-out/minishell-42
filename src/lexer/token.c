@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: khalid <khalid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:09:05 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/30 14:59:18 by khalid           ###   ########.fr       */
+/*   Updated: 2024/05/01 14:41:43 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	remove_token(t_token **head, t_token *token)
 		if (token->next)
 			token->next->prev = token->prev;
 	}
-	// free(token);
 	ft_free(token, LEXER);
 }
 

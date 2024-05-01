@@ -6,11 +6,13 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 11:55:43 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/01 08:34:50 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/01 09:27:36 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../inc/common.h"
 #include "../../inc/libs.h"
+#include "../../inc/memory.h"
 #include <stdlib.h>
 
 static size_t	nb_count(int n)
@@ -56,9 +58,7 @@ char	*ft_itoa(int n)
 		signe = -1;
 	}
 	len += nb_count(nb);
-	nb_str = (char *)malloc(sizeof(char) * (len + 1));
-	if (!nb_str)
-		return (NULL);
+	nb_str = (char *)ft_malloc(sizeof(char) * (len + 1), GENERAL);
 	nb_str[len] = '\0';
 	if (signe == -1)
 		nb_str[0] = '-';

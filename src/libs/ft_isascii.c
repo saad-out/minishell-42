@@ -1,38 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/01 14:33:35 by klakbuic          #+#    #+#             */
-/*   Updated: 2023/11/07 14:37:52 by klakbuic         ###   ########.fr       */
+/*   Created: 2023/10/31 11:40:33 by klakbuic          #+#    #+#             */
+/*   Updated: 2024/05/01 08:34:50 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../inc/libs.h"
 
-void	*ft_memmove(void *dest, const void *src, size_t n)
+int	ft_isascii(int c)
 {
-	unsigned char		*dst;
-	const unsigned char	*sc;
-
-	if (!dest && !src)
-		return (dest);
-	dst = dest;
-	sc = src;
-	if (n > 0)
-	{
-		if (dst <= sc)
-			ft_memcpy(dst, sc, n);
-		else
-		{
-			while (n > 0)
-			{
-				*(dst + n - 1) = *(sc + n - 1);
-				n--;
-			}
-		}
-	}
-	return ((void *)dest);
+	if (c >= 0 && c <= 127)
+		return (1);
+	return (0);
 }

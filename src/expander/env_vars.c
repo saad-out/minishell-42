@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_vars.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:41:06 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/29 16:27:28 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/01 14:40:42 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ char	*expand_var(char *var, int *i)
 	(*i) += len;
 	
 	// get var value
+	if (len == 0)
+		return (ft_strdup("$"));
 	return (get_var_value(var, len));
 }
 

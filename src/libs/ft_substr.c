@@ -6,11 +6,13 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:05:29 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/01 08:34:50 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/01 08:46:09 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../inc/common.h"
 #include "../../inc/libs.h"
+#include "../../inc/memory.h"
 #include <stdlib.h>
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
@@ -27,7 +29,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		len = 0;
 	else if (len > slen || (start + len > slen))
 		len = slen - start;
-	sub = (char *)malloc(sizeof(char) * (len + 1));
+	sub = (char *)ft_malloc((len + 1), GENERAL);
 	if (!sub)
 		return (NULL);
 	while (len && len-- > 0)

@@ -5,12 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/02 09:39:47 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/01 08:34:50 by klakbuic         ###   ########.fr       */
+/*   Created: 2023/11/03 15:52:35 by soutchak          #+#    #+#             */
+/*   Updated: 2024/05/01 09:40:10 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../inc/common.h"
 #include "../../inc/libs.h"
+#include "../../inc/memory.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -70,16 +72,6 @@ static int	ft_strcpy_k(char *dest, char const *src, int c)
 	return (i);
 }
 
-char	**ft_free_all(char **arr, int i)
-{
-	if (!arr)
-		return (NULL);
-	while (i >= 0)
-		free(arr[i--]);
-	free(arr);
-	return (NULL);
-}
-
 char	**ft_split(char const *s, char c)
 {
 	int		words;
@@ -88,18 +80,14 @@ char	**ft_split(char const *s, char c)
 	char	**arr;
 
 	words = ft_count_words(s, c);
-	arr = (char **)malloc(sizeof(char *) * (words + 1));
-	if (!arr)
-		return (NULL);
+	arr = (char **)ft_malloc(sizeof(char *) * (words + 1), GENERAL);
 	i = 0;
 	k = 0;
 	while (s && s[k] && s[k] == c)
 		k++;
 	while (i < words)
 	{
-		arr[i] = (char *)malloc(sizeof(char) * (ft_strlen_c(s + k, c) + 1));
-		if (!arr[i])
-			return (ft_free_all(arr, --i));
+		arr[i] = (char *)ft_malloc(sizeof(char) * (ft_strlen_c(s + k, c) + 1), GENERAL);
 		k += ft_strcpy_k(arr[i], s + k, c);
 		i++;
 	}
