@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 15:52:35 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/01 09:40:10 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/02 19:14:11 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ char	**ft_split(char const *s, char c)
 		k++;
 	while (i < words)
 	{
-		arr[i] = (char *)ft_malloc(sizeof(char) * (ft_strlen_c(s + k, c) + 1), GENERAL);
+		arr[i] = (char *)ft_malloc(sizeof(char) * (ft_strlen_c(s + k, c) + 1),
+				GENERAL);
 		k += ft_strcpy_k(arr[i], s + k, c);
 		i++;
 	}
