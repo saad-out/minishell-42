@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 00:40:16 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/02 16:48:25 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/02 18:53:28 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static bool	redir_check(t_token *token)
 	next_type = get_next_type(token);
 	if (!(next_type & (QUOTES | ENV | WILDCARD | WORD)))
 	{
-		ft_putstr_fd("outlaakSH: syntax error near unexpected token `", STDERR_FILENO);
+		ft_putstr_fd(ERR_UNEXPECTED_TOKEN, STDERR_FILENO);
 		ft_putendl_fd("newline'", STDERR_FILENO);
 		return (true);
 	}
@@ -83,7 +83,8 @@ static bool	quotes_check(t_token *token)
 	}
 	if (token->type != next_type)
 	{
-		ft_putendl_fd("outlaakSH: unclosed quotes", STDERR_FILENO);
+		ft_putendl_fd("outlaakSH: syntax error, unclosed quotes",
+			STDERR_FILENO);
 		return (true);
 	}
 	return (false);
@@ -108,12 +109,7 @@ bool	syntax_checker(t_token **tokens)
 			error = quotes_check(token);
 		if (error)
 			break ;
-		if (token->type & QUOTES)
-		{
-			token = token->next;
-			if (token && token->type == LITERAL)
-				token = token->next;
-		}
+		move_qoute_token(&token);
 		token = token->next;
 	}
 	if (error)

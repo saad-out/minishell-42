@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:09:05 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/01 14:41:43 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/02 18:57:49 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,7 @@ void	free_tokens(t_token **token_list)
 	tmp = *token_list;
 	while (tmp)
 	{
-		// free(tmp->str); // TODO: free only if str is alloc'ed with malloc()
 		next = tmp->next;
-		// free(tmp);
 		ft_free(tmp, LEXER);
 		tmp = next;
 	}
