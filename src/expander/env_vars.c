@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:41:06 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/01 19:59:38 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/02 23:50:19 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char	*expand_var(char *var, int *i)
 
 	// get var length
 	len = 0;
-	while (var[len] && !ft_strchr("'\"$ \n()|&=", var[len]))
+	while (var[len] && !ft_strchr("'\"$ \n()|&=/", var[len]))
 		len++;
 	
 	(*i) += len;
