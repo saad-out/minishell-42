@@ -19,7 +19,7 @@
 char	*ft_strndup(const char *str, int n)
 {
 	char	*nstr;
-	int	min;
+	int		min;
 
 	min = ft_strlen(str);
 	if (n < min)
