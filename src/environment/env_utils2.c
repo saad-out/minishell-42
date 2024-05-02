@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 08:50:04 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/02 16:36:55 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/02 19:10:35 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,11 @@ char	**rebuild_env_to_char(t_env *envs)
 	head = envs;
 	i = 0;
 	while (head)
-		if (head->masked == 0 && i++)
-			head = head->next;
+	{
+		if (head->masked == 0)
+			i++;
+		head = head->next;
+	}
 	env = (char **)ft_malloc((sizeof(char *) * (i + 1)), GENERAL);
 	i = 0;
 	head = envs;
