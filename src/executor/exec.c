@@ -6,47 +6,12 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/02 23:55:34 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/03 00:11:47 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/executor.h"
 #include "../../inc/globals.h"
-
-void	free_tab(char **tab)
-{
-	for (size_t i = 0; tab[i]; i++)
-		free(tab[i]);
-	free(tab);
-}
-
-char	*get_cmd_path(char *cmd)
-{
-	char	*path_var;
-	char	**paths;
-	char	*full_path;
-	char	*tmp;
-
-	if (ft_strcmp(cmd, "") == 0)
-		return (NULL);
-	path_var = get_env_value(*get_env_list(),"PATH");
-	if (!path_var)
-		return (NULL); //TODO: handle this case as error
-	paths = ft_split(path_var, ':');
-	if (!paths)
-		return (NULL); //TODO: handle this case as error
-	for (size_t i = 0; paths[i]; i++)
-	{
-		tmp = ft_strjoin(paths[i], "/");
-		full_path = ft_strjoin(tmp, cmd);
-		if (access(full_path, F_OK) == 0)
-			return (free_tab(paths), free(tmp), full_path);
-		free(full_path);
-		free(tmp);
-	}
-	free_tab(paths);
-	return (NULL);
-}
 
 static int	last_char(char *str)
 {
@@ -58,7 +23,7 @@ static int	last_char(char *str)
 	return (str[i - 1]);
 }
 
-int	check_leading_paths(char *full_path, char **paths, char **joined, int *i)	
+int	check_leading_paths(char *full_path, char **paths, char **joined, int *i)
 {
 	struct stat	info;
 
@@ -101,7 +66,6 @@ int	check_paths(char *full_path)
 	int		i;
 	char	*joined;
 	int		status_;
-	
 
 	if (full_path[0] == '/' && full_path[1] == '\0')
 		return (0);
