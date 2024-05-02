@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:01:14 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/01 14:32:02 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/02 08:47:49 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 # define LEXER_H
 
 /* MACROS */
-
+# ifndef SYNTAX_ERR_STATUS
+#  define SYNTAX_ERR_STATUS 258
+# endif /* SYNTAX_ERR_STATUS */
 /* ------ */
 
 /* INCLUDES */

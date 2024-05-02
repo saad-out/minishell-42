@@ -6,10 +6,11 @@
 /*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 00:40:16 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/01 14:29:31 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/02 08:47:58 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../inc/globals.h"
 #include "../../inc/lexer.h"
 
 static bool	and_or_pipe_check(t_token *token)
@@ -115,5 +116,5 @@ bool	syntax_checker(t_token **tokens)
 		}
 		token = token->next;
 	}
-	return (error);
+	return (set_exit_status(SYNTAX_ERR_STATUS), error);
 }

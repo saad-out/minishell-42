@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:05:57 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/30 12:21:16 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/02 15:31:16 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ static void	join_value(t_env *envs, char **key, char **value)
 		tmp = key_;
 		*key = ft_substr(key_, 0, (ft_strlen(key_) - 1));
 		free(tmp);
-		printf("key: %s\n", *key);
 		if (value_ == NULL)
 			return ;
 		tmp = value_;
@@ -104,14 +103,12 @@ int	ft_export(t_exec *cmd)
 	if (cmd->argc == 1)
 	{
 		print_env(*(cmd->env));
-		return (EXIT_SUCCESS);
+		return (set_under(cmd->argv, cmd->argc), EXIT_SUCCESS);
 	}
 	else
 	{
 		while (++i < cmd->argc)
-		{
 			join_env(cmd->env, cmd->argv[i]);
-		}
 	}
 	return (set_under(cmd->argv, cmd->argc), EXIT_SUCCESS);
 }
