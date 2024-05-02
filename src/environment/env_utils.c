@@ -6,12 +6,13 @@
 /*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 08:50:06 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/02 15:37:39 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/02 16:18:48 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/common.h"
 #include "../../inc/globals.h"
+#include "../../inc/memory.h"
 
 void	print_all_env(t_env *envs)
 {
@@ -35,7 +36,7 @@ void	add_env_char(t_env **envs, char *key, char *value)
 	t_env	*head;
 	t_env	*new_env;
 
-	new_env = (t_env *)malloc(sizeof(t_env));
+	new_env = (t_env *)ft_malloc(sizeof(t_env), GENERAL);
 	new_env->key = key;
 	if (value)
 		new_env->value = ft_strdup(value);
@@ -83,11 +84,11 @@ void	set_env(t_env *envs, const char *key, const char *new_value)
 		{
 			envs->masked = false;
 			envs->value = NULL;
-			if (envs->visibility != SPECIAL)
+			if (envs->visibility != SPECIAL && ft_strcmp(envs->key, "_") != 0)
 				envs->visibility = BOTH;
 			if (new_value)
 				envs->value = ft_strdup(new_value);
-			else if (envs->visibility != SPACE)
+			else if (envs->visibility != SPECIAL && ft_strcmp(envs->key, "_") != 0)
 				envs->visibility = EXPORT;
 			return ;
 		}

@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: khalid <khalid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 21:01:51 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/30 15:47:16 by khalid           ###   ########.fr       */
+/*   Updated: 2024/05/02 16:26:12 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/get_next_line_bonus.h"
-
+#include "../../inc/memory.h"
 static int	ft_add_to_line(t_line **line, char *buffer, int bytes)
 {
 	t_line	*new_node;
@@ -19,12 +19,8 @@ static int	ft_add_to_line(t_line **line, char *buffer, int bytes)
 
 	if (!buffer || !bytes)
 		return (1);
-	new_node = (t_line *)malloc(sizeof(t_line));
-	if (!new_node)
-		return (0);
-	s = (char *)malloc(sizeof(char) * (bytes + 1));
-	if (!s)
-		return (free(new_node), 0);
+	new_node = (t_line *)ft_malloc(sizeof(t_line), GENERAL);
+	s = (char *)ft_malloc((sizeof(char) * (bytes + 1)), GENERAL);
 	s = ft_strlcpy(s, buffer, bytes + 1);
 	new_node->block = s;
 	new_node->size = (size_t)bytes;
@@ -93,9 +89,7 @@ static char	*ft_get_one_line(t_line **line, int eof)
 	size = ft_get_line_size(*line, eof);
 	if (!size)
 		return (NULL);
-	ret_line = (char *)malloc(sizeof(char) * (size + 1));
-	if (!ret_line)
-		return (NULL);
+	ret_line = (char *)ft_malloc((sizeof(char) * (size + 1)), GENERAL);
 	ret_line = ft_copy_line(ret_line, *line, size);
 	*line = ft_free_line(line);
 	return (ret_line);
@@ -112,7 +106,7 @@ char	*get_next_line(int fd)
 	if (fd < 0 || fd >= OPEN_MAX || BUFFER_SIZE > (size_t)-1)
 		return (NULL);
 	line = &arr[fd];
-	buffer = (char *)malloc(sizeof(char) * BUFFER_SIZE);
+	buffer = (char *)ft_malloc((sizeof(char) * BUFFER_SIZE), GENERAL);
 	if (!buffer)
 		return (ft_lstclear2(line), NULL);
 	bytes = 1;

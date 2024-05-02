@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: khalid <khalid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 23:05:08 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/30 15:47:29 by khalid           ###   ########.fr       */
+/*   Updated: 2024/05/02 16:27:15 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/get_next_line_bonus.h"
+#include "../../inc/memory.h"
 
 void	ft_lstclear2(t_line **line)
 {
@@ -70,7 +71,7 @@ t_line	*ft_adjust_and_free_node(t_line **line, t_line *node, size_t i)
 {
 	char	*new_block;
 
-	new_block = (char *)malloc(sizeof(char) * (node->size - i));
+	new_block = (char *)ft_malloc((sizeof(char) * (node->size - i)), GENERAL);
 	if (!new_block)
 		return (NULL);
 	new_block = ft_strlcpy(new_block, node->block + i + 1, node->size - i);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_checker.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 00:40:16 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/02 08:47:58 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/02 16:48:25 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static bool	redir_check(t_token *token)
 	next_type = get_next_type(token);
 	if (!(next_type & (QUOTES | ENV | WILDCARD | WORD)))
 	{
-		ft_putstr_fd("syntax error near unexpected token `", STDERR_FILENO);
+		ft_putstr_fd("outlaakSH: syntax error near unexpected token `", STDERR_FILENO);
 		ft_putendl_fd("newline'", STDERR_FILENO);
 		return (true);
 	}
@@ -83,7 +83,7 @@ static bool	quotes_check(t_token *token)
 	}
 	if (token->type != next_type)
 	{
-		ft_putendl_fd("Unclosed quotes", STDERR_FILENO);
+		ft_putendl_fd("outlaakSH: unclosed quotes", STDERR_FILENO);
 		return (true);
 	}
 	return (false);
@@ -107,7 +107,7 @@ bool	syntax_checker(t_token **tokens)
 		else if (token->type & QUOTES)
 			error = quotes_check(token);
 		if (error)
-			return (true);
+			break ;
 		if (token->type & QUOTES)
 		{
 			token = token->next;
@@ -116,5 +116,7 @@ bool	syntax_checker(t_token **tokens)
 		}
 		token = token->next;
 	}
-	return (set_exit_status(SYNTAX_ERR_STATUS), error);
+	if (error)
+		set_exit_status(SYNTAX_ERR_STATUS);
+	return (error);
 }

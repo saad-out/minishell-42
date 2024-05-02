@@ -6,12 +6,13 @@
 /*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 08:50:04 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/02 15:23:30 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/02 16:36:55 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/common.h"
 #include "../../inc/globals.h"
+#include "../../inc/memory.h"
 
 bool	exist_key(t_env *envs, const char *key)
 {
@@ -52,7 +53,7 @@ char	**rebuild_env_to_char(t_env *envs)
 	while (head)
 		if (head->masked == 0 && i++)
 			head = head->next;
-	env = (char **)malloc(sizeof(char *) * (i + 1));
+	env = (char **)ft_malloc((sizeof(char *) * (i + 1)), GENERAL);
 	i = 0;
 	head = envs;
 	while (head)
@@ -86,5 +87,5 @@ void	set_under(char **argv, int argc)
 	if (i == 0)
 		i = 1;
 	set_env(*get_env_list(), "_", splited[i - 1]);
-	free(splited);
+	ft_free(splited, GENERAL);
 }

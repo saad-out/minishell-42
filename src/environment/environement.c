@@ -6,18 +6,19 @@
 /*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:26:08 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/02 15:40:53 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/02 16:10:00 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/common.h"
 #include "../../inc/globals.h"
+#include "../../inc/memory.h"
 
 static t_env	*create_env_int(char **key_value)
 {
 	t_env	*new;
 
-	new = malloc(sizeof(t_env));
+	new = ft_malloc(sizeof(t_env), GENERAL);
 	new->key = key_value[0];
 	new->value = key_value[1];
 	new->visibility = BOTH;

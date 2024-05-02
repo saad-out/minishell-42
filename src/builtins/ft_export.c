@@ -6,12 +6,13 @@
 /*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:05:57 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/02 15:31:16 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/02 16:37:25 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/common.h"
 #include "../../inc/executor.h"
+#include "../../inc/memory.h"
 
 static void	print_env(t_env *env)
 {
@@ -62,13 +63,13 @@ static void	join_value(t_env *envs, char **key, char **value)
 	{
 		tmp = key_;
 		*key = ft_substr(key_, 0, (ft_strlen(key_) - 1));
-		free(tmp);
+		ft_free(tmp, GENERAL);
 		if (value_ == NULL)
 			return ;
 		tmp = value_;
 		*value = ft_strjoin(get_env_value(envs, (*key)), value_);
 		if (tmp != NULL)
-			free(tmp);
+			ft_free(tmp, GENERAL);
 		return ;
 	}
 }
