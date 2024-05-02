@@ -6,12 +6,13 @@
 /*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 09:53:23 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/02 15:54:58 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/02 18:17:32 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/common.h"
 #include "../../inc/executor.h"
+#include "../../inc/globals.h"
 
 static void	change_pwd(t_env *envs, char *old_pwd, char *pwd)
 {
@@ -22,6 +23,7 @@ static void	change_pwd(t_env *envs, char *old_pwd, char *pwd)
 static int	ft_cd_helper(t_exec *cmd)
 {
 	char	*tmp;
+	char	old_pwd[PATH_MAX];
 
 	if (cmd->argc == 1)
 	{
@@ -33,10 +35,12 @@ static int	ft_cd_helper(t_exec *cmd)
 	}
 	else if (ft_strcmp(cmd->argv[1], "-") == 0)
 	{
+		getcwd(old_pwd, PATH_MAX);
 		tmp = get_env_value(*(cmd->env), "OLDPWD");
 		if (!tmp)
 			return (error("cd", "OLDPWD not set"), EXIT_FAILURE);
 		tmp = ft_strdup(tmp);
+		set_env(*get_env_list(), "OLDPWD", ft_strdup(old_pwd));
 		if (chdir(tmp) == -1)
 			return (error("cd", NULL), EXIT_FAILURE);
 		ft_putendl_fd(tmp, STDOUT_FILENO);
