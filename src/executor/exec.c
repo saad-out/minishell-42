@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/01 22:37:41 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/02 16:16:10 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,66 @@ char	*get_cmd_path(char *cmd)
 	free_tab(paths);
 	// error(cmd, "command not found");
 	return (NULL);
+}
+
+static int	last_char(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (str[i - 1]);
+}
+
+int	check_paths(char *full_path)
+{
+	char	**paths;
+	int		max_i;
+	struct stat	info;
+	int		i;
+	char	*joined;
+	
+
+	if (full_path[0] == '/' && full_path[1] == '\0')
+		return (0);
+	paths = ft_split(full_path, '/');
+	joined = NULL;
+	i = 0;
+	while (paths[i + 1])
+	{
+		if (i > 0 || full_path[0] == '/')
+			joined = ft_strjoin(joined, "/");
+		joined = ft_strjoin(joined, paths[i]);
+		if (access(joined, F_OK) == -1)
+		{
+			error(full_path, "No such file or directory");
+			return (127);
+		}
+		stat(joined, &info);
+		if (!S_ISDIR(info.st_mode))
+		{
+			error(full_path, "Not a directory");
+			return (126);
+		}
+		i++;
+	}
+	if (last_char(full_path) == '/')
+	{
+		joined = ft_strjoin(joined, "/");
+		joined = ft_strjoin(joined, paths[i]);
+		if (access(joined, F_OK) == -1)
+		{
+			error(full_path, "No such file or directory");
+			return (127);
+		}
+		stat(joined, &info);
+		if (!S_ISDIR(info.st_mode))
+		{
+			error(full_path, "Not a directory");
+			return (126);
+		}
+	}
+	// printf("=========\n");
+	return (0);
 }

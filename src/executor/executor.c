@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/01 22:40:27 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/02 16:11:34 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,14 @@ int	run_cmd(t_tree *tree)
 	}
 	else
 	{
+		// TODO: ./Makefile/test => check if Makefile is a directory
+		int	i;
+		i = check_paths(exec->argv[0]);
+		if (i != 0)
+		{
+			set_under(exec->argv, exec->argc);
+			return (set_exit_status(i), i);
+		}
 		if (access(exec->argv[0], F_OK) == -1)
 		{
 			// ft_putendl_fd("No such file or directory", STDERR_FILENO);

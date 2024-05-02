@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/20 22:24:10 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/02 15:53:09 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int		ft_unset(t_exec *cmd);
 int		ft_exit(t_exec *exec);
 int		ft_env(t_exec *cmd);
 int		ft_export(t_exec *cmd);
+
+int	check_paths(char *full_path);
 /* --------- */
 
 #endif /* EXECUTOR_H */
