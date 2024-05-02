@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/02 16:16:10 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/02 23:09:03 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,14 @@ char	*get_cmd_path(char *cmd)
 
 	if (ft_strcmp(cmd, "") == 0)
 		return (NULL);
-	// {
-	// 	error(cmd, "command not found");
-	// 	return (NULL);
-	// }
 	path_var = get_env_value(*get_env_list(),"PATH");
 	if (!path_var)
 		return (NULL); //TODO: handle this case as error
-	// {
-	// 	error(cmd, "command not found");
-	// 	return (NULL); //TODO: handle this case as error
-	// }
 	paths = ft_split(path_var, ':');
 	if (!paths)
 		return (NULL); //TODO: handle this case as error
 	for (size_t i = 0; paths[i]; i++)
 	{
-		// TODO: handle failure of ft_strjoin
 		tmp = ft_strjoin(paths[i], "/");
 		full_path = ft_strjoin(tmp, cmd);
 		if (access(full_path, F_OK) == 0)
@@ -53,9 +44,7 @@ char	*get_cmd_path(char *cmd)
 		free(full_path);
 		free(tmp);
 	}
-	// free(path_var);
 	free_tab(paths);
-	// error(cmd, "command not found");
 	return (NULL);
 }
 
