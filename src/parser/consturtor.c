@@ -6,19 +6,18 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 08:27:27 by saad              #+#    #+#             */
-/*   Updated: 2024/04/27 21:08:01 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/02 19:27:11 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/parser.h"
+#include "../../inc/memory.h"
 
 t_tree	*and_or_node(t_etype type, t_tree *left, t_tree *right)
 {
 	t_and_or	*node;
 
-	node = malloc(sizeof(t_and_or));
-	if (!node)
-		return (NULL);
+	node = ft_malloc(sizeof(t_and_or), PARSER);
 	if (type != AND && type != OR)
 		return (NULL);
 	node->type = type;
@@ -27,13 +26,11 @@ t_tree	*and_or_node(t_etype type, t_tree *left, t_tree *right)
 	return ((t_tree *)node);
 }
 
-t_tree *block_node(t_tree *child)
+t_tree	*block_node(t_tree *child)
 {
 	t_block	*node;
 
-	node = malloc(sizeof(t_block));
-	if (!node)
-		return (NULL);
+	node = ft_malloc(sizeof(t_block), PARSER);
 	node->child = child;
 	node->type = BLOCK;
 	return ((t_tree *)node);
@@ -43,9 +40,7 @@ t_tree	*redir_node(t_etype type, t_tree *child, char *s)
 {
 	t_redir	*node;
 
-	node = malloc(sizeof(t_redir));
-	if (!node)
-		return (NULL);
+	node = ft_malloc(sizeof(t_redir), PARSER);
 	node->type = type;
 	node->expand = true;
 	if (!set_filename(node, s, type))
@@ -70,27 +65,11 @@ t_tree	*redir_node(t_etype type, t_tree *child, char *s)
 	return ((t_tree *)node);
 }
 
-t_tree	*exec_node(char **args, int argc, char **env)
-{
-	t_exec	*node;
-
-	node = malloc(sizeof(t_exec));
-	if (!node)
-		return (NULL);
-	node->type = EXEC;
-	node->argv = args;
-	node->argc = argc;
-	// node->env = env;
-	return ((t_tree *)node);
-}
-
 t_tree	*pipe_node(void)
 {
 	t_pipe	*node;
 
-	node = malloc(sizeof(t_pipe));
-	if (!node)
-		return (NULL);
+	node = ft_malloc(sizeof(t_pipe), PARSER);
 	node->type = PIPE;
 	node->nb_pipes = 0;
 	return ((t_tree *)node);

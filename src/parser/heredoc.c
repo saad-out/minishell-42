@@ -6,86 +6,11 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 01:37:28 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/28 18:46:34 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/02 19:45:25 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/parser.h"
-
-static char	*get_literal(char *del, int *i)
-{
-	char	*tmp;
-	char	c;
-	int		j;
-
-	c = del[(*i)++];
-	j = *i;
-	while (del[j] && del[j] != c)
-		j++;
-	tmp = ft_substr(del, *i, j - *i);
-	*i = j + 1;
-	return (tmp);
-}
-
-static char	*get_regular(char *del, int *i)
-{
-	char	*tmp;
-	int		j;
-
-	j = *i;
-	while (del[j] && del[j] != '\'' && del[j] != '\"')
-		j++;
-	tmp = ft_substr(del, *i, j - *i);
-	*i = j;
-	return (tmp);
-}
-
-static char	*remove_quotes(char *del, bool *expand)
-{
-	char	*tmp;
-	char	*tmp2;
-	char	*joined;
-	int		i;
-
-	*expand = true;
-	i = 0;
-	joined = NULL;
-	while (del[i])
-	{
-		if (del[i] == '\'' || del[i] == '\"')
-		{
-			*expand = false;
-			tmp = get_literal(del, &i);
-			// printf("====>  tmp: (%s) and del[%d]=%c\n", tmp, i, del[i]);
-			if (joined)
-			{
-				tmp2 = ft_strjoin(joined, tmp);
-				free(tmp);
-				free(joined);
-				joined = tmp2;
-			}
-			else
-				joined = tmp;
-		}
-		else
-		{
-			tmp = get_regular(del, &i);
-			// printf("====>  tmp: (%s) and del[%d]=%c\n", tmp, i, del[i]);
-			if (joined)
-			{
-				tmp2 = ft_strjoin(joined, tmp);
-				free(tmp);
-				free(joined);
-				joined = tmp2;
-			}
-			else
-				joined = tmp;
-		}
-		// printf("====> JOINED: (%s)\n", joined);
-	}
-	free(del);
-	return (joined);
-}
 
 char	*read_heardoc(char *delimiter, bool *expand)
 {

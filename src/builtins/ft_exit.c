@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 16:59:33 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/02 18:08:35 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/02 18:41:52 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_exit(t_exec *exec)
 	if (exec->argc == 1)
 	{
 		// ft_free_heap();
-		exit(1);
+		exit(EXIT_SUCCESS);
 	}
 	if (!is_valid_numeric(exec->argv[1]))
 	{

@@ -1,21 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/13 23:35:30 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/02 18:50:15 by soutchak         ###   ########.fr       */
+/*   Created: 2024/05/02 18:15:21 by soutchak          #+#    #+#             */
+/*   Updated: 2024/05/02 18:15:59 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/parser.h"
 #include "../../inc/memory.h"
+#include <stdlib.h>
 
-void	parser(t_tree **tree, t_token *tokens)
+void *ft_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 {
-	*tree = parse_sequence(&tokens);
-	if (!*tree)
-		printf("parse error\n");
+	void *p;
+	char *c, *k;
+	unsigned int i;
+
+	if (new_size == old_size && ptr)
+		return (ptr);
+	if (!new_size && ptr)
+	{
+		free(ptr);
+		return (0);
+	}
+	p = malloc(new_size);
+	if (!p)
+		return (0);
+	if (!ptr)
+		return (p);
+	i = 0;
+	c = p;
+	k = ptr;
+	while (i < old_size && i < new_size)
+	{
+		*c++ = *k++;
+		i++;
+	}
+	free(ptr);
+	return (p);
 }

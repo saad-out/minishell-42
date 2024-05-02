@@ -33,5 +33,6 @@ void	ft_putchar_fd(char c, int fd);
 int		ft_atoi(const char *str);
 char	*ft_itoa(int n);
 char	*ft_strndup(const char *str, int n);
+void    *ft_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 
 #endif
