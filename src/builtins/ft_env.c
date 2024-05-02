@@ -3,24 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:53:10 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/01 15:27:22 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/02 16:00:08 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/common.h"
 
-
 int	ft_env(t_exec *cmd)
 {
-	t_env *head;
+	t_env	*head;
 
 	if (cmd->argc > 1)
 	{
 		ft_putendl_fd("Too many args", STDERR_FILENO);
-		return (1);
+		return (EXIT_FAILURE);
 	}
 	head = *(cmd->env);
 	while (head)

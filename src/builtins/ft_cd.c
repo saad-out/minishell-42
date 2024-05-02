@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 09:53:23 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/01 19:57:03 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/02 15:54:58 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,10 @@ static void	change_pwd(t_env *envs, char *old_pwd, char *pwd)
 	set_env(envs, "PWD", pwd);
 }
 
-int	ft_cd(t_exec *cmd)
+static int	ft_cd_helper(t_exec *cmd)
 {
-	char		*tmp;
-	char		old_pwd[PATH_MAX];
-	struct stat	info;
+	char	*tmp;
 
-	getcwd(old_pwd, PATH_MAX);
 	if (cmd->argc == 1)
 	{
 		tmp = get_env_value(*(cmd->env), "HOME");
@@ -44,6 +41,18 @@ int	ft_cd(t_exec *cmd)
 			return (error("cd", NULL), EXIT_FAILURE);
 		ft_putendl_fd(tmp, STDOUT_FILENO);
 	}
+	return (EXIT_SUCCESS);
+}
+
+int	ft_cd(t_exec *cmd)
+{
+	char		*tmp;
+	char		old_pwd[PATH_MAX];
+	struct stat	info;
+
+	getcwd(old_pwd, PATH_MAX);
+	if (cmd->argc == 1 || ft_strcmp(cmd->argv[1], "-") == 0)
+		return (ft_cd_helper(cmd));
 	else
 	{
 		if (access(cmd->argv[1], F_OK) == -1)

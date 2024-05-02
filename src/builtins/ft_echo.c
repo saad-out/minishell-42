@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 09:55:49 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/30 12:06:58 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/02 15:58:13 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,27 +35,23 @@ static int	check_args(char **argv)
 int	ft_echo(t_exec *cmd)
 {
 	int	i;
-	int	is_failed;
 
 	if (cmd->argc == 1)
 		return (printf("\n"), EXIT_SUCCESS);
-	is_failed = 0;
 	i = check_args(cmd->argv);
 	while (i < cmd->argc)
 	{
 		if (ft_strcmp(cmd->argv[i], "$?") == 0)
 		{
-			is_failed = printf("%d", get_exit_status());
+			printf("%d", get_exit_status());
 			set_exit_status(0);
 			i++;
 			continue ;
 		}
-		is_failed = printf("%s", cmd->argv[i]);
+		printf("%s", cmd->argv[i]);
 		i++;
 		if (i < cmd->argc)
-			is_failed = printf(" ");
-		if (is_failed < 0)
-			return (EXIT_FAILURE);
+			printf(" ");
 	}
 	if (check_args(cmd->argv) == 1)
 		printf("\n");
