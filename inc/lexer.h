@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:01:14 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/02 08:47:49 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/02 18:53:21 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 # ifndef SYNTAX_ERR_STATUS
 #  define SYNTAX_ERR_STATUS 258
 # endif /* SYNTAX_ERR_STATUS */
+
+# ifndef ERR_UNEXPECTED_TOKEN 
+#  define ERR_UNEXPECTED_TOKEN "outlaakSH: syntax error near unexpected token `"
+# endif /* ERR_UNEXPECTED_TOKEN */
 /* ------ */
 
 /* INCLUDES */
@@ -58,7 +62,7 @@ t_token			*new_token(t_etype type, char *s, size_t len);
 
 /* --- Sytax error*/
 bool			syntax_checker(t_token **tokens);
-
 void			remove_token(t_token **head, t_token *token);
+void	move_qoute_token(t_token **token);
 
 #endif
