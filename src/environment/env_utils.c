@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 08:50:06 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/02 09:42:48 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/02 15:37:39 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	print_all_env(t_env *envs)
 	{
 		if (envs->masked == 0)
 		{
-			
 			printf("%s", DECLARE);
 			printf("%s", envs->key, envs->value);
 			if (envs->value == NULL)
@@ -98,7 +97,7 @@ void	set_env(t_env *envs, const char *key, const char *new_value)
 
 void	remove_env(t_env **envs, t_env *env)
 {
-	t_env *head;
+	t_env	*head;
 
 	head = *envs;
 	while (head)

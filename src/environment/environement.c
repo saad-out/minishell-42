@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environement.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:26:08 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/02 09:43:55 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/02 15:40:53 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	add_empty_env(t_env **envs)
 {
 	t_env	*new[5];
 	char	*pwd;
-	char	*PWD;
+	char	*pwd2;
 	int		i;
 
 	i = 0;
@@ -70,11 +70,10 @@ static void	add_empty_env(t_env **envs)
 		exit(1);
 	}
 	new[0] = create_env("OLDPWD");
-	PWD = ft_strjoin("PWD=", pwd);
-	new[1] = create_env(PWD);
-	free(PWD);
+	pwd2 = ft_strjoin("PWD=", pwd);
+	new[1] = create_env(pwd2);
 	new[2] = create_env("SHLVL=0");
-	new[3] = create_env("PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki");
+	new[3] = create_env("PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin");
 	new[3]->visibility = SPECIAL;
 	new[4] = create_env("_=/usr/bin/env");
 	new[4]->visibility = ENVE;
