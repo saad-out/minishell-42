@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/03 18:23:21 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/03 19:06:15 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,8 +147,7 @@ struct						s_pipe
 {
 	t_etype					type;
 	size_t					nb_pipes;
-	t_tree					*nodes[10];
-	// t_tree			**nodes;
+	t_tree			**nodes;
 };
 
 struct						s_redir

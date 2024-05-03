@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 08:27:27 by saad              #+#    #+#             */
-/*   Updated: 2024/05/02 19:27:11 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/03 18:50:49 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ t_tree	*pipe_node(void)
 	node = ft_malloc(sizeof(t_pipe), PARSER);
 	node->type = PIPE;
 	node->nb_pipes = 0;
+	node->nodes = NULL;
 	return ((t_tree *)node);
 }
 
@@ -82,8 +83,9 @@ t_tree	*pipe_add_node(t_tree *pipe, t_tree *node)
 	if (!pipe || !node)
 		return (NULL);
 	pipe_node = (t_pipe *)pipe;
-	if (pipe_node->nb_pipes >= 10)
-		return (NULL);
+	pipe_node->nodes = ft_realloc(pipe_node->nodes, \
+								sizeof(t_tree *) * pipe_node->nb_pipes, \
+								sizeof(t_tree *) * (pipe_node->nb_pipes + 1));
 	pipe_node->nodes[pipe_node->nb_pipes] = node;
 	pipe_node->nb_pipes++;
 	return (pipe);
