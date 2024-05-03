@@ -6,7 +6,7 @@
 #    By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 17:53:29 by klakbuic          #+#    #+#              #
-#    Updated: 2024/05/03 21:09:52 by soutchak         ###   ########.fr        #
+#    Updated: 2024/05/03 22:27:03 by soutchak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ ANSI_PURPLE		:= \\033[38;5;129m
 ANSI_CYAN		:= \\033[38;5;44m
 
 DEBUG		:= -fsanitize=address -g
-CCWI		:= cc -Wall -Wextra -Iincludes -lreadline
+# CCWI		:= cc -Wall -Wextra  -Werror -Iincludes -lreadline
+CCWI		:= cc -Wall -Wextra -Werror 
 # RDINC		:= -I ~/Downloads/homebrew/opt/readline/include
 RDLIB		:= -L /Users/$(USER)/readline/lib
 NAME		:= minishell
@@ -168,7 +169,7 @@ debug : CCWI += $(DEBUG)
 debug : all
 
 $(NAME) : $(OBJSDIR) $(OBJS)
-	@$(CCWI) $(OBJS) $(RDLIB) $(DEBUG) -o $(NAME)
+	@$(CCWI) $(OBJS) -lreadline $(RDLIB) $(DEBUG) -o $(NAME)
 	@printf "$(ANSI_GREEN)"
 	@printf "███╗░░░███╗██╗███╗░░██╗██╗░██████╗██╗░░██╗███████╗██╗░░░░░██╗░░░░░\n"
 	@printf "████╗░████║██║████╗░██║██║██╔════╝██║░░██║██╔════╝██║░░░░░██║░░░░░\n"
@@ -183,7 +184,7 @@ $(NAME) : $(OBJSDIR) $(OBJS)
 	@printf "$(ANSI_RESET)"
 
 $(OBJS) : $(OBJSDIR)/%.o : $(SRCSDIR)/%.c
-	@$(CCWI) $(RDINC) -c $< -o $@
+	@$(CCWI) -c $< -o $@
 	@printf "$(ANSI_PURPLE)$(ANSI_ITALIC)"
 	@printf "$@ "
 	@printf "$(ANSI_GREEN)"
@@ -221,7 +222,8 @@ fclean : clean
 	@printf "$(ANSI_RESET)"
 	
 print:
-	@echo $(OBJS)
+	@echo $(USER)
+	# @echo $(OBJS)
 re : fclean all
 
 .PHONY : clean
