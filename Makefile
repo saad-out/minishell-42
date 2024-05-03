@@ -1,5 +1,14 @@
-#I = -L /Users/soutchak/readline/lib
-#FLAGS := -fsanitize=address -g3
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/05/03 17:53:29 by klakbuic          #+#    #+#              #
+#    Updated: 2024/05/03 21:09:52 by soutchak         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
 ANSI_RESET			:= \\033[0m
 ANSI_BOLD			:= \\033[2m
@@ -23,7 +32,7 @@ ANSI_CYAN		:= \\033[38;5;44m
 DEBUG		:= -fsanitize=address -g
 CCWI		:= cc -Wall -Wextra -Iincludes -lreadline
 # RDINC		:= -I ~/Downloads/homebrew/opt/readline/include
-# RDLIB		:= /Users/klakbuic/readline/lib
+RDLIB		:= -L /Users/$(USER)/readline/lib
 NAME		:= minishell
 # directories
 SRCSDIR		:= src
@@ -72,8 +81,9 @@ EXPANDER	:=			\
 	expand_quotes.c		\
 	expand_redir.c		\
 	expand_utils2.c		\
-	wildcards.c
-			
+	wildcards.c			\
+	wildcards_utils.c	\
+
 LEXER	:=				\
 	heredoc.c			\
 	lexer.c				\
@@ -158,7 +168,7 @@ debug : CCWI += $(DEBUG)
 debug : all
 
 $(NAME) : $(OBJSDIR) $(OBJS)
-	@$(CCWI) $(OBJS) -o $(NAME)
+	@$(CCWI) $(OBJS) $(RDLIB) $(DEBUG) -o $(NAME)
 	@printf "$(ANSI_GREEN)"
 	@printf "███╗░░░███╗██╗███╗░░██╗██╗░██████╗██╗░░██╗███████╗██╗░░░░░██╗░░░░░\n"
 	@printf "████╗░████║██║████╗░██║██║██╔════╝██║░░██║██╔════╝██║░░░░░██║░░░░░\n"

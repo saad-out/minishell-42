@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 01:37:28 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/03 17:13:03 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/03 21:12:37 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*read_heardoc(char *delimiter, bool *expand)
 	char		*line;
 	char		*filename;
 	int			fd;
-	int			n;
+	char		*n;
 
 	delimiter = remove_quotes(delimiter, expand);
 	n = ft_itoa(heredoc++);
