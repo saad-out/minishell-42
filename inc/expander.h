@@ -40,6 +40,9 @@ void	expand_exec_vars(t_exec *exec);
 void	expand_redir_vars(t_redir *redir);
 int	    count_words(char **words);
 bool	to_expand(char c);
+char	**get_wd_match(char *wd);
+bool	match(char *pattern, char *candidate, int p, int c);
+
 /* --------- */
 
 #endif /* EXPANDER_H */
