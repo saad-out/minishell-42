@@ -6,12 +6,13 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 23:05:53 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/03 00:11:29 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/03 18:11:11 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/executor.h"
 #include "../../inc/globals.h"
+#include "../../inc/memory.h"
 
 void	child(t_exec *exec)
 {
@@ -44,8 +45,8 @@ void	free_tab(char **tab)
 
 	i = 0;
 	while (tab[i])
-		free(tab[i++]);
-	free(tab);
+		ft_free(tab[i++], GENERAL);
+	ft_free(tab, GENERAL);
 }
 
 char	*get_cmd_path(char *cmd)
@@ -68,9 +69,9 @@ char	*get_cmd_path(char *cmd)
 		tmp = ft_strjoin(paths[i], "/");
 		full_path = ft_strjoin(tmp, cmd);
 		if (access(full_path, F_OK) == 0)
-			return (free_tab(paths), free(tmp), full_path);
-		free(full_path);
-		free(tmp);
+			return (free_tab(paths), ft_free(tmp, GENERAL), full_path);
+		ft_free(full_path, GENERAL);
+		ft_free(tmp, GENERAL);
 		i++;
 	}
 	return (free_tab(paths), NULL);

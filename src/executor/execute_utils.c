@@ -6,12 +6,13 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 23:04:51 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/03 16:00:09 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/03 18:07:47 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/executor.h"
 #include "../../inc/globals.h"
+#include "../../inc/memory.h"
 
 pid_t	lunch_pipes(t_pipe *pipe_node)
 {
@@ -49,7 +50,7 @@ int	run_from_path(t_exec *exec)
 		set_under(exec->argv, exec->argc);
 		return (set_exit_status(127), 127);
 	}
-	free(exec->argv[0]);
+	ft_free(exec->argv[0], GENERAL);
 	exec->argv[0] = tmp;
 	return (0);
 }
