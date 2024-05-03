@@ -6,11 +6,12 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 19:44:30 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/02 19:45:36 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/03 17:05:32 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/parser.h"
+#include "../../inc/memory.h"
 
 static char	*get_literal(char *del, int *i)
 {
@@ -49,8 +50,8 @@ static char	*join_literal(char *joined, char *del, int *i)
 	if (joined)
 	{
 		tmp2 = ft_strjoin(joined, tmp);
-		free(tmp);
-		free(joined);
+		ft_free(tmp, GENERAL);
+		ft_free(joined, GENERAL);
 		joined = tmp2;
 	}
 	else
@@ -67,8 +68,8 @@ static char	*join_regular(char *joined, char *del, int *i)
 	if (joined)
 	{
 		tmp2 = ft_strjoin(joined, tmp);
-		free(tmp);
-		free(joined);
+		ft_free(tmp, GENERAL);
+		ft_free(joined, GENERAL);
 		joined = tmp2;
 	}
 	else
@@ -94,6 +95,6 @@ char	*remove_quotes(char *del, bool *expand)
 		else
 			joined = join_regular(joined, del, &i);
 	}
-	free(del);
+	ft_free(del, GENERAL);
 	return (joined);
 }

@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 18:49:15 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/02 18:51:19 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/03 17:26:39 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_tree	*parse_block(t_token **tokens)
 	t_tree	*block;
 	t_tree	*child;
 
-	if ((*tokens)->type != LPAR)
+	if (!(*tokens) || (*tokens)->type != LPAR)
 		return (NULL);
 	(*tokens) = (*tokens)->next;
 	child = parse_pipe(tokens);
@@ -72,7 +72,7 @@ t_tree	*parse_block(t_token **tokens)
 		if (!child)
 			return (NULL);
 	}
-	if ((*tokens)->type != RPAR)
+	if (!(*tokens) || (*tokens)->type != RPAR)
 		return (NULL);
 	(*tokens) = (*tokens)->next;
 	block = block_node(child);
@@ -105,7 +105,7 @@ t_tree	*parse_pipe(t_token **tokens)
 			break ;
 	}
 	if (pipe->nb_pipes <= 1)
-		return (free(pipe), (t_tree *)exec);
+		return (ft_free((void *)pipe, PARSER), (t_tree *)exec);
 	return ((t_tree *)pipe);
 }
 
