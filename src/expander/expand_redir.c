@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 02:35:36 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/03 02:36:21 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/03 17:53:32 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ static char	**expand_filenames(t_redir *redir)
 	char	**words;
 	int		size;
 
+	split = 1;
 	words = NULL;
 	size = 0;
 	i = 0;
+	joined = NULL;
 	while (redir->file[i])
 	{
-		joined = NULL;
-		split = 1;
 		if (to_expand(redir->file[i]))
 		{
 			if (redir->file[i] == '\'' || redir->file[i] == '"')
@@ -37,9 +37,9 @@ static char	**expand_filenames(t_redir *redir)
 		}
 		else
 			joined = join_regular(joined, redir->file + i, &i, "'\" $");
-		if (joined)
-			add_to_argv(&words, joined, &size, split);
 	}
+	if (joined)
+		add_to_argv(&words, joined, &size, split);
 	return (words);
 }
 
