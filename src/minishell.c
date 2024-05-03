@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:35:23 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/02 18:30:09 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/03 19:09:51 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,19 @@ void	minishell(void)
 		// if (strcmp(line, "exit") == 0)
 		// TODO: this is simple exit() implementation for testing only
 		// 	return (free(line));
-		if (strcmp(line, "echo $?") == 0)
-		{
-			// printf("%d\n", status);
-			printf("%d\n", get_exit_status());
-			// status = 0;
-			set_exit_status(0);
-			free(line);
-			if (isatty(STDIN_FILENO))
-				line = readline(PROMPT);
-			else
-				line = readline(NULL);
-			continue ;
-		}
+		// if (strcmp(line, "echo $?") == 0)
+		// {
+		// 	// printf("%d\n", status);
+		// 	printf("%d\n", get_exit_status());
+		// 	// status = 0;
+		// 	set_exit_status(0);
+		// 	free(line);
+		// 	if (isatty(STDIN_FILENO))
+		// 		line = readline(PROMPT);
+		// 	else
+		// 		line = readline(NULL);
+		// 	continue ;
+		// }
 		// debug
 		// printf("(%s)\n", line);
 		// break line into tokens
@@ -84,6 +84,7 @@ void	minishell(void)
 		}
 		post_lexer(&tokens);
 		// printf("===> AFTER POST LEXER:\n");
+		// // printf("===> AFTER POST LEXER:\n");
 		// print_all_tokens(&tokens);
 		// printf("\n");
 		// for (t_token *tmp = tokens; tmp; tmp = tmp->next)
@@ -99,9 +100,9 @@ void	minishell(void)
 		executor(tree);
 		// cleanup
 		free(line);
-		// free_tokens(&tokens);
-		ft_free_context(LEXER);
-		free_tree(tree);
+		free_tokens(&tokens);
+		// free_tree(tree);
+		ft_free_context(PARSER);
 		// reset
 		line = NULL;
 		tokens = NULL;

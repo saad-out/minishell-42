@@ -1,14 +1,5 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/05/03 17:53:29 by klakbuic          #+#    #+#              #
-#    Updated: 2024/05/03 18:10:44 by klakbuic         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+#I = -L /Users/soutchak/readline/lib
+#FLAGS := -fsanitize=address -g3
 
 ANSI_RESET			:= \\033[0m
 ANSI_BOLD			:= \\033[2m
@@ -32,7 +23,7 @@ ANSI_CYAN		:= \\033[38;5;44m
 DEBUG		:= -fsanitize=address -g
 CCWI		:= cc -Wall -Wextra -Iincludes -lreadline
 # RDINC		:= -I ~/Downloads/homebrew/opt/readline/include
-# RDLIB		:= -L ~/Downloads/homebrew/opt/readline/lib -lreadline
+# RDLIB		:= /Users/klakbuic/readline/lib
 NAME		:= minishell
 # directories
 SRCSDIR		:= src
