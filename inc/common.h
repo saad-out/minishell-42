@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/03 15:59:41 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/03 18:44:48 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,8 +148,8 @@ struct						s_pipe
 {
 	t_etype					type;
 	size_t					nb_pipes;
-	t_tree					*nodes[10];
-	// t_tree			**nodes;
+	// t_tree					*nodes[10];
+	t_tree			**nodes;
 };
 
 struct						s_redir
