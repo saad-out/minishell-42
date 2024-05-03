@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 08:50:04 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/03 15:59:38 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/03 21:24:06 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ bool	exist_key(t_env *envs, const char *key)
 void	add_env(t_env **envs, t_env *new)
 {
 	t_env	*head;
-	int		old_shlvl;
 
 	head = *envs;
 	if (!head)
@@ -64,7 +63,8 @@ char	**rebuild_env_to_char(t_env *envs)
 		{
 			env[i] = ft_strjoin(head->key, "=");
 			if (head->value)
-				env[i++] = ft_strjoin(env[i], head->value);
+				env[i] = ft_strjoin(env[i], head->value);
+			i++;
 		}
 		head = head->next;
 	}

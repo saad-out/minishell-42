@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 02:32:01 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/03 02:47:44 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/03 21:28:28 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,6 @@ static void	add_and_split(char ***argv, char *s, int *argc)
 static void	add_and_join(char ***argv, char *s, int *argc)
 {
 	char	**new_av;
-	char	**words;
-	int		w_size;
 	int		i;
 
 	new_av = ft_malloc(sizeof(char *) * ((*argc) + 2), EXPANDER);

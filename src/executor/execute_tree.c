@@ -6,11 +6,12 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 23:02:37 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/02 23:15:28 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/03 21:27:06 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/executor.h"
+#include "../../inc/expander.h"
 #include "../../inc/globals.h"
 
 int	run_ctrl(t_tree *tree)
@@ -119,9 +120,7 @@ int	run_cmd(t_tree *tree)
 {
 	t_exec		*exec;
 	int			status_;
-	char		*tmp;
 	int			(*builtin)(t_exec *exec);
-	struct stat	info;
 
 	exec = (t_exec *)tree;
 	if (exec->argc == 0)

@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:47:47 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/02 18:26:25 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/03 21:34:45 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+#include "../../inc/globals.h"
 
 void	error(char *word, char *msg)
 {

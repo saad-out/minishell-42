@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:35:23 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/03 19:09:51 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/03 21:06:24 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	minishell(void)
 		executor(tree);
 		// cleanup
 		free(line);
-		free_tokens(&tokens);
+		// free_tokens(&tokens);
 		// free_tree(tree);
 		ft_free_context(PARSER);
 		// reset

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 08:50:06 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/02 16:18:48 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/03 21:25:00 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	print_all_env(t_env *envs)
 		if (envs->masked == 0)
 		{
 			printf("%s", DECLARE);
-			printf("%s", envs->key, envs->value);
+			printf("%s", envs->key);
 			if (envs->value == NULL)
 				printf("=\"\"\n");
 			else
@@ -33,7 +33,6 @@ void	print_all_env(t_env *envs)
 
 void	add_env_char(t_env **envs, char *key, char *value)
 {
-	t_env	*head;
 	t_env	*new_env;
 
 	new_env = (t_env *)ft_malloc(sizeof(t_env), GENERAL);

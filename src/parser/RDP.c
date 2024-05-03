@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 18:49:15 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/03 17:26:39 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/03 21:34:06 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ t_tree	*parse_pipe(t_token **tokens)
 t_tree	*parse_sequence(t_token **tokens)
 {
 	t_tree	*left;
-	t_etype	type;
 
 	left = parse_pipe(tokens);
 	if (!left)

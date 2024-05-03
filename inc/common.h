@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   common.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/03 19:06:15 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/03 21:25:40 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@
 # include <string.h>
 # include <sys/stat.h>
 # include <unistd.h>
-# include <readline/history.h>
-# include <readline/readline.h>
-// # include "/Users/klakbuic/readline/include/readline/readline.h"
-// # include "/Users/klakbuic/readline/include/readline/history.h"
+// # include <readline/history.h>
+// # include <readline/readline.h>
+# include "/Users/soutchak/readline/include/readline/readline.h"
+# include "/Users/soutchak/readline/include/readline/history.h"
 /* ------ */
 
 /* TYPEDEFS */
@@ -194,10 +194,12 @@ char						*get_env_value(t_env *envs, const char *key);
 t_env						*get_env(t_env *envs, const char *key);
 void						set_env(t_env *envs, const char *key,
 								const char *new_value);
+void						add_env(t_env **envs, t_env *new);
 void						add_env_char(t_env **envs, char *key, char *value);
 char						**rebuild_env_to_char(t_env *envs);
 void						set_under(char **argv, int argc);
 void						set_nosplt(char **argv, int argc);
+bool						exist_key(t_env *envs, const char *key);
 
 /* --------- */
 void						ft_init_signals(void);

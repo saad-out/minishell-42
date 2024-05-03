@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 23:04:51 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/03 18:07:47 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/03 21:27:40 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,6 @@ int	run_exec(t_exec *exec)
 int	check_cmd(t_exec *exec)
 {
 	int			status_;
-	char		*tmp;
-	struct stat	info;
 
 	if (exec->argv[0][0] != '/' && exec->argv[0][0] != '.')
 	{

@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/03 00:11:47 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/03 21:26:08 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ int	check_last_path(char *full_path, char **paths, char **joined, int i)
 int	check_paths(char *full_path)
 {
 	char	**paths;
-	int		max_i;
 	int		i;
 	char	*joined;
 	int		status_;

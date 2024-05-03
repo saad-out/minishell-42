@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:09:05 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/02 18:57:49 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/03 21:33:23 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,56 +84,4 @@ void	free_tokens(t_token **token_list)
 		tmp = next;
 	}
 	*token_list = NULL;
-}
-
-char	*token_type_to_str(t_etype type)
-{
-	switch (type)
-	{
-		case WORD:
-			return ("WORD");
-		case PIPE:
-			return ("PIPE");
-		case APPEND:
-			return ("APPEND");
-		case HEREDOC:
-			return ("HEREDOC");
-		case ENV:
-			return ("ENV");
-		case AND:
-			return ("AND");
-		case OR:
-			return ("OR");
-		case LPAR:
-			return ("LPAR");
-		case RPAR:
-			return ("RPAR");
-		case UNKNOWN:
-			return ("UNKNOWN");
-		case REDIR:
-			return ("REDIR");
-		case CTRL:
-			return ("CTRL");
-		case STRING:
-			return ("STRING");
-		case REDIR_IN:
-			return ("REDIR_IN");
-		case REDIR_OUT:
-			return ("REDIR_OUT");
-		case WHITESPACE:
-			return ("WHITESPACE");
-		case SINGLE_Q:
-			return ("SINGLE_Q");
-		case DOUBLE_Q:
-			return ("DOUBLE_Q");
-		case WILDCARD:
-			return ("WILDCARD");
-		case LITERAL:
-			return ("LITERAL");
-		case BLOCK:
-			return ("BLOCK");
-		case EXEC:
-			return ("EXEC");
-	}
-	return ("UNKNOWN");
 }

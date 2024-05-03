@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:01:14 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/03 19:01:24 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/03 21:32:56 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,7 @@ bool			syntax_checker(t_token **tokens);
 void			remove_token(t_token **head, t_token *token);
 void			move_qoute_token(t_token **token);
 bool			paran_check_nb(t_token **tokens);
+t_etype			get_next_type(t_token *token);
+t_etype			get_prev_type(t_token *token);
+void			print_error(t_token *token);
 #endif

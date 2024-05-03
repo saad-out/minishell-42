@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 02:35:36 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/03 17:53:32 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/03 21:29:55 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,7 @@ static char	**expand_filenames(t_redir *redir)
 
 void	expand_redir_vars(t_redir *redir)
 {
-	int		i;
-	bool	split;
-	char	*joined;
 	char	**words;
-	int		size;
 
 	if (redir->type == HEREDOC)
 		return (expand_heredoc(redir));

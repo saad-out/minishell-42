@@ -6,18 +6,12 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 21:13:21 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/03 16:16:28 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/03 21:29:18 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/expander.h"
 #include "../../inc/memory.h"
-
-static int	is_special(char c)
-{
-	return (ft_isalnum(c) || c == '_' || c == '&' || c == '|'\
-			|| c == '\'', c == '"');
-}
 
 char	*join_var_heredoc(char *joined, char *s, int *i)
 {
@@ -90,8 +84,6 @@ void	expand_heredoc(t_redir *redir)
 {
 	int		heredoc_fd;
 	char	*content;
-	char	*line;
-	int		i;
 
 	if (!redir->expand)
 		return ;

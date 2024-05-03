@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/02 23:42:25 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/03 21:20:38 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ char	*get_cmd_path(char *cmd);
 int		get_status(t_tree *tree);
 void	print_all_env(t_env *envs, bool env_ex);
 void	free_tab(char **tab);
+void	sort_envs(t_env **envs);
 
 /* --- Builtins --- */
 int (*is_builtin(char *cmd))(t_exec *exec);
