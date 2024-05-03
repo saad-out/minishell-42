@@ -6,26 +6,36 @@
 /*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:01:14 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/02 18:53:21 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/03 19:01:24 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 
+/* INCLUDES */
+# include "common.h"
+# include "minishell.h"
+/* ------*/
+
 /* MACROS */
 # ifndef SYNTAX_ERR_STATUS
 #  define SYNTAX_ERR_STATUS 258
 # endif /* SYNTAX_ERR_STATUS */
 
-# ifndef ERR_UNEXPECTED_TOKEN 
-#  define ERR_UNEXPECTED_TOKEN "outlaakSH: syntax error near unexpected token `"
+# ifndef ERR_UNEXPECTED_TOKEN
+#  define ERR_UNEXPECTED_TOKEN "\033[0;31moutlaakSH: syntax error near unexpected token `"
 # endif /* ERR_UNEXPECTED_TOKEN */
-/* ------ */
 
-/* INCLUDES */
-# include "common.h"
-/* ------*/
+# ifndef ERR_PARAN
+#  define ERR_PARAN "\033[0;31moutlaakSH: syntax error, unclosed parentheses"
+# endif /* ERR_PARAN */
+
+# ifndef ERR_QUOTES
+#  define ERR_QUOTES "\033[0;31moutlaakSH: syntax error, unclosed quotes"
+# endif /* ERR_QUOTES */
+
+/* ------ */
 
 /* TYPEDEFS */
 typedef char	*t_charitr;
@@ -63,6 +73,6 @@ t_token			*new_token(t_etype type, char *s, size_t len);
 /* --- Sytax error*/
 bool			syntax_checker(t_token **tokens);
 void			remove_token(t_token **head, t_token *token);
-void	move_qoute_token(t_token **token);
-
+void			move_qoute_token(t_token **token);
+bool			paran_check_nb(t_token **tokens);
 #endif

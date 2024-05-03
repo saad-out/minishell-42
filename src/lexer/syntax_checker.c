@@ -6,12 +6,13 @@
 /*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 00:40:16 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/02 18:53:28 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/03 19:00:41 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/globals.h"
 #include "../../inc/lexer.h"
+#include "../../inc/minishell.h"
 
 static bool	and_or_pipe_check(t_token *token)
 {
@@ -33,11 +34,16 @@ static bool	and_or_pipe_check(t_token *token)
 	return (false);
 }
 
-static bool	paran_check(t_token *token)
+static bool	paran_check(t_token *token, t_token **tokens)
 {
 	t_etype	prev_type;
 	t_etype	next_type;
 
+	if (paran_check_nb(tokens) == false)
+	{
+		ft_putstr_fd(RED, STDERR_FILENO);
+		return (ft_putendl_fd(ERR_PARAN, STDERR_FILENO), false);
+	}
 	prev_type = get_prev_type(token);
 	next_type = get_next_type(token);
 	if (token->type == LPAR)
@@ -83,8 +89,7 @@ static bool	quotes_check(t_token *token)
 	}
 	if (token->type != next_type)
 	{
-		ft_putendl_fd("outlaakSH: syntax error, unclosed quotes",
-			STDERR_FILENO);
+		ft_putendl_fd(ERR_QUOTES, STDERR_FILENO);
 		return (true);
 	}
 	return (false);
@@ -102,7 +107,7 @@ bool	syntax_checker(t_token **tokens)
 		if (token->type & (PIPE | CTRL))
 			error = and_or_pipe_check(token);
 		else if (token->type & PARAN)
-			error = paran_check(token);
+			error = paran_check(token, tokens);
 		else if (token->type & REDIR)
 			error = redir_check(token);
 		else if (token->type & QUOTES)

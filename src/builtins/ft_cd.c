@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 09:53:23 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/02 18:17:32 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/03 18:14:30 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static int	ft_cd_helper(t_exec *cmd)
 		set_env(*get_env_list(), "OLDPWD", ft_strdup(old_pwd));
 		if (chdir(tmp) == -1)
 			return (error("cd", NULL), EXIT_FAILURE);
+		set_env(*get_env_list(), "PWD", getcwd(old_pwd, PATH_MAX));
 		ft_putendl_fd(tmp, STDOUT_FILENO);
 	}
 	return (EXIT_SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:51:13 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/02 18:53:34 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/03 19:00:57 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,22 @@ void	move_qoute_token(t_token **token)
 		if (*token && (*token)->type == LITERAL)
 			*token = (*token)->next;
 	}
+}
+bool	paran_check_nb(t_token **tokens)
+{
+	t_token	*token;
+	int		lparan;
+	int		rparan;
+
+	token = *tokens;
+	lparan = 0;
+	rparan = 0;
+	while (token)
+	{
+		lparan += token->type == LPAR;
+		rparan += token->type == RPAR;
+		token = token->next;
+	}
+	lparan += rparan;
+	return (!(lparan % 2));
 }

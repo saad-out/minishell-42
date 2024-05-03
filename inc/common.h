@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   common.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/03 15:59:41 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/03 18:23:21 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@
 /* ---- */
 
 /* INCLUDES */
-// # include "../libs/ft_containers/ft_data_structres.h"
 # include "libs.h"
 # include <signal.h>
 # include <stdbool.h>
@@ -46,10 +45,10 @@
 # include <string.h>
 # include <sys/stat.h>
 # include <unistd.h>
-// # include <readline/history.h>
-// # include <readline/readline.h>
-# include "/Users/soutchak/readline/include/readline/readline.h"
-# include "/Users/soutchak/readline/include/readline/history.h"
+# include <readline/history.h>
+# include <readline/readline.h>
+// # include "/Users/klakbuic/readline/include/readline/readline.h"
+// # include "/Users/klakbuic/readline/include/readline/history.h"
 /* ------ */
 
 /* TYPEDEFS */

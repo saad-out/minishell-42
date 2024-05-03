@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:35:23 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/30 22:31:01 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/02 18:30:09 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 #include "../inc/globals.h"
+#include "../inc/memory.h"
 
 void	minishell(void)
 {
@@ -98,7 +99,8 @@ void	minishell(void)
 		executor(tree);
 		// cleanup
 		free(line);
-		free_tokens(&tokens);
+		// free_tokens(&tokens);
+		ft_free_context(LEXER);
 		free_tree(tree);
 		// reset
 		line = NULL;
