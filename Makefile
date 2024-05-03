@@ -6,7 +6,7 @@
 #    By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 17:53:29 by klakbuic          #+#    #+#              #
-#    Updated: 2024/05/03 18:10:44 by klakbuic         ###   ########.fr        #
+#    Updated: 2024/05/03 18:26:42 by klakbuic         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,8 +81,9 @@ EXPANDER	:=			\
 	expand_quotes.c		\
 	expand_redir.c		\
 	expand_utils2.c		\
-	wildcards.c
-			
+	wildcards.c			\
+	wildcards_utils.c	\
+
 LEXER	:=				\
 	heredoc.c			\
 	lexer.c				\
