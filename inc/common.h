@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/01 18:49:12 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/03 15:59:41 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +199,7 @@ void						set_env(t_env *envs, const char *key,
 void						add_env_char(t_env **envs, char *key, char *value);
 char						**rebuild_env_to_char(t_env *envs);
 void						set_under(char **argv, int argc);
+void						set_nosplt(char **argv, int argc);
 
 /* --------- */
 void						ft_init_signals(void);

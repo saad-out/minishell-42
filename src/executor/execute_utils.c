@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 23:04:51 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/02 23:18:43 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/03 16:00:09 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,18 +65,18 @@ int	run_exec(t_exec *exec)
 	if (access(exec->argv[0], F_OK) == -1)
 	{
 		error(exec->argv[0], "No such file or directory");
-		return (set_under(exec->argv, exec->argc), set_exit_status(127), 127);
+		return (set_nosplt(exec->argv, exec->argc), set_exit_status(127), 127);
 	}
 	stat(exec->argv[0], &info);
 	if (S_ISDIR(info.st_mode))
 	{
 		error(exec->argv[0], "Is a directory");
-		return (set_under(exec->argv, exec->argc), set_exit_status(126), 126);
+		return (set_nosplt(exec->argv, exec->argc), set_exit_status(126), 126);
 	}
 	if (access(exec->argv[0], R_OK | X_OK) == -1)
 	{
 		error(exec->argv[0], "Permission denied");
-		return (set_under(exec->argv, exec->argc), set_exit_status(126), 126);
+		return (set_nosplt(exec->argv, exec->argc), set_exit_status(126), 126);
 	}
 	return (0);
 }

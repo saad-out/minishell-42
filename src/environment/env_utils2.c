@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 08:50:04 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/02 20:00:35 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/03 15:59:38 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,16 @@ char	**rebuild_env_to_char(t_env *envs)
 		head = head->next;
 	}
 	return (env[i] = NULL, env);
+}
+
+void	set_nosplt(char **argv, int argc)
+{
+	if ((argc - 1) != 0)
+	{
+		set_env(*get_env_list(), "_", argv[argc - 1]);
+		return ;
+	}
+	set_env(*get_env_list(), "_", argv[argc - 1]);
 }
 
 void	set_under(char **argv, int argc)
