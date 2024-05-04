@@ -6,7 +6,7 @@
 #    By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 17:53:29 by klakbuic          #+#    #+#              #
-#    Updated: 2024/05/04 02:02:52 by soutchak         ###   ########.fr        #
+#    Updated: 2024/05/04 02:06:02 by soutchak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -135,7 +135,7 @@ PARSER  :=			\
 	parser_utils.c	\
 	RDP_2.c			\
 	RDP.c			\
-	tree.c
+	# tree.c
 
 UTILS	:=	\
 	error.c						\
