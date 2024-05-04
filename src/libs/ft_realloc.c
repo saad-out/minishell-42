@@ -6,26 +6,24 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 18:15:21 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/04 00:21:36 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/04 02:13:21 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/memory.h"
 #include <stdlib.h>
 
-void *ft_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
+void	*ft_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 {
-	void *p;
-	char *c, *k;
-	unsigned int i;
+	void			*p;
+	char			*c;
+	char			*k;
+	unsigned int	i;
 
 	if (new_size == old_size && ptr)
 		return (ptr);
 	if (!new_size && ptr)
-	{
-		ft_free(ptr, GENERAL);
-		return (0);
-	}
+		return (ft_free(ptr, GENERAL), 0);
 	p = ft_malloc(new_size, GENERAL);
 	if (!ptr)
 		return (p);

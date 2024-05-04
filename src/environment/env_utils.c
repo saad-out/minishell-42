@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 08:50:06 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/03 21:25:00 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/04 02:10:34 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ void	set_env(t_env *envs, const char *key, const char *new_value)
 				envs->visibility = BOTH;
 			if (new_value)
 				envs->value = ft_strdup(new_value);
-			else if (envs->visibility != SPECIAL && ft_strcmp(envs->key, "_") != 0)
+			else if (envs->visibility != SPECIAL \
+					&& ft_strcmp(envs->key, "_") != 0)
 				envs->visibility = EXPORT;
 			return ;
 		}
