@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:35:23 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/04 01:34:57 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/04 01:56:41 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char	*ft_readline(char *prev_line)
 	if (prev_line)
 		free(prev_line);
 	if (isatty(STDIN_FILENO))
-		line = readline(PROMPT);
+		line = readline(CYAN PROMPT RESET);
 	else
 		line = readline(NULL);
 	return (line);

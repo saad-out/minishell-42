@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ../../inc/libs.h                                             :+:      :+:    :+:   */
+/*   libs.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/01 08:32:08 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/01 08:32:58 by klakbuic         ###   ########.fr       */
+/*   Created: 2024/05/04 01:50:09 by soutchak          #+#    #+#             */
+/*   Updated: 2024/05/04 01:50:45 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,6 @@ void	ft_putchar_fd(char c, int fd);
 int		ft_atoi(const char *str);
 char	*ft_itoa(int n);
 char	*ft_strndup(const char *str, int n);
-void    *ft_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+void	*ft_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 
 #endif

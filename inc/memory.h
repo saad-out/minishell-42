@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   memory.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: khalid <khalid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 08:33:08 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/30 15:42:07 by khalid           ###   ########.fr       */
+/*   Updated: 2024/05/04 01:52:45 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,10 @@
 
 # include "common.h"
 
-/*--- STRCUTS ---*/
-/*---         ---*/
-
 /*--- TYPES ---*/
 typedef struct s_mem	t_mem;
 typedef enum e_context	t_mem_context;
 /*---       ---*/
-
-/*--- STRUCTS ---*/
 
 /*--- ENUMS ---*/
 enum					e_context
@@ -35,14 +30,14 @@ enum					e_context
 	GENERAL,
 	ALL,
 };
-
 /*---       ----*/
+
 /*--- PROTOTYPES ---*/
-void					*ft_malloc(size_t size, t_mem_context context);
-void					ft_free(void *heap_block, t_mem_context context);
-void					ft_free_heap(void);
-void					ft_print_mem(t_mem_context context);
-void					ft_free_context(t_mem_context context);
+void				*ft_malloc(size_t size, t_mem_context context);
+void				ft_free(void *heap_block, t_mem_context context);
+void				ft_free_heap(void);
+void				ft_print_mem(t_mem_context context);
+void				ft_free_context(t_mem_context context);
 
 typedef struct s_list
 {
@@ -68,6 +63,6 @@ bool				ft_lstdel_at_index(t_list **lst, unsigned int index,
 						void (*del)(void *));
 bool				ft_lstadd_at_index(t_list **lst, t_list *new,
 						unsigned int index);
-
 /*---            ---*/
+
 #endif

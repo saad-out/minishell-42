@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/02 19:45:48 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/04 01:59:39 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_tree	*pipe_add_node(t_tree *pipe, t_tree *node);
 t_tree	*pipe_node(void);
 t_tree	*exec_node(char **args, int argc, char **env);
 t_tree	*redir_node(t_etype type, t_tree *child, char *file);
-t_tree *block_node(t_tree *child);
+t_tree	*block_node(t_tree *child);
 t_tree	*and_or_node(t_etype type, t_tree *left, t_tree *right);
 
 t_tree	*parse_exec(t_token **tokens);

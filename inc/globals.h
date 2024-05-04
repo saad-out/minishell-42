@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/29 15:40:00 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/29 16:26:17 by soutchak         ###   ########.fr       */
+/*   Created: 2024/05/04 01:48:47 by soutchak          #+#    #+#             */
+/*   Updated: 2024/05/04 01:48:59 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 /* PROTOTYPES */
 int		get_exit_status(void);
 void	set_exit_status(int status);
-t_env 	**get_env_list(void);
+t_env	**get_env_list(void);
 /* --------- */
 
 #endif /* GLOBALS_H */

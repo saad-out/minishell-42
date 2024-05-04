@@ -1,12 +1,12 @@
-
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/19 16:19:03 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/26 16:08:26 by soutchak         ###   ########.fr       */
+/*   Created: 2024/05/04 01:47:31 by soutchak          #+#    #+#             */
+/*   Updated: 2024/05/04 01:47:33 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*join_regular(char *joined, char *s, int *i, const char *set);
 void	add_to_argv(char ***argv, char *s, int *argc, bool splt);
 void	expand_exec_vars(t_exec *exec);
 void	expand_redir_vars(t_redir *redir);
-int	    count_words(char **words);
+int		count_words(char **words);
 bool	to_expand(char c);
 char	**get_wd_match(char *wd);
 bool	match(char *pattern, char *candidate, int p, int c);

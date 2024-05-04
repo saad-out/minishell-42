@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: khalid <khalid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:57:46 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/30 15:46:55 by khalid           ###   ########.fr       */
+/*   Updated: 2024/05/04 01:48:29 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 # include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
-
 # include <stdio.h>
 
-typedef struct s_line {
+typedef struct s_line
+{
 	char			*block;
 	size_t			size;
 	struct s_line	*next;
