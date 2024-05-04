@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_checker.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 00:40:16 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/03 19:00:41 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/04 01:33:02 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static bool	paran_check(t_token *token, t_token **tokens)
 	if (paran_check_nb(tokens) == false)
 	{
 		ft_putstr_fd(RED, STDERR_FILENO);
-		return (ft_putendl_fd(ERR_PARAN, STDERR_FILENO), false);
+		return (ft_putendl_fd(ERR_PARAN, STDERR_FILENO), true);
 	}
 	prev_type = get_prev_type(token);
 	next_type = get_next_type(token);

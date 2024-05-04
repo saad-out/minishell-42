@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:35:23 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/03 21:06:24 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/04 01:34:57 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,103 +14,72 @@
 #include "../inc/globals.h"
 #include "../inc/memory.h"
 
+static void	init(t_token **tokens, t_tree **tree)
+{
+	ft_init_signals();
+	*tokens = NULL;
+	*tree = NULL;
+}
+
+static void	free_contexts(void)
+{
+	ft_free_context(LEXER);
+	ft_free_context(PARSER);
+	ft_free_context(EXECUTOR);
+	ft_free_context(EXPANDER);
+}
+
+static char	*ft_readline(char *prev_line)
+{
+	char	*line;
+
+	line = NULL;
+	if (prev_line)
+		free(prev_line);
+	if (isatty(STDIN_FILENO))
+		line = readline(PROMPT);
+	else
+		line = readline(NULL);
+	return (line);
+}
+
+static void	parse_and_execute(t_token **tokens, t_tree **tree, char *line)
+{
+	lexer(tokens, line);
+	if (max_heredoc(*tokens))
+	{
+		ft_putendl_fd("max heredoc exceeded", STDERR_FILENO);
+		return (free(line), ft_free_heap(), exit(2));
+	}
+	if (syntax_checker(tokens))
+		return ;
+	post_lexer(tokens);
+	parser(tree, *tokens);
+	executor(*tree);
+}
+
 void	minishell(void)
 {
 	char	*line;
 	t_token	*tokens;
 	t_tree	*tree;
 
-	// init
-	ft_init_signals();
-	tokens = NULL;
-	tree = NULL;
-	if (isatty(STDIN_FILENO))
-		line = readline(PROMPT);
-	else
-		line = readline(NULL);
-	// For every prompt line
+	init(&tokens, &tree);
+	line = NULL;
+	line = ft_readline(line);
 	while (line)
 	{
-		// history management
 		if (line[0] != '\0')
 			add_history(line);
 		else
 		{
-			free(line);
-			if (isatty(STDIN_FILENO))
-				line = readline(PROMPT);
-			else
-				line = readline(NULL);
+			free_contexts();
+			line = ft_readline(line);
 			continue ;
 		}
-		// exit
-		// if (strcmp(line, "exit") == 0)
-		// TODO: this is simple exit() implementation for testing only
-		// 	return (free(line));
-		// if (strcmp(line, "echo $?") == 0)
-		// {
-		// 	// printf("%d\n", status);
-		// 	printf("%d\n", get_exit_status());
-		// 	// status = 0;
-		// 	set_exit_status(0);
-		// 	free(line);
-		// 	if (isatty(STDIN_FILENO))
-		// 		line = readline(PROMPT);
-		// 	else
-		// 		line = readline(NULL);
-		// 	continue ;
-		// }
-		// debug
-		// printf("(%s)\n", line);
-		// break line into tokens
-		lexer(&tokens, line);
-		// print_all_tokens(&tokens);
-		if (max_heredoc(tokens))
-		{
-			ft_putendl_fd("max heredoc exceeded", STDERR_FILENO);
-			free(line);
-			free_tokens(&tokens);
-			exit(2);
-		}
-		if (syntax_checker(&tokens))
-		{
-			free(line);
-			free_tokens(&tokens);
-			if (isatty(STDIN_FILENO))
-				line = readline(PROMPT);
-			else
-				line = readline(NULL);
-			continue ;
-		}
-		post_lexer(&tokens);
-		// printf("===> AFTER POST LEXER:\n");
-		// // printf("===> AFTER POST LEXER:\n");
-		// print_all_tokens(&tokens);
-		// printf("\n");
-		// for (t_token *tmp = tokens; tmp; tmp = tmp->next)
-		// {
-		// 	printf("==> type: %s, str: (", token_type_to_str(tmp->type));
-		// 	for (size_t i = 0; i < tmp->location.len; i++)
-		// 		printf("%c", tmp->location.start[i]);
-		// 	printf(")\n");
-		// }
-		// parse token into AST
-		parser(&tree, tokens);
-		// execute command(s)
-		executor(tree);
-		// cleanup
-		free(line);
-		// free_tokens(&tokens);
-		// free_tree(tree);
-		ft_free_context(PARSER);
-		// reset
-		line = NULL;
-		tokens = NULL;
-		tree = NULL;
-		// next iter
-		if (isatty(STDIN_FILENO))
-			line = readline(PROMPT);
-		else
-			line = readline(NULL);
+		parse_and_execute(&tokens, &tree, line);
+		free_contexts();
+		init(&tokens, &tree);
+		line = ft_readline(line);
 	}
 }
