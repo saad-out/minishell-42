@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/01 02:13:15 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/04 01:59:39 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@
 # ifndef HEREDOC_PROMPT
 #  define HEREDOC_PROMPT "heredoc> "
 # endif /* HEREDOC_PROMPT */
+
+# ifndef MAX_HEREDOC
+#  define MAX_HEREDOC 16
+# endif /* MAX_HEREDOC */
 /* ---- */
 
 /* INCLUDES */
@@ -41,7 +45,7 @@ t_tree	*pipe_add_node(t_tree *pipe, t_tree *node);
 t_tree	*pipe_node(void);
 t_tree	*exec_node(char **args, int argc, char **env);
 t_tree	*redir_node(t_etype type, t_tree *child, char *file);
-t_tree *block_node(t_tree *child);
+t_tree	*block_node(t_tree *child);
 t_tree	*and_or_node(t_etype type, t_tree *left, t_tree *right);
 
 t_tree	*parse_exec(t_token **tokens);
@@ -51,13 +55,19 @@ t_tree	*parse_pipe(t_token **tokens);
 t_tree	*parse_sequence(t_token **tokens);
 t_tree	*parse_sequence_tail(t_token **tokens, t_tree *left);
 
+t_tree	*parse_cmd_and_redirs(t_token **tokens, t_exec *node);
+void	parse_str(t_token *tmp, t_exec *node);
+t_exec	*init_exec(void);
+
 t_redir	*get_last_redir(t_tree *tree);
-char	*read_heardoc(char *delimiter);
+char	*read_heardoc(char *delimiter, bool *expand);
 char	*set_filename(t_redir *node, char *s, t_etype type);
+char	*remove_quotes(char *del, bool *expand);
 
 // char	*ft_strjoin(char const *s1, char const *s2);
 // char	**ft_split(char const *s, char c);
 char	*token_type_to_str(t_etype type); // TODO: remove (only for debugging)
+bool	max_heredoc(t_token *tokens);
 /* --------- */
 
 #endif /* PARSER_H */

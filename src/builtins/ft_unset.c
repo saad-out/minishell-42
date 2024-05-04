@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 16:37:20 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/04/20 16:56:21 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/02 19:00:22 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,5 @@ int	ft_unset(t_exec *cmd)
 			tmp->masked = true;
 		i++;
 	}
-	return (0);
+	return (set_under(cmd->argv, cmd->argc), EXIT_SUCCESS);
 }

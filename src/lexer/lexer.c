@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 00:12:48 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/18 16:44:52 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/03 21:31:31 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ bool	is_special(char c)
 void	lexer(t_token **head, const char *line)
 {
 	t_charitr	itr;
-	t_token		*token;
 
 	itr = (t_charitr)line;
 	while (itr_has_next(itr))

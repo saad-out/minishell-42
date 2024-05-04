@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   common.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/22 17:08:57 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/04 01:44:22 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 # define READLINE_LIBRARY
 
 /* MACROS */
-# define SIZE 4096
-
 # ifndef MANY_ARGS_ERROR
 #  define MANY_ARGS_ERROR "Too many argument!"
 # endif /* MANY_ARGS_ERROR */
@@ -28,10 +26,18 @@
 # ifndef DECLARE
 #  define DECLARE "declare -x "
 # endif /* DECLARE */
+
+# ifndef PATH_MAX
+#  define PATH_MAX 4096
+# endif /* PATH_MAX */
+
+# ifndef SHELL_ERROR
+#  define SHELL_ERROR "outlaakSH: "
+# endif /* SHELL_ERROR */
 /* ---- */
 
 /* INCLUDES */
-# include "../libs/libft/libft.h"
+# include "libs.h"
 # include <signal.h>
 # include <stdbool.h>
 # include <stdio.h>
@@ -39,8 +45,10 @@
 # include <string.h>
 # include <sys/stat.h>
 # include <unistd.h>
-# include "/Users/klakbuic/readline/include/readline/history.h"
-# include "/Users/klakbuic/readline/include/readline/readline.h"
+# include <readline/history.h>
+# include <readline/readline.h>
+// # include "/Users/soutchak/readline/include/readline/readline.h"
+// # include "/Users/soutchak/readline/include/readline/history.h"
 /* ------ */
 
 /* TYPEDEFS */
@@ -56,11 +64,6 @@ typedef struct s_redir		t_redir;
 typedef struct s_env		t_env;
 typedef enum e_visibility	t_visibility;
 /* -------- */
-
-/* GLOBALS */
-extern t_env				*env_;
-extern int					status;
-/* ------ */
 
 /* ENUMS */
 enum						e_token_type
@@ -97,78 +100,77 @@ enum						e_visibility
 {
 	ENVE = 1 << 0,
 	EXPORT = 1 << 1,
-	BOTH = 1 << 2
+	BOTH = 1 << 2,
+	SPECIAL = 1 << 3
 };
 /* ------ */
 
 /* STRUCTS */
-struct						s_slice
+struct	s_slice
 {
-	char					*start;
-	size_t					len;
+	char	*start;
+	size_t	len;
 };
 
-struct						s_token
+struct	s_token
 {
-	t_etype					type;
-	t_slice					location;
-	t_token					*prev;
-	t_token					*next;
+	t_etype	type;
+	t_slice	location;
+	t_token	*prev;
+	t_token	*next;
 };
 
-struct						s_tree
+struct	s_tree
 {
-	t_etype					type;
+	t_etype	type;
 };
 
-struct						s_and_or
+struct	s_and_or
 {
-	t_etype					type;
-	t_tree					*left;
-	t_tree					*right;
+	t_etype	type;
+	t_tree	*left;
+	t_tree	*right;
 };
 
-struct						s_block
+struct	s_block
 {
-	t_etype					type;
-	t_tree					*child;
+	t_etype	type;
+	t_tree	*child;
 };
 
-struct						s_pipe
+struct	s_pipe
 {
-	t_etype					type;
-	size_t					nb_pipes;
-	t_tree					*nodes[10];
-	// t_tree			**nodes;
+	t_etype	type;
+	size_t	nb_pipes;
+	t_tree	**nodes;
 };
 
-struct						s_redir
+struct	s_redir
 {
-	t_etype					type;
-	int						fd;
-	char					*file;
-	int flags;   // O_RDONLY, O_WRONLY, O_CREAT, O_APPEND
-	mode_t mode; // S_IRUSR, S_IWUSR, S_IRGRP, S_IROTH ==> leave to default
-	t_tree					*child;
+	t_etype	type;
+	int		fd;
+	char	*file;
+	int		flags;
+	bool	expand;
+	t_tree	*child;
 };
 
-struct						s_exec
+struct	s_exec
 {
-	t_etype					type;
-	char					**argv;
-	int						argc;
-	// char					**env;
-	t_env					**env;
+	t_etype	type;
+	char	**argv;
+	int		argc;
+	t_env	**env;
 };
 
-struct						s_env
+struct	s_env
 {
-	char					*key;
-	char					*value;
-	t_visibility			visibility;
-	bool					masked;
-	t_env					*prev;
-	t_env					*next;
+	char			*key;
+	char			*value;
+	t_visibility	visibility;
+	bool			masked;
+	t_env			*prev;
+	t_env			*next;
 };
 
 /* ------ */
@@ -183,12 +185,19 @@ void						executor(t_tree *tree);
 t_env						*build_env(char **env);
 char						*get_env_value(t_env *envs, const char *key);
 t_env						*get_env(t_env *envs, const char *key);
-char						**rebuild_env(t_env *envs);
 void						set_env(t_env *envs, const char *key,
 								const char *new_value);
+void						add_env(t_env **envs, t_env *new);
 void						add_env_char(t_env **envs, char *key, char *value);
+char						**rebuild_env_to_char(t_env *envs);
+void						set_under(char **argv, int argc);
+void						set_nosplt(char **argv, int argc);
+bool						exist_key(t_env *envs, const char *key);
 
 /* --------- */
 void						ft_init_signals(void);
+void						interrput_handler_2(int sig);
+void						interrput_handler_3(int sig);
+void						error(char *word, char *msg);
 
 #endif /* HEADER_H */

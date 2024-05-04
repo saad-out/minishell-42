@@ -1,5 +1,8 @@
 {
     "files.associations": {
-        "common.h": "c"
+        "common.h": "c",
+        "libft.h": "c",
+        "lexer.h": "c",
+        "memory.h": "c"
     }
 }
