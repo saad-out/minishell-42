@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/03 21:20:38 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/03 23:01:20 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include "common.h"
 # include <errno.h>
 # include <fcntl.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 /* ------- */
 
 /* PROTOTYPES */

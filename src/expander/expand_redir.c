@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 02:35:36 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/03 21:29:55 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/04 00:29:14 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ void	expand_redir_vars(t_redir *redir)
 	if (!words || count_words(words) != 1)
 	{
 		error(redir->file, "ambiguous redirect");
-		free(redir->file);
+		ft_free(redir->file, GENERAL);
 		redir->file = NULL;
 	}
 	else
 	{
-		free(redir->file);
+		ft_free(redir->file, GENERAL);
 		redir->file = words[0];
 	}
-	free(words);
+	ft_free(words, GENERAL);
 }

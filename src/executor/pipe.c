@@ -6,12 +6,13 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/03 00:05:43 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/04 00:38:24 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/executor.h"
 #include "../../inc/globals.h"
+#include "../../inc/memory.h"
 
 pid_t	spawn_process(int input, int output, t_tree *tree)
 {
@@ -33,6 +34,7 @@ pid_t	spawn_process(int input, int output, t_tree *tree)
 			close(output);
 		}
 		set_exit_status(get_status(tree));
+		ft_free_heap();
 		exit(get_exit_status());
 	}
 	return (pid);

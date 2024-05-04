@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 23:05:53 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/03 18:11:11 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/04 00:38:14 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	child(t_exec *exec)
 	execve(exec->argv[0], exec->argv, rebuild_env_to_char(*(exec->env)));
 	error(exec->argv[0], NULL);
 	set_exit_status(127);
+	ft_free_heap();
 	exit(get_exit_status());
 }
 

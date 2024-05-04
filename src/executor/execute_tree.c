@@ -6,13 +6,14 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 23:02:37 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/03 21:27:06 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/04 00:39:14 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/executor.h"
 #include "../../inc/expander.h"
 #include "../../inc/globals.h"
+#include "../../inc/memory.h"
 
 int	run_ctrl(t_tree *tree)
 {
@@ -52,6 +53,7 @@ int	run_block(t_tree *tree)
 		signal(SIGQUIT, SIG_DFL);
 		status_ = get_status(block->child);
 		set_exit_status(status_);
+		ft_free_heap();
 		exit(status_);
 	}
 	wait(&status_);

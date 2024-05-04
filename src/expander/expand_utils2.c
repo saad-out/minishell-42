@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 02:37:30 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/03 02:40:03 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/04 00:29:58 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ char	*join_var(char *joined, char *s, int *i)
 	if (var)
 	{
 		tmp = ft_strjoin(joined, var);
-		free(joined);
-		free(var);
+		ft_free(joined, GENERAL);
+		ft_free(var, GENERAL);
 		joined = tmp;
 	}
 	return (joined);
@@ -57,8 +57,8 @@ char	*join_regular(char *joined, char *s, int *i, const char *set)
 	if (!joined)
 		return (tmp);
 	tmp2 = ft_strjoin(joined, tmp);
-	free(joined);
-	free(tmp);
+	ft_free(joined, GENERAL);
+	ft_free(tmp, GENERAL);
 	return (tmp2);
 }
 

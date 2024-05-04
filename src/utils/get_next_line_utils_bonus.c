@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 23:05:08 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/02 16:27:15 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/04 00:09:45 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	ft_lstclear2(t_line **line)
 	while (tmp)
 	{
 		next = tmp->next;
-		free(tmp->block);
-		free(tmp);
+		ft_free(tmp->block, GENERAL);
+		ft_free(tmp, GENERAL);
 		tmp = next;
 	}
 	*line = NULL;
@@ -79,7 +79,8 @@ t_line	*ft_adjust_and_free_node(t_line **line, t_line *node, size_t i)
 	while (new_block[i])
 		i++;
 	node->size = i;
-	return (free(node->block), node->block = new_block, *line = node, node);
+	return (ft_free(node->block, GENERAL), node->block = new_block, \
+			*line = node, node);
 }
 
 t_line	*ft_free_line(t_line **line)
@@ -97,8 +98,8 @@ t_line	*ft_free_line(t_line **line)
 			i++;
 		if (!tmp->block[i])
 		{
-			free(tmp->block);
-			free(tmp);
+			ft_free(tmp->block, GENERAL);
+			ft_free(tmp, GENERAL);
 		}
 		else if (tmp->block[i] == '\n')
 			return (ft_adjust_and_free_node(line, tmp, i));

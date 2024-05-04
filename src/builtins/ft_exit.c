@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 16:59:33 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/02 18:41:52 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/04 00:22:13 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ int	ft_exit(t_exec *exec)
 	ft_putendl_fd("exit", STDIN_FILENO);
 	if (exec->argc == 1)
 	{
-		// ft_free_heap();
+		ft_free_heap();
 		exit(EXIT_SUCCESS);
 	}
 	if (!is_valid_numeric(exec->argv[1]))
 	{
 		ft_putendl_fd("outlaakSH: exit: numeric argument required",
 			STDERR_FILENO);
-		// ft_free_heap();
+		ft_free_heap();
 		exit(255);
 	}
 	if (exec->argc > 2)

@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 18:15:21 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/02 18:15:59 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/04 00:21:36 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,10 @@ void *ft_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 		return (ptr);
 	if (!new_size && ptr)
 	{
-		free(ptr);
+		ft_free(ptr, GENERAL);
 		return (0);
 	}
-	p = malloc(new_size);
-	if (!p)
-		return (0);
+	p = ft_malloc(new_size, GENERAL);
 	if (!ptr)
 		return (p);
 	i = 0;
@@ -39,6 +37,6 @@ void *ft_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 		*c++ = *k++;
 		i++;
 	}
-	free(ptr);
+	ft_free(ptr, GENERAL);
 	return (p);
 }

@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:42:36 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/03 16:48:40 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/04 00:32:16 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ void	add_filename(char ***argv, int *i, char *s)
 	char	**new;
 	int		j;
 
-	new = ft_malloc(sizeof(char *) * ((*i) + 2), EXPANDER);
+	new = ft_malloc(sizeof(char *) * ((*i) + 2), GENERAL);
 	j = -1;
 	while (++j < *i)
 		new[j] = (*argv)[j];
 	new[*i] = s;
 	new[(*i) + 1] = NULL;
-	free(*argv);
+	ft_free(*argv, GENERAL);
 	*argv = new;
 	*i += 1;
 }
@@ -39,7 +39,7 @@ void	add_to_argv_2(char ***argv, int *i, char **vec)
 	v_size = 0;
 	while (vec[v_size])
 		v_size++;
-	new = ft_malloc(sizeof(char *) * ((*i) + v_size + 1), EXPANDER);
+	new = ft_malloc(sizeof(char *) * ((*i) + v_size + 1), GENERAL);
 	j = -1;
 	while (++j < *i)
 		new[j] = (*argv)[j];
@@ -47,7 +47,7 @@ void	add_to_argv_2(char ***argv, int *i, char **vec)
 	while (k < v_size)
 		new[j++] = vec[k++];
 	new[j] = NULL;
-	free(*argv);
+	ft_free(*argv, GENERAL);
 	*argv = new;
 	*i += (v_size);
 }
@@ -87,7 +87,7 @@ void	expand_redir_wd(t_redir *redir)
 		return ;
 	if (match && match[0] && match[1] == NULL)
 	{
-		free(redir->file);
+		ft_free(redir->file, GENERAL);
 		redir->file = match[0];
 	}
 	else
@@ -96,7 +96,7 @@ void	expand_redir_wd(t_redir *redir)
 		free(redir->file);
 		redir->file = NULL;
 	}
-	free(match);
+	ft_free(match, GENERAL);
 }
 
 void	expand_wildcards(t_tree *node)
