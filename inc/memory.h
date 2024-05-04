@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 08:33:08 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/04 01:52:45 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/04 02:27:10 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void				ft_free(void *heap_block, t_mem_context context);
 void				ft_free_heap(void);
 void				ft_print_mem(t_mem_context context);
 void				ft_free_context(t_mem_context context);
+void				*ft_add_mem(void *heap_block, t_mem_context context);
 
 typedef struct s_list
 {
