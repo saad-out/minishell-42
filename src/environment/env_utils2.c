@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 08:50:04 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/03 21:24:06 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/04 15:39:32 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,15 @@ char	**rebuild_env_to_char(t_env *envs)
 		head = head->next;
 	}
 	env = (char **)ft_malloc((sizeof(char *) * (i + 1)), GENERAL);
-	i = 0;
+	i = -1;
 	head = envs;
 	while (head)
 	{
 		if (head->masked == 0)
 		{
-			env[i] = ft_strjoin(head->key, "=");
+			env[++i] = ft_strjoin(head->key, "=");
 			if (head->value)
 				env[i] = ft_strjoin(env[i], head->value);
-			i++;
 		}
 		head = head->next;
 	}

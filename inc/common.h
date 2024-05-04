@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/04 01:44:22 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/04 02:48:48 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@
 # include <string.h>
 # include <sys/stat.h>
 # include <unistd.h>
-# include <readline/history.h>
-# include <readline/readline.h>
-// # include "/Users/soutchak/readline/include/readline/readline.h"
-// # include "/Users/soutchak/readline/include/readline/history.h"
+// # include <readline/history.h>
+// # include <readline/readline.h>
+# include "/Users/soutchak/readline/include/readline/readline.h"
+# include "/Users/soutchak/readline/include/readline/history.h"
 /* ------ */
 
 /* TYPEDEFS */

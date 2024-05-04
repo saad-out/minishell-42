@@ -6,30 +6,13 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 08:50:06 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/04 02:10:34 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/04 15:40:23 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/common.h"
 #include "../../inc/globals.h"
 #include "../../inc/memory.h"
-
-void	print_all_env(t_env *envs)
-{
-	while (envs)
-	{
-		if (envs->masked == 0)
-		{
-			printf("%s", DECLARE);
-			printf("%s", envs->key);
-			if (envs->value == NULL)
-				printf("=\"\"\n");
-			else
-				printf("=%s\n", envs->value);
-		}
-		envs = envs->next;
-	}
-}
 
 void	add_env_char(t_env **envs, char *key, char *value)
 {
