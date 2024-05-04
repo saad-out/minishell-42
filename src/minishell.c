@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:35:23 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/04 01:56:41 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/04 03:15:00 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void	minishell(void)
 	t_token	*tokens;
 	t_tree	*tree;
 
+	if (isatty(STDIN_FILENO))
+		welcome();
 	init(&tokens, &tree);
 	line = NULL;
 	line = ft_readline(line);

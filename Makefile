@@ -6,7 +6,7 @@
 #    By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 17:53:29 by klakbuic          #+#    #+#              #
-#    Updated: 2024/05/04 02:28:27 by soutchak         ###   ########.fr        #
+#    Updated: 2024/05/04 03:16:26 by soutchak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -156,7 +156,8 @@ SRCS	:= 	\
 			$(foreach F,$(PARSER),$(SRCSDIR)/$(PARSERDIR)/$(F))			\
 			$(foreach F,$(UTILS),$(SRCSDIR)/$(UTILSDIR)/$(F))			\
 			$(SRCSDIR)/main.c											\
-			$(SRCSDIR)/minishell.c
+			$(SRCSDIR)/minishell.c										\
+			$(SRCSDIR)/welcome.c
 			
 # objects
 OBJS		:= $(patsubst src/%.c,obj/%.o,$(SRCS))
