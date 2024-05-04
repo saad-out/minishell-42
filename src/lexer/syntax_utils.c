@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:51:13 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/03 19:00:57 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/04 02:03:54 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	move_qoute_token(t_token **token)
 			*token = (*token)->next;
 	}
 }
+
 bool	paran_check_nb(t_token **tokens)
 {
 	t_token	*token;

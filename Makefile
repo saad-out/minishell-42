@@ -6,7 +6,7 @@
 #    By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 17:53:29 by klakbuic          #+#    #+#              #
-#    Updated: 2024/05/03 22:27:03 by soutchak         ###   ########.fr        #
+#    Updated: 2024/05/04 02:02:52 by soutchak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,7 +90,6 @@ LEXER	:=				\
 	lexer.c				\
 	literals.c			\
 	post_lexer.c		\
-	printers.c			\
 	redir_utils.c		\
 	special_tokens.c	\
 	string_iterator.c	\
@@ -98,7 +97,8 @@ LEXER	:=				\
 	syntax_utils.c		\
 	token.c				\
 	whitespace.c		\
-	word_token.c
+	word_token.c		\
+	# printers.c
 
 LIBS	:= 			\
 	ft_atoi.c		\
