@@ -6,12 +6,13 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 21:01:51 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/04 00:10:30 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/04 02:15:45 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/get_next_line_bonus.h"
 #include "../../inc/memory.h"
+
 static int	ft_add_to_line(t_line **line, char *buffer, int bytes)
 {
 	t_line	*new_node;

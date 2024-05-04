@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   globals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:37:50 by soutchak          #+#    #+#             */
-/*   Updated: 2024/04/30 08:32:53 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/04 02:16:11 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	get_exit_status(void)
 	return (*get_exit_status_g());
 }
 
-t_env **get_env_list(void)
+t_env	**get_env_list(void)
 {
 	static t_env	*env = NULL;
 
