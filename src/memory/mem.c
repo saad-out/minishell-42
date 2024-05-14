@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 18:10:02 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/04 02:26:29 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/13 17:39:30 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,8 @@ void	ft_free(void *heap_block, t_mem_context context)
 void	ft_free_context(t_mem_context context)
 {
 	t_list	**head;
-	t_list	*curr;
 
 	head = get_heap(context);
-	curr = *head;
 	ft_lstclear(head, free);
 }
 

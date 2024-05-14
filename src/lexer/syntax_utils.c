@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:51:13 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/04 02:03:54 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/04 16:15:29 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_etype	get_prev_type(t_token *token)
 
 void	print_error(t_token *token)
 {
-	ft_putstr_fd(ERR_UNEXPECTED_TOKEN, STDERR_FILENO);
+	ft_putstr_fd(ERR_UNEX, STDERR_FILENO);
 	write(STDOUT_FILENO, token->location.start, token->location.len);
 	ft_putendl_fd("'", STDERR_FILENO);
 }

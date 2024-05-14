@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 02:37:30 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/04 00:29:58 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/11 16:29:13 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,17 @@ char	*expand_var(char *var, int *i)
 	var++;
 	(*i)++;
 	len = 0;
-	while (var[len] && !ft_strchr("'\"$ \n()|&=/", var[len]))
+	if (*var == '?')
+	{
+		len++;
+		(*i) += len;
+		return (get_var_value(var, len));
+	}
+	if (!ft_isalpha(*var) && *var != '_')
+		return (ft_strdup("$"));
+	len++;
+	while (var[len] && (ft_isalnum(var[len]) || var[len] == '_'))
 		len++;
 	(*i) += len;
-	if (len == 0)
-		return (ft_strdup("$"));
 	return (get_var_value(var, len));
 }

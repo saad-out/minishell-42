@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 23:05:53 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/04 00:38:14 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/07 18:52:13 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ int	parent(t_exec *exec)
 	return (status_);
 }
 
-void	free_tab(char **tab)
+void	free_tab(char **tabi)
 {
 	size_t	i;
 
 	i = 0;
-	while (tab[i])
-		ft_free(tab[i++], GENERAL);
-	ft_free(tab, GENERAL);
+	while (tabi[i])
+		ft_free(tabi[i++], GENERAL);
+	ft_free(tabi, GENERAL);
 }
 
 char	*get_cmd_path(char *cmd)
@@ -63,7 +63,7 @@ char	*get_cmd_path(char *cmd)
 	path_var = get_env_value(*get_env_list(), "PATH");
 	if (!path_var)
 		return (NULL);
-	paths = ft_split(path_var, ':');
+	paths = ft_split(path_var, ":");
 	i = 0;
 	while (paths[i])
 	{

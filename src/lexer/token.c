@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 18:09:05 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/03 21:33:23 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/06 21:39:38 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	remove_token(t_token **head, t_token *token)
 	if (!token->prev)
 	{
 		*head = token->next;
-		(*head)->prev = NULL;
+		if (*head)
+			(*head)->prev = NULL;
 	}
 	else
 	{

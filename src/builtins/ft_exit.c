@@ -6,12 +6,13 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 16:59:33 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/04 00:22:13 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/06 21:17:35 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/common.h"
 #include "../../inc/memory.h"
+#include "../../inc/globals.h"
 
 static int	ft_isspace(char c)
 {
@@ -48,7 +49,7 @@ int	ft_exit(t_exec *exec)
 	if (exec->argc == 1)
 	{
 		ft_free_heap();
-		exit(EXIT_SUCCESS);
+		exit((int)((unsigned char)get_exit_status()));
 	}
 	if (!is_valid_numeric(exec->argv[1]))
 	{
@@ -63,4 +64,5 @@ int	ft_exit(t_exec *exec)
 		return (1);
 	}
 	exit((int)((unsigned char)ft_atoi(exec->argv[1])));
+	return (0);
 }

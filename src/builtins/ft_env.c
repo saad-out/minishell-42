@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:53:10 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/02 16:00:08 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/05 15:46:32 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	ft_env(t_exec *cmd)
 {
 	t_env	*head;
 
+	set_under(cmd->argv, cmd->argc);
 	if (cmd->argc > 1)
 	{
 		ft_putendl_fd("Too many args", STDERR_FILENO);
@@ -28,5 +29,5 @@ int	ft_env(t_exec *cmd)
 			printf("%s=%s\n", head->key, head->value);
 		head = head->next;
 	}
-	return (set_under(cmd->argv, cmd->argc), EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 02:32:01 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/04 00:31:09 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/07 16:11:18 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	add_and_split(char ***argv, char *s, int *argc)
 	int		w_size;
 	int		i;
 
-	words = ft_split(s, ' ');
+	words = ft_split(s, " \t\f\v\r");
 	w_size = count_words(words);
 	if (w_size == 0)
 		words = add_empty_string(words, &w_size);

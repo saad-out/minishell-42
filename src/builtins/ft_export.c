@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 19:05:57 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/02 16:37:25 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/11 16:06:21 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,10 @@ static void	join_env(t_env **envs, char *argv)
 {
 	char	**splited;
 
-	splited = ft_split(argv, '=');
+	splited = ft_split(argv, "=");
 	if (splited[0])
 		join_value((*envs), &splited[0], &splited[1]);
-	if (!is_valide_name(splited[0]))
+	if (!is_valide_name(splited[0]) || argv[0] == '=')
 	{
 		ft_putstr_fd(argv, STDERR_FILENO);
 		ft_putendl_fd(" : not a valid identifier", STDERR_FILENO);
@@ -107,9 +107,7 @@ int	ft_export(t_exec *cmd)
 		return (set_under(cmd->argv, cmd->argc), EXIT_SUCCESS);
 	}
 	else
-	{
 		while (++i < cmd->argc)
 			join_env(cmd->env, cmd->argv[i]);
-	}
 	return (set_under(cmd->argv, cmd->argc), EXIT_SUCCESS);
 }

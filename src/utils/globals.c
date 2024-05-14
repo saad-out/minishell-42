@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:37:50 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/04 02:16:11 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/05 16:15:05 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,11 @@ t_env	**get_env_list(void)
 	static t_env	*env = NULL;
 
 	return (&env);
+}
+
+int	*heredoc_error(void)
+{
+	static int	fd = -1;
+
+	return (&fd);
 }

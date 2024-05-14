@@ -6,7 +6,7 @@
 #    By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 17:53:29 by klakbuic          #+#    #+#              #
-#    Updated: 2024/05/04 03:16:26 by soutchak         ###   ########.fr        #
+#    Updated: 2024/05/14 16:03:27 by soutchak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,9 +30,7 @@ ANSI_PURPLE		:= \\033[38;5;129m
 ANSI_CYAN		:= \\033[38;5;44m
 
 DEBUG		:= -fsanitize=address -g
-# CCWI		:= cc -Wall -Wextra  -Werror -Iincludes -lreadline
 CCWI		:= cc -Wall -Wextra -Werror 
-# RDINC		:= -I ~/Downloads/homebrew/opt/readline/include
 RDLIB		:= -L /Users/$(USER)/readline/lib
 NAME		:= minishell
 # directories
@@ -63,6 +61,7 @@ BUILTINS	:=	\
 ENV 		:=		\
 	environement.c 	\
 	env_utils2.c	\
+	env_utils3.c	\
 	env_utils.c
 					
 EXEC		:=			\
@@ -98,7 +97,6 @@ LEXER	:=				\
 	token.c				\
 	whitespace.c		\
 	word_token.c		\
-	# printers.c
 
 LIBS	:= 			\
 	ft_atoi.c		\
@@ -135,7 +133,6 @@ PARSER  :=			\
 	parser_utils.c	\
 	RDP_2.c			\
 	RDP.c			\
-	# tree.c
 
 UTILS	:=	\
 	error.c						\
@@ -156,8 +153,7 @@ SRCS	:= 	\
 			$(foreach F,$(PARSER),$(SRCSDIR)/$(PARSERDIR)/$(F))			\
 			$(foreach F,$(UTILS),$(SRCSDIR)/$(UTILSDIR)/$(F))			\
 			$(SRCSDIR)/main.c											\
-			$(SRCSDIR)/minishell.c										\
-			$(SRCSDIR)/welcome.c
+			$(SRCSDIR)/minishell.c
 			
 # objects
 OBJS		:= $(patsubst src/%.c,obj/%.o,$(SRCS))
@@ -170,7 +166,7 @@ debug : CCWI += $(DEBUG)
 debug : all
 
 $(NAME) : $(OBJSDIR) $(OBJS)
-	@$(CCWI) $(OBJS) -lreadline $(RDLIB) $(DEBUG) -o $(NAME)
+	@$(CCWI) $(OBJS) -lreadline $(RDLIB) -o $(NAME)
 	@printf "$(ANSI_GREEN)"
 	@printf "███╗░░░███╗██╗███╗░░██╗██╗░██████╗██╗░░██╗███████╗██╗░░░░░██╗░░░░░\n"
 	@printf "████╗░████║██║████╗░██║██║██╔════╝██║░░██║██╔════╝██║░░░░░██║░░░░░\n"

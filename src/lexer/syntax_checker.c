@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 00:40:16 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/04 01:33:02 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/04 16:15:29 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static bool	redir_check(t_token *token)
 	next_type = get_next_type(token);
 	if (!(next_type & (QUOTES | ENV | WILDCARD | WORD)))
 	{
-		ft_putstr_fd(ERR_UNEXPECTED_TOKEN, STDERR_FILENO);
+		ft_putstr_fd(ERR_UNEX, STDERR_FILENO);
 		ft_putendl_fd("newline'", STDERR_FILENO);
 		return (true);
 	}

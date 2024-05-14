@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   common.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/04 02:48:48 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:17:03 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@
 # include <string.h>
 # include <sys/stat.h>
 # include <unistd.h>
+# include <termios.h>
+# include <term.h>
 // # include <readline/history.h>
 // # include <readline/readline.h>
 # include "/Users/soutchak/readline/include/readline/readline.h"
@@ -193,11 +195,13 @@ char						**rebuild_env_to_char(t_env *envs);
 void						set_under(char **argv, int argc);
 void						set_nosplt(char **argv, int argc);
 bool						exist_key(t_env *envs, const char *key);
+void						set_shelvl(t_env *new);
 
 /* --------- */
 void						ft_init_signals(void);
 void						interrput_handler_2(int sig);
 void						interrput_handler_3(int sig);
 void						error(char *word, char *msg);
+void						heredoc_handler(int sig);
 
 #endif /* HEADER_H */

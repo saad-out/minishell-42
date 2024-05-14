@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:31:17 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/04 03:15:32 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/04 16:06:58 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	parser(t_tree **tree, t_token *tokens);
 char	*token_type_to_str(t_etype type); // TODO: remove (only for debugging)
 bool	max_heredoc(t_token *tokens);
 bool	syntax_checker(t_token **tokens);
-void	welcome(void);
 /* --------- */
 
 #endif /* MINISHELL_H */

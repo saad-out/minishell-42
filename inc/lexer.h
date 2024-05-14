@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:01:14 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/04 01:49:37 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/04 16:15:29 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,9 @@
 #  define SYNTAX_ERR_STATUS 258
 # endif /* SYNTAX_ERR_STATUS */
 
-# ifndef ERR_UNEXPECTED_TOKEN
-#  define ERR_UNEXPECTED_TOKEN "\033[0;31moutlaakSH: \
-								syntax error near unexpected token `"
-# endif /* ERR_UNEXPECTED_TOKEN */
+# ifndef ERR_UNEX
+#  define ERR_UNEX "\033[0;31moutlaakSH: syntax error near unexpected token `"
+# endif /* ERR_UNEX */
 
 # ifndef ERR_PARAN
 #  define ERR_PARAN "\033[0;31moutlaakSH: syntax error, unclosed parentheses"

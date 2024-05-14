@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:35:23 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/04 03:15:00 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/07 18:42:46 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,15 @@
 
 static void	init(t_token **tokens, t_tree **tree)
 {
+	struct termios	old_term;
+	struct termios	new_term;
+
+	if (!isatty(STDIN_FILENO))
+		return ;
+	tcgetattr(STDIN_FILENO, &old_term);
+	new_term = old_term;
+	new_term.c_lflag &= ~(ECHOCTL);
+	tcsetattr(STDIN_FILENO, TCSANOW, &new_term);
 	ft_init_signals();
 	*tokens = NULL;
 	*tree = NULL;
@@ -55,6 +64,11 @@ static void	parse_and_execute(t_token **tokens, t_tree **tree, char *line)
 		return ;
 	post_lexer(tokens);
 	parser(tree, *tokens);
+	if (*heredoc_error() != -1)
+	{
+		*heredoc_error() = -1;
+		return ;
+	}
 	executor(*tree);
 }
 
@@ -64,8 +78,6 @@ void	minishell(void)
 	t_token	*tokens;
 	t_tree	*tree;
 
-	if (isatty(STDIN_FILENO))
-		welcome();
 	init(&tokens, &tree);
 	line = NULL;
 	line = ft_readline(line);

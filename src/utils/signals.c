@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 10:33:09 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/04 02:17:17 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/04 21:38:40 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,16 @@ void	interrput_handler_3(int sig)
 {
 	(void)sig;
 	set_exit_status(1);
+}
+
+void	heredoc_handler(int sig)
+{
+	(void)sig;
+	ft_putstr_fd("\n", STDOUT_FILENO);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	*heredoc_error() = dup(0);
+	close(0);
 }
 
 void	ft_init_signals(void)

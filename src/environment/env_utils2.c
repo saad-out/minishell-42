@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 08:50:04 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/04 15:39:32 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/07 15:49:46 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	**rebuild_env_to_char(t_env *envs)
 		}
 		head = head->next;
 	}
-	return (env[i] = NULL, env);
+	return (env[++i] = NULL, env);
 }
 
 void	set_nosplt(char **argv, int argc)
@@ -91,7 +91,7 @@ void	set_under(char **argv, int argc)
 		set_env(*get_env_list(), "_", argv[argc - 1]);
 		return ;
 	}
-	splited = ft_split(argv[argc - 1], '/');
+	splited = ft_split(argv[argc - 1], "/");
 	while (splited[i])
 		i++;
 	if (i == 0)

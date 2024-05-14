@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 09:55:49 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/02 15:58:13 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/13 17:00:52 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,22 @@
 static int	check_args(char **argv)
 {
 	int	i;
+	int	j;
 
 	if (ft_strcmp(argv[1], "-") == 0)
 		return (1);
-	i = 0;
-	if (argv[1][0] == '-')
+	i = 1;
+	while (argv[i] && argv[i][0] == '-')
 	{
-		while (argv[1][++i])
+		j = 0;
+		while (argv[i][++j])
 		{
-			if (argv[1][i] != 'n')
-				return (1);
+			if (argv[i][j] != 'n')
+				return (i);
 		}
-		return (2);
+		i++;
 	}
-	return (1);
+	return (i);
 }
 
 int	ft_echo(t_exec *cmd)

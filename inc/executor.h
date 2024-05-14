@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 01:46:55 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/04 01:47:08 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/07 18:52:47 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,12 @@
 /* ------- */
 
 /* PROTOTYPES */
-pid_t	spawn_process(int input, int output, t_tree *tree);
+// pid_t	spawn_process(int input, int output, t_tree *tree);
+pid_t	spawn_process(int input, int filedes[2], t_tree *tree);
 char	*get_cmd_path(char *cmd);
 int		get_status(t_tree *tree);
 void	print_all_env(t_env *envs, bool env_ex);
-void	free_tab(char **tab);
+void	free_tab(char **tabi);
 void	sort_envs(t_env **envs);
 
 /* --- Builtins --- */

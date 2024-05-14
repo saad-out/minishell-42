@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 09:53:23 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/03 18:14:30 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/07 16:26:50 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ static int	ft_cd_helper(t_exec *cmd)
 	char	*tmp;
 	char	old_pwd[PATH_MAX];
 
-	if (cmd->argc == 1)
+	getcwd(old_pwd, PATH_MAX);
+	tmp = NULL;
+	if (cmd->argc == 1 || ft_strcmp(cmd->argv[1], "~") == 0)
 	{
 		tmp = get_env_value(*(cmd->env), "HOME");
 		if (!tmp)
@@ -35,17 +37,15 @@ static int	ft_cd_helper(t_exec *cmd)
 	}
 	else if (ft_strcmp(cmd->argv[1], "-") == 0)
 	{
-		getcwd(old_pwd, PATH_MAX);
 		tmp = get_env_value(*(cmd->env), "OLDPWD");
 		if (!tmp)
 			return (error("cd", "OLDPWD not set"), EXIT_FAILURE);
 		tmp = ft_strdup(tmp);
-		set_env(*get_env_list(), "OLDPWD", ft_strdup(old_pwd));
 		if (chdir(tmp) == -1)
 			return (error("cd", NULL), EXIT_FAILURE);
-		set_env(*get_env_list(), "PWD", getcwd(old_pwd, PATH_MAX));
 		ft_putendl_fd(tmp, STDOUT_FILENO);
 	}
+	change_pwd(*(cmd->env), old_pwd, tmp);
 	return (EXIT_SUCCESS);
 }
 
@@ -56,7 +56,8 @@ int	ft_cd(t_exec *cmd)
 	struct stat	info;
 
 	getcwd(old_pwd, PATH_MAX);
-	if (cmd->argc == 1 || ft_strcmp(cmd->argv[1], "-") == 0)
+	if (cmd->argc == 1 || ft_strcmp(cmd->argv[1], "-") == 0 \
+		|| ft_strcmp(cmd->argv[1], "~") == 0)
 		return (ft_cd_helper(cmd));
 	else
 	{

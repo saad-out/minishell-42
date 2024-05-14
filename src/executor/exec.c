@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:43:10 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/03 21:26:08 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/07 15:50:02 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	check_paths(char *full_path)
 
 	if (full_path[0] == '/' && full_path[1] == '\0')
 		return (0);
-	paths = ft_split(full_path, '/');
+	paths = ft_split(full_path, "/");
 	joined = NULL;
 	i = 0;
 	status_ = check_leading_paths(full_path, paths, &joined, &i);

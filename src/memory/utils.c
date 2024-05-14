@@ -6,7 +6,7 @@
 /*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 02:18:37 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/04 02:18:38 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:00:58 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,9 @@ void	ft_lstdel_node(t_list **lst, void (*del)(void *), t_list *node)
 				if (head->next)
 					head->next->prev = head->prev;
 			}
-			del(node->content);
-			free(node);
-			return ;
+			if (del && head->content)
+				del(node->content);
+			return (head->content = NULL, free(node), node = NULL, (void)0);
 		}
 		head = head->next;
 	}

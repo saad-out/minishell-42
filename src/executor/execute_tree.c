@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_tree.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soutchak <soutchak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klakbuic <klakbuic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 23:02:37 by soutchak          #+#    #+#             */
-/*   Updated: 2024/05/04 00:39:14 by soutchak         ###   ########.fr       */
+/*   Updated: 2024/05/11 15:27:19 by klakbuic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	run_pipe(t_tree *tree)
 	int		status_;
 	size_t	i;
 
+	set_exit_status(0);
 	pipe_node = (t_pipe *)tree;
 	status_ = 0;
 	last_pid = lunch_pipes(pipe_node);
@@ -100,19 +101,19 @@ int	run_redir(t_tree *tree)
 	expander((t_tree *)redir);
 	if (!redir->file)
 		return (set_exit_status(1), 1);
-	copy_fd = dup(redir->fd);
-	close(redir->fd);
 	fd = open(redir->file, redir->flags, 0644);
 	if (fd == -1)
 	{
 		error(redir->file, NULL);
-		dup2(copy_fd, redir->fd);
 		return (set_exit_status(1), 1);
 	}
+	copy_fd = dup(redir->fd);
+	dup2(fd, redir->fd);
 	status_ = get_status(redir->child);
 	set_exit_status(status_);
 	close(fd);
 	dup2(copy_fd, redir->fd);
+	close(copy_fd);
 	if (redir->type == HEREDOC)
 		unlink(redir->file);
 	return (status_);
@@ -120,9 +121,9 @@ int	run_redir(t_tree *tree)
 
 int	run_cmd(t_tree *tree)
 {
-	t_exec		*exec;
-	int			status_;
-	int			(*builtin)(t_exec *exec);
+	t_exec	*exec;
+	int		status_;
+	int		(*builtin)(t_exec *exec);
 
 	exec = (t_exec *)tree;
 	if (exec->argc == 0)

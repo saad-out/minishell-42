@@ -6,7 +6,7 @@
 /*   By: klakbuic <klakbuic@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 15:08:12 by klakbuic          #+#    #+#             */
-/*   Updated: 2024/05/02 15:44:04 by klakbuic         ###   ########.fr       */
+/*   Updated: 2024/05/04 16:11:15 by soutchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,8 @@ int	print_error_builtins(char *str)
 
 int	(*is_builtin(char *cmd))(t_exec *exec)
 {
-	int	status_;
-
 	if (!cmd)
 		return (NULL);
-	status_ = 0;
 	if (ft_strcmp(cmd, "echo") == 0)
 		return (ft_echo);
 	else if (ft_strcmp(cmd, "pwd") == 0)
