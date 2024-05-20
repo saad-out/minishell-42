@@ -62,5 +62,12 @@ Minishell includes a set of built-in commands that are implemented directly with
 
 The shell also handles various signals, such as `SIGINT` (Ctrl+C) and `SIGQUIT` (Ctrl+\). Appropriate actions are taken in response to these signals, such as terminating the currently running process or printing diagnostic messages.
 
+## Enough theory, let's code :)
+
+Now that we've covered the theoretical aspects of how Minishell works, it's time to dive into the implementation details. In this section, we'll explore the core components of the shell, including the lexer, parser, and executor.
+
+It's important to note that the code snippets provided here represent my approach to implementing Minishell. While they serve as a reference and a starting point, feel free to adjust the data structures, algorithms, and overall design as per your understanding and coding style.
+
+Remember, there are multiple ways to achieve the same functionality, and the true learning experience lies in understanding the underlying concepts and crafting your own solution. The goal is not to merely copy and paste the code but to use it as a guide and adapt it to your specific needs and preferences.
 
 # ...
