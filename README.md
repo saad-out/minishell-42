@@ -70,4 +70,99 @@ It's important to note that the code snippets provided here represent my approac
 
 Remember, there are multiple ways to achieve the same functionality, and the true learning experience lies in understanding the underlying concepts and crafting your own solution. The goal is not to merely copy and paste the code but to use it as a guide and adapt it to your specific needs and preferences.
 
+## Lexer
+Let's take this prompt line as an example: `ls -la | grep "dr" | wc -l > file1 && cd $HOME`.
+
+After this line is taken from the user (probably using `readline()`), we want to turn this string into a linked list of tokens, each with a type and the characters themselves, like the following:
+```
+word -> word -> pipe -> word -> literal -> pipe -> word -> word -> redir_in -> word -> AND -> word -> ENV
+ls     -la     |       grep   "dr"          |       wc     -l         >         file1   &&     cd     $HOME
+```
+Building a tree using the stream of tokens is easier and more straightforward than using the raw string entered by the user. This means that this step is an intermediate step before parsing, not mandatory, but preferred.
+
+We are going to represent our token types as an enum in C:
+```
+enum						e_token_type
+{
+	WORD = 1 << 0,
+	PIPE = 1 << 1,
+	REDIR_IN = 1 << 2,
+	REDIR_OUT = 1 << 3,
+	APPEND = 1 << 4,
+	HEREDOC = 1 << 5,
+	WHITESPACE = 1 << 6,
+	ENV = 1 << 7,
+	AND = 1 << 8,
+	OR = 1 << 9,
+	LPAR = 1 << 10,
+	RPAR = 1 << 11,
+	SINGLE_Q = 1 << 12,
+	DOUBLE_Q = 1 << 13,
+	WILDCARD = 1 << 14,
+	LITERAL = 1 << 15,
+	BLOCK = 1 << 16,
+	EXEC = 1 << 17,
+	UNKNOWN = 1 << 18,
+	VOID = 1 << 19,
+	PARAN = LPAR | RPAR,
+	QUOTES = SINGLE_Q | DOUBLE_Q,
+	REDIR = REDIR_IN | REDIR_OUT | APPEND | HEREDOC,
+	CTRL = AND | OR,
+	STRING = WORD | ENV | WILDCARD | LITERAL,
+	CONNECTORS = PIPE | AND | OR | LPAR,
+};
+typedef enum e_token_type	t_etype;
+```
+We don't have to allocate for each token string at this stage, instead we'll just put a `char *` at the first char and provide the length of the token:
+```
+struct	s_slice
+{
+	char	*start;
+	size_t	len;
+};
+typedef struct s_slice		t_slice;
+```
+We are going to use a doubly linked list, because we will perform operations such as deletion of nodes etc... which is a bit easier if you have pointer to `*prev` and `*next`.
+So our final struct to represent a token would be like this:
+```
+struct	s_token
+{
+	t_etype	type;        // enum type
+	t_slice	location;    // token string
+	t_token	*prev;       // points to previous node in list
+	t_token	*next;       // points to next node in list
+};
+typedef struct s_token		t_token;
+```
+We declare a `t_token *head` initialized to `NULL`, the lexer function takes a reference to this variable and the string entered by the user, iterate through the string character by character, building the linked list of tokens. The `head` variable should point to the beginning of the list.
+Note that we create tokens for whitespace as well, and also separate tokens for double and single quotes (unlike the above illustration), this is because we tend to not loose any information at the beginning to help us check the syntax and some other things. Once we are done with that, we will call a `post_lexer()` function which will delete whitespace tokens and double/single quote tokens, providing the final list in the above illustration.
+```
+bool	is_special(char c)
+{
+	if (c == '|' || c == '<' || c == '>' || c == '$' || c == '(' || c == ')'
+		|| c == '*' || c == '&')
+		return (true);
+	return (false);
+}
+
+void	lexer(t_token **head, const char *line)
+{
+	t_charitr	itr;
+
+	itr = (t_charitr)line;
+	while (itr_has_next(itr))
+	{
+		if (is_whitespace(itr_peek(itr)))
+			whitespace_token(head, &itr);
+		else if (is_special(itr_peek(itr)))
+			special_tokens(head, &itr);
+		else if (itr_peek(itr) == '\"' || itr_peek(itr) == '\'')
+			literal_token(head, &itr);
+		else
+			word_token(head, &itr);
+	}
+}
+```
+This is the main function for the lexer part, `t_charitr` is just a `char *` type (`typedef char	*t_charitr;`), a token is either a special token like `PIPE`, `REDIR_IN`, `REDIR_OUT`, `AND`... , a literal (content inside quotes), a whitespace or a regular word (which could be command, its arguments, filenames etc...).
+You can explore the full lexer code in the `src/lexer` folder.
 # ...
