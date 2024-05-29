@@ -165,4 +165,11 @@ void	lexer(t_token **head, const char *line)
 ```
 This is the main function for the lexer part, `t_charitr` is just a `char *` type (`typedef char	*t_charitr;`), a token is either a special token like `PIPE`, `REDIR_IN`, `REDIR_OUT`, `AND`... , a literal (content inside quotes), a whitespace or a regular word (which could be command, its arguments, filenames etc...).
 You can explore the full lexer code in the `src/lexer` folder.
+
+## Parser
+Now that we have turned our prompt string into a list of meaningful tokens, we need to generate an [AST (Abstract Syntax Tree)](https://dev.to/balapriya/abstract-syntax-tree-ast-explained-in-plain-english-1h38) that represents the flow of execution. The `&&` token should be translated into a tree node that has some command on its left as well as its right. The tokens `ls` -> `-la` should be translated into a command node that has `ls` as the command and `-la` as its argument. This representation is constructed in a tree-like structure.
+The algorithm we are going to use to build this tree is called [Recursive Descent Parser](https://en.wikipedia.org/wiki/Recursive_descent_parser#:~:text=In%20computer%20science%2C%20a%20recursive,the%20nonterminals%20of%20the%20grammar.). You can conclude from its name that it is based on recursion.
+
+First, we have to define a grammar. It's like a definition of bash syntax and is usually written in [BNF](https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form), but for the sake of simplicity, 
+
 # ...
