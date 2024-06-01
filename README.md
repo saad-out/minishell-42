@@ -70,7 +70,7 @@ It's important to note that the code snippets provided here represent my approac
 
 Remember, there are multiple ways to achieve the same functionality, and the true learning experience lies in understanding the underlying concepts and crafting your own solution. The goal is not to merely copy and paste the code but to use it as a guide and adapt it to your specific needs and preferences.
 
-## Lexer
+### Lexer
 Let's take this prompt line as an example: `ls -la | grep "dr" | wc -l > file1 && cd $HOME`.
 
 After this line is taken from the user (probably using `readline()`), we want to turn this string into a linked list of tokens, each with a type and the characters themselves, like the following:
@@ -166,7 +166,7 @@ void	lexer(t_token **head, const char *line)
 This is the main function for the lexer part, `t_charitr` is just a `char *` type (`typedef char	*t_charitr;`), a token is either a special token like `PIPE`, `REDIR_IN`, `REDIR_OUT`, `AND`... , a literal (content inside quotes), a whitespace or a regular word (which could be command, its arguments, filenames etc...).
 You can explore the full lexer code in the `src/lexer` folder.
 
-## Parser
+### Parser
 Now that we have turned our prompt string into a list of meaningful tokens, we need to generate an [AST (Abstract Syntax Tree)](https://dev.to/balapriya/abstract-syntax-tree-ast-explained-in-plain-english-1h38) that represents the flow of execution. The `&&` token should be translated into a tree node that has some command on its left as well as its right. The tokens `ls` -> `-la` should be translated into a command node that has `ls` as the command and `-la` as its argument. This representation is constructed in a tree-like structure.
 The algorithm we are going to use to build this tree is called [Recursive Descent Parser](https://en.wikipedia.org/wiki/Recursive_descent_parser#:~:text=In%20computer%20science%2C%20a%20recursive,the%20nonterminals%20of%20the%20grammar.). You can conclude from its name that it is based on recursion.
 
@@ -268,6 +268,8 @@ void	parser(t_tree **tree, t_token *tokens)
 }
 ```
 We need to respect the hierarchy of patterns: sequence -> pipe/block -> cmd. This means that simple command like `ls` is a sequence that contains a single pipe, which contains a single command, that does not have any redirections.
+
+If we have something like: `cmd1 && cmd2 || cmd3`, we want the
 ```
 t_tree	*parse_sequence_tail(t_token **tokens, t_tree *left)
 {
