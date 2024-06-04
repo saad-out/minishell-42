@@ -174,20 +174,20 @@ First, we have to define a grammar. It's like a definition of bash syntax and is
 The following is not strict BNF, just a BNF-like grammar (for the sake of simplicity):
 ```
 SEQ = PIPE
-	| BLOCK
 	| PIPE '&&' SEQ
 	| PIPE '||' SEQ
-	| BLOCK '&&' SEQ
-	| BLOCK '||' SEQ
-# A sequence is either a single PIPE/BLOCK, or PIPE/BLOCK followed by ('&&' or '||') followed by another sequence. You can spot the recursivity in this pattern that we have on the right where you can have an '&&' or '||' and then another SEQ which folds back into another single or multiple pipes/blocks.
-
-BLOCK = '(' PIPE ')'
-	| BLOCK REDIR
-# Block is anything inside parenthesis, and it could be followed by redirections.
+# A sequence is either a single PIPE, or PIPE followed by ('&&' or '||') followed by another sequence.
+You can spot the recursivity in this pattern that we have on the right where you can have an '&&' or '||' and then another SEQ which folds back into another single or multiple pipes.
 
 PIPE = CMD
+	| BLOCK
 	| CMD '|' PIPE
+	| BLOCK '|' PIPE
 # Same goes for the rest patterns: A pipe is either a single CMD, or CMD followed by pipe '|' character followed by another PIPE.
+
+BLOCK = '(' SEQ ')'
+	| BLOCK REDIR
+# Block is anything inside parenthesis, and it could be followed by redirections.
 
 CMD = WORD
 	| WORD CMD
@@ -269,7 +269,7 @@ void	parser(t_tree **tree, t_token *tokens)
 ```
 We need to respect the hierarchy of patterns: sequence -> pipe/block -> cmd. This means that simple command like `ls` is a sequence that contains a single pipe, which contains a single command, that does not have any redirections.
 
-If we have something like: `cmd1 && cmd2 || cmd3`, we want the
+If we have something like: `cmd1 && cmd2 || cmd3`, we want the last `||` to be the root of our tree, with `cmd3` to its right, and `&&` to its right that also has `cmd1` and `cmd2` to its left and right respectively. In other words, we need left recursivity for `&&` and `||` tree nodes:
 ```
 t_tree	*parse_sequence_tail(t_token **tokens, t_tree *left)
 {
@@ -299,6 +299,141 @@ t_tree	*parse_sequence(t_token **tokens)
 	if (!left)
 		return (NULL);
 	return (parse_sequence_tail(tokens, left));
+}
+```
+
+To parse a pipe, we create a pipe node, parse command or block (based on token type) and add it to our pipe array, while we have PIPE tokens left:
+```
+t_tree	*parse_pipe(t_token **tokens)
+{
+	t_pipe	*pipe;
+	t_tree	*exec;
+
+	pipe = (t_pipe *)pipe_node();
+	if (!pipe)
+		return (NULL);
+	exec = NULL;
+	while ((*tokens))
+	{
+		if ((*tokens)->type == LPAR)
+			exec = parse_block(tokens);
+		else
+			exec = parse_exec(tokens);
+		if (!exec)
+			return (NULL);
+		pipe = (t_pipe *)pipe_add_node((t_tree *)pipe, exec);
+		if ((*tokens) && (*tokens)->type == PIPE)
+			(*tokens) = (*tokens)->next;
+		else
+			break ;
+	}
+	if (pipe->nb_pipes <= 1)
+		return (ft_free((void *)pipe, PARSER), (t_tree *)exec);
+	return ((t_tree *)pipe);
+}
+```
+
+Suppose we have this subcommand: `ls > f1 > f2`, we want our subtree to look like this: `f1 -> f2 -> ls`. It means that command redirections are represented as a linked list with the last child being the command node itself. Whenever a redirection is encountered during parsing, it is added at the end of the linked list, just before the last command node: `ls` ==> `f1 -> ls` ==> `f1 -> f2 -> ls`.
+```
+t_tree	*parse_cmd_and_redirs(t_token **tokens, t_exec *node)
+{
+	t_token	*tmp;
+	t_tree	*exec;
+
+	exec = (t_tree *)node;
+	tmp = *tokens;
+	while (tmp)
+	{
+		if (tmp->type & STRING)
+		{
+			parse_str(tmp, node);
+			tmp = tmp->next;
+		}
+		else if (tmp->type & REDIR)
+		{
+			exec = parse_redir(&tmp, exec);
+			if (!exec)
+				return (NULL);
+		}
+		else
+			break ;
+	}
+	*tokens = tmp;
+	return (exec);
+}
+
+t_tree	*parse_exec(t_token **tokens)
+{
+	t_tree	*exec;
+	t_exec	*node;
+
+	node = init_exec();
+	exec = parse_cmd_and_redirs(tokens, node);
+	node->argv = ft_realloc(node->argv, sizeof(char *) * (node->argc), \
+							sizeof(char *) * (node->argc + 1));
+	if (!node->argv)
+		return (NULL);
+	node->argv[node->argc] = NULL;
+	return (exec);
+}
+```
+
+When a redircton token is encountered, the following STRING token is the filename (or delimiter in case of heredoc):
+```
+t_tree	*parse_redir(t_token **tokens, t_tree *child)
+{
+	t_tree	*redir;
+	t_redir	*last_redir;
+	t_etype	type;
+	char	*s;
+
+	if (!(*tokens) || !((*tokens)->type & REDIR))
+		return (NULL);
+	type = (*tokens)->type;
+	(*tokens) = (*tokens)->next;
+	if (!(*tokens) || !((*tokens)->type & STRING))
+		return (NULL);
+	s = ft_strndup((*tokens)->location.start, (*tokens)->location.len);
+	(*tokens) = (*tokens)->next;
+	last_redir = get_last_redir(child);
+	if (last_redir)
+	{
+		redir = redir_node(type, last_redir->child, s);
+		last_redir->child = redir;
+		redir = child;
+	}
+	else
+		redir = redir_node(type, child, s);
+	return (redir);
+}
+```
+
+Finally, a block is left paran token, followed by a sequence inside, then a right paran token:
+```
+t_tree	*parse_block(t_token **tokens)
+{
+	t_tree	*block;
+	t_tree	*child;
+
+	if (!(*tokens) || (*tokens)->type != LPAR)
+		return (NULL);
+	(*tokens) = (*tokens)->next;
+	child = parse_pipe(tokens);
+	if (!child)
+		return (NULL);
+	if ((*tokens) && ((*tokens)->type & CTRL))
+	{
+		child = parse_sequence_tail(tokens, child);
+		if (!child)
+			return (NULL);
+	}
+	if (!(*tokens) || (*tokens)->type != RPAR)
+		return (NULL);
+	(*tokens) = (*tokens)->next;
+	block = block_node(child);
+	while ((*tokens) && (*tokens)->type & REDIR)
+		block = parse_redir(tokens, block);
+	return (block);
 }
 ```
 
