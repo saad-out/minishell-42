@@ -269,7 +269,7 @@ void	parser(t_tree **tree, t_token *tokens)
 ```
 We need to respect the hierarchy of patterns: sequence -> pipe/block -> cmd. This means that simple command like `ls` is a sequence that contains a single pipe, which contains a single command, that does not have any redirections.
 
-If we have something like: `cmd1 && cmd2 || cmd3`, we want the last `||` to be the root of our tree, with `cmd3` to its right, and `&&` to its right that also has `cmd1` and `cmd2` to its left and right respectively. In other words, we need left recursivity for `&&` and `||` tree nodes:
+If we have something like: `cmd1 && cmd2 || cmd3`, we want the last `||` to be the root of our tree, with `cmd3` to its right, and `&&` to its left that also has `cmd1` and `cmd2` to its left and right respectively. In other words, we need left recursivity for `&&` and `||` tree nodes:
 ```
 t_tree	*parse_sequence_tail(t_token **tokens, t_tree *left)
 {
