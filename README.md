@@ -437,4 +437,17 @@ t_tree	*parse_block(t_token **tokens)
 }
 ```
 
+One last thing to note is that we don't know the type of childs for each tree node. Let's take this command for example: `ls && echo` => the left pointer of the `&&` node should have a command node type `t_exec *`, but for this command `ls | cd && echo` => the left would point to a pipe `|` node `t_pipe *`, so how did we solve this ?
+The solution used here is to declare an additional struct `t_tree *`:
+```
+struct	s_tree
+{
+	t_etype	type;
+};
+```
+This struct is never allocated, but all childs in every other struct of our tree has type `t_tree *`. Whatever type was allocated for a child, it is typecasted into `t_tree *` before assigning it a child to another struct. That's why all our parsing functions return `t_tree *` which is a more generic type that represents all our types. The `type` variable is used to "trick" the compiler not to complain when we do this `node->type` where `node` is still of type `t_tree *` to check the type and typecast into the actual struct type used. You'll see how this is done in execution later on.
+
+### Execution
+
+
 # ...
