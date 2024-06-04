@@ -447,6 +447,8 @@ struct	s_tree
 ```
 This struct is never allocated, but all childs in every other struct of our tree has type `t_tree *`. Whatever type was allocated for a child, it is typecasted into `t_tree *` before assigning it a child to another struct. That's why all our parsing functions return `t_tree *` which is a more generic type that represents all our types. The `type` variable is used to "trick" the compiler not to complain when we do this `node->type` where `node` is still of type `t_tree *` to check the type and typecast into the actual struct type used. You'll see how this is done in execution later on.
 
+You can explore the full parser code in the `src/parser` folder.
+
 ### Execution
 
 
