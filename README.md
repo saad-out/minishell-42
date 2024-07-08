@@ -450,6 +450,207 @@ This struct is never allocated, but all childs in every other struct of our tree
 You can explore the full parser code in the `src/parser` folder.
 
 ### Execution
+For the execution phase, we are going to write a separate function for each tree node type we have. But all the functions would have the same prototype `int	func(t_tree *tree)` where `*tree` is the node to be executed (it will be casted into the appropriate type inside the function) and the integer retruned is the exit status after the execution of the node is done. Also, we need a general function that will call the corresponding function based on the node type:
+
+```
+int	get_status(t_tree *tree)
+{
+	if (tree->type & CTRL)
+		return (run_ctrl(tree));
+	else if (tree->type & REDIR)
+		return (run_redir(tree));
+	else if (tree->type == BLOCK)
+		return (run_block(tree));
+	else if (tree->type == PIPE)
+		return (run_pipe(tree));
+	else if (tree->type == EXEC)
+		return (run_cmd(tree));
+	return (EXIT_FAILURE);
+}
+
+void	executor(t_tree *tree)
+{
+	if (!tree)
+		return ;
+	set_exit_status(get_status(tree));
+}
+```
+One thing to note is that we only call `get_status()` function when we are traversing the tree, and it's up to it to decide which function to call as stated previously.
+
+Now, let's explore the execution logic for each node. Let's start with `&&` and `||` which are staight forward: execute left node, and based on the exit status you decide whether you execute the right node or not.
+```
+int	run_ctrl(t_tree *tree)
+{
+	t_and_or	*and_or;
+	int			status_;
+
+	and_or = (t_and_or *)tree;
+	status_ = 0;
+	if (and_or->type == AND)
+	{
+		status_ = get_status(and_or->left);
+		if (status_ == EXIT_SUCCESS)
+			status_ = get_status(and_or->right);
+	}
+	else if (and_or->type == OR)
+	{
+		status_ = get_status(and_or->left);
+		if (status_ != EXIT_SUCCESS)
+			status_ = get_status(and_or->right);
+	}
+	set_exit_status(status_);
+	return (status_);
+}
+```
+
+For a block node (content inside parenthesis): we create a child process and execute the child node in child, the parent waits for its child to finish and updates the exit status accordingly.
+```
+int	run_block(t_tree *tree)
+{
+	t_block	*block;
+	int		status_;
+
+	block = (t_block *)tree;
+	status_ = 0;
+
+	// signal handling logic, not relevant to execution
+	signal(SIGINT, interrput_handler_3);
+	signal(SIGQUIT, interrput_handler_3);
+	// -----------------------------------------------
+
+	if (fork() == 0)
+	{
+
+		// signal handling logic, not relevant to execution
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+		// ----------------------------------------------
+
+		status_ = get_status(block->child);
+		set_exit_status(status_);
+		ft_free_heap();
+		exit(status_);
+	}
+	wait(&status_);
+	if (WIFEXITED(status_))
+		status_ = WEXITSTATUS(status_);
+	else
+		status_ = EXIT_FAILURE;
+	set_exit_status(status_);
+
+	// signal handling logic, not relevant to execution
+	ft_init_signals();
+	// -------------------------------------------------
+
+	return (status_);
+}
+```
+
+In case of pipe: we fork and setup the appropriate pipes between each two nodes, wait for the last child to get its exit status (bash sets the last child's exit status as the exit status for the whole pipeline), then wait for the remaining pipes randomly to finish.
+```
+int	run_pipe(t_tree *tree)
+{
+	t_pipe	*pipe_node;
+	pid_t	last_pid;
+	int		status_;
+	size_t	i;
+
+	set_exit_status(0); // bash sets exit status to 0 before executing pipelines 
+	pipe_node = (t_pipe *)tree;
+	status_ = 0;
+	last_pid = lunch_pipes(pipe_node); // multiple pipelines' execution logic, located in src/executor/execute_utils.c
+	waitpid(last_pid, &status_, 0);
+	if (WIFEXITED(status_))
+		status_ = WEXITSTATUS(status_);
+	else
+		status_ = EXIT_FAILURE;
+	i = 0;
+	while (i++ < pipe_node->nb_pipes - 1)
+		wait(NULL);
+	set_exit_status(status_);
+	ft_init_signals();
+	return (status_);
+}
+```
+
+For redirection nodes, we open the relevant file and dup its fd STDOUT_FILENO or STDIN_FILENO for output and input redirections respectively. But we should not forget to restore everything back after execution:
+```
+int	run_redir(t_tree *tree)
+{
+	t_redir	*redir;
+	int		fd;
+	int		copy_fd;
+	int		status_;
+
+	redir = (t_redir *)tree;
+
+	// expanding logic, not relevant to execution
+	expander((t_tree *)redir);
+	if (!redir->file)
+		return (set_exit_status(1), 1);
+	// -----------------------------------------
+
+	// open file with appropriate flags
+	fd = open(redir->file, redir->flags, 0644);
+	if (fd == -1)
+	{
+		error(redir->file, NULL);
+		return (set_exit_status(1), 1);
+	}
+	copy_fd = dup(redir->fd); // store a copy of STDIN_FILENO or STDOUT_FILENO to be restored later
+	dup2(fd, redir->fd);
+	status_ = get_status(redir->child);
+	set_exit_status(status_);
+	close(fd);
+	dup2(copy_fd, redir->fd); // restore previous STDIN_FILENO Or STDOUT_FILENO
+	close(copy_fd);
+	if (redir->type == HEREDOC)
+		unlink(redir->file); // remove created file in case of heredoc
+	return (status_);
+}
+```
+
+Finally, the exec node:
+```
+int	run_cmd(t_tree *tree)
+{
+	t_exec	*exec;
+	int		status_;
+	int		(*builtin)(t_exec *exec);
+
+	exec = (t_exec *)tree;
+	if (exec->argc == 0)
+		return (set_exit_status(0), 0);
+	status_ = 0;
+	exec->env = get_env_list();
+
+	// expanding logic, not relevant to execution
+	expander((t_tree *)exec);
+	if (exec->argc == 0)
+		return (set_exit_status(0), 0);
+
+	// check if the command is a builtin
+	builtin = is_builtin(exec->argv[0]);
+	if (builtin)
+		return (set_exit_status(builtin(exec)), get_exit_status());
+
+	// check if command exists in PATH
+	status_ = check_cmd(exec);
+	if (status_ != 0)
+		return (status_);
+
+	// signal handling logic, not relevant to execution
+	signal(SIGINT, interrput_handler_2);
+	signal(SIGQUIT, interrput_handler_2);
+	// -----------------------------------------------
+
+	// child() and parent() located in src/executor/execute_utils2.c	Norminette :)
+	if (fork() == 0)
+		child(exec);
+	return (parent(exec));
+}
+```
+
 
 
 # ...
